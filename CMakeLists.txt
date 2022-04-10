@@ -85,39 +85,44 @@ set(EMCC_GLUE_ARGS
 project("ammo")
 add_subdirectory(bullet EXCLUDE_FROM_ALL)
 
-#######################################
-
-add_custom_command(
-        OUTPUT glue.cpp glue.js
-        BYPRODUCTS parser.out WebIDLGrammar.pkl
-        COMMAND ${PYTHON} ${WEBIDL_BINDER_SCRIPT} ${AMMO_IDL_FILE} glue
-        DEPENDS ${AMMO_IDL_FILE}
-        COMMENT "Generating ammo bindings"
-        VERBATIM)
-add_custom_command(
-        OUTPUT glue.o
-        COMMAND emcc glue.cpp ${EMCC_GLUE_ARGS} -o glue.o
-        DEPENDS glue.cpp ${AMMO_HEADER_FILE}
-        COMMENT "Building ammo bindings"
-        VERBATIM)
-add_custom_target(ammo-bindings ALL DEPENDS glue.js glue.o)
+add_custom_target(make-bin-directory ALL
+    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/bin)
 
 #######################################
 
-add_custom_command(
-        OUTPUT ammo.js
-        COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_JS_ARGS} -o ammo.js
-        DEPENDS ammo-bindings ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
-        COMMENT "Building ammo javascript"
-        VERBATIM)
-add_custom_target(ammo-javascript ALL DEPENDS ammo.js)
+if (EMSCRIPTEN)
+	add_custom_command(
+			OUTPUT glue.cpp glue.js
+			BYPRODUCTS parser.out WebIDLGrammar.pkl
+			COMMAND ${PYTHON} ${WEBIDL_BINDER_SCRIPT} ${AMMO_IDL_FILE} glue
+			DEPENDS ${AMMO_IDL_FILE}
+			COMMENT "Generating ammo bindings"
+			VERBATIM)
+	add_custom_command(
+			OUTPUT glue.o
+			COMMAND emcc glue.cpp ${EMCC_GLUE_ARGS} -o glue.o
+			DEPENDS glue.cpp ${AMMO_HEADER_FILE}
+			COMMENT "Building ammo bindings"
+			VERBATIM)
+	add_custom_target(ammo-bindings ALL DEPENDS glue.js glue.o)
 
-#######################################
+	#######################################
 
-add_custom_command(
-        OUTPUT ammo.wasm.js ammo.wasm.wasm
-        COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_WASM_ARGS} -o ammo.wasm.js
-        DEPENDS ammo-bindings ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
-        COMMENT "Building ammo webassembly"
-        VERBATIM)
-add_custom_target(ammo-wasm ALL DEPENDS ammo.wasm.js ammo.wasm.wasm)
+	add_custom_command(
+			OUTPUT ${CMAKE_SOURCE_DIR}/bin/ammo.js
+			COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_JS_ARGS} -o ${CMAKE_SOURCE_DIR}/bin/ammo.js
+			DEPENDS ammo-bindings make-bin-directory ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
+			COMMENT "Building ammo javascript"
+			VERBATIM)
+	add_custom_target(ammo-javascript ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/ammo.js)
+
+	#######################################
+
+	add_custom_command(
+			OUTPUT ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.wasm
+			COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_WASM_ARGS} -o ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js
+			DEPENDS ammo-bindings make-bin-directory ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
+			COMMENT "Building ammo webassembly"
+			VERBATIM)
+	add_custom_target(ammo-wasm ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.wasm)
+endif()
