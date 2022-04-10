@@ -1,84 +1,84 @@
-Ammo().then(function(Ammo) {
-  // Adapted from HelloWorld.cpp, Copyright (c) 2003-2007 Erwin Coumans  http://continuousphysics.com/Bullet/
+/**
+ * Adapted version of `HelloWorld.cpp` from Bullet Physics.
+ *
+ * Copyright (c) 2003-2007 Erwin Coumans https://bulletphysics.org
+ */
+Ammo().then((Ammo) => {
+    function main() {
+        const collisionConfiguration = new Ammo.btDefaultCollisionConfiguration();
+        const dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration);
+        const overlappingPairCache = new Ammo.btDbvtBroadphase();
+        const solver = new Ammo.btSequentialImpulseConstraintSolver();
+        const dynamicsWorld = new Ammo.btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
+        dynamicsWorld.setGravity(new Ammo.btVector3(0, -10, 0));
 
-  function main() {
-    var collisionConfiguration  = new Ammo.btDefaultCollisionConfiguration(),
-        dispatcher              = new Ammo.btCollisionDispatcher(collisionConfiguration),
-        overlappingPairCache    = new Ammo.btDbvtBroadphase(),
-        solver                  = new Ammo.btSequentialImpulseConstraintSolver(),
-        dynamicsWorld           = new Ammo.btDiscreteDynamicsWorld(dispatcher, overlappingPairCache, solver, collisionConfiguration);
-    dynamicsWorld.setGravity(new Ammo.btVector3(0, -10, 0));
+        const groundShape = new Ammo.btBoxShape(new Ammo.btVector3(50, 50, 50));
+        const bodies = [];
+        const groundTransform = new Ammo.btTransform();
 
-    var groundShape     = new Ammo.btBoxShape(new Ammo.btVector3(50, 50, 50)),
-        bodies          = [],
-        groundTransform = new Ammo.btTransform();
+        groundTransform.setIdentity();
+        groundTransform.setOrigin(new Ammo.btVector3(0, -56, 0));
 
-    groundTransform.setIdentity();
-    groundTransform.setOrigin(new Ammo.btVector3(0, -56, 0));
+        (function () {
+            const mass = 0;
+            const isDynamic = (mass !== 0);
+            const localInertia = new Ammo.btVector3(0, 0, 0);
 
-    (function() {
-      var mass          = 0,
-          isDynamic     = (mass !== 0),
-          localInertia  = new Ammo.btVector3(0, 0, 0);
+            if (isDynamic) { groundShape.calculateLocalInertia(mass, localInertia); }
 
-      if (isDynamic)
-        groundShape.calculateLocalInertia(mass, localInertia);
+            const myMotionState = new Ammo.btDefaultMotionState(groundTransform);
+            const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, myMotionState, groundShape, localInertia);
+            const body = new Ammo.btRigidBody(rbInfo);
 
-      var myMotionState = new Ammo.btDefaultMotionState(groundTransform),
-          rbInfo        = new Ammo.btRigidBodyConstructionInfo(mass, myMotionState, groundShape, localInertia),
-          body          = new Ammo.btRigidBody(rbInfo);
+            dynamicsWorld.addRigidBody(body);
+            bodies.push(body);
+        }());
 
-      dynamicsWorld.addRigidBody(body);
-      bodies.push(body);
-    })();
+        (function () {
+            const colShape = new Ammo.btSphereShape(1);
+            const startTransform = new Ammo.btTransform();
 
+            startTransform.setIdentity();
 
-    (function() {
-      var colShape        = new Ammo.btSphereShape(1),
-          startTransform  = new Ammo.btTransform();
+            const mass = 1;
+            const isDynamic = (mass !== 0);
+            const localInertia = new Ammo.btVector3(0, 0, 0);
 
-      startTransform.setIdentity();
+            if (isDynamic) { colShape.calculateLocalInertia(mass, localInertia); }
 
-      var mass          = 1,
-          isDynamic     = (mass !== 0),
-          localInertia  = new Ammo.btVector3(0, 0, 0);
+            startTransform.setOrigin(new Ammo.btVector3(2, 10, 0));
 
-      if (isDynamic)
-        colShape.calculateLocalInertia(mass,localInertia);
+            const myMotionState = new Ammo.btDefaultMotionState(startTransform);
+            const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, myMotionState, colShape, localInertia);
+            const body = new Ammo.btRigidBody(rbInfo);
 
-      startTransform.setOrigin(new Ammo.btVector3(2, 10, 0));
+            dynamicsWorld.addRigidBody(body);
+            bodies.push(body);
+        }());
 
-      var myMotionState = new Ammo.btDefaultMotionState(startTransform),
-          rbInfo        = new Ammo.btRigidBodyConstructionInfo(mass, myMotionState, colShape, localInertia),
-          body          = new Ammo.btRigidBody(rbInfo);
+        const trans = new Ammo.btTransform(); // taking this out of the loop below us reduces the leaking
 
-      dynamicsWorld.addRigidBody(body);
-      bodies.push(body);
-    })();
+        for (let i = 0; i < 135; i++) {
+            dynamicsWorld.stepSimulation(1 / 60, 10);
 
-    var trans = new Ammo.btTransform(); // taking this out of the loop below us reduces the leaking
-
-    for (var i = 0; i < 135; i++) {
-      dynamicsWorld.stepSimulation(1/60, 10);
-
-      bodies.forEach(function(body) {
-        if (body.getMotionState()) {
-          body.getMotionState().getWorldTransform(trans);
-          print("world pos = " + [trans.getOrigin().x().toFixed(2), trans.getOrigin().y().toFixed(2), trans.getOrigin().z().toFixed(2)]);
+            bodies.forEach((body) => {
+                if (body.getMotionState()) {
+                    body.getMotionState().getWorldTransform(trans);
+                    print(`world pos = ${[trans.getOrigin().x().toFixed(2), trans.getOrigin().y().toFixed(2), trans.getOrigin().z().toFixed(2)]}`);
+                }
+            });
         }
-      });
+
+        // Delete objects we created through |new|. We just do a few of them here, but you should do them all if you are not shutting down ammo.js
+        // we'll free the objects in reversed order as they were created via 'new' to avoid the 'dead' object links
+        Ammo.destroy(dynamicsWorld);
+        Ammo.destroy(solver);
+        Ammo.destroy(overlappingPairCache);
+        Ammo.destroy(dispatcher);
+        Ammo.destroy(collisionConfiguration);
+
+        print('ok.');
     }
 
-    // Delete objects we created through |new|. We just do a few of them here, but you should do them all if you are not shutting down ammo.js
-    // we'll free the objects in reversed order as they were created via 'new' to avoid the 'dead' object links
-    Ammo.destroy(dynamicsWorld);
-    Ammo.destroy(solver);
-    Ammo.destroy(overlappingPairCache);
-    Ammo.destroy(dispatcher);
-    Ammo.destroy(collisionConfiguration);
-
-    print('ok.')
-  }
-
-  main();
+    main();
 });
