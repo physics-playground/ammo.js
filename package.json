@@ -14,11 +14,24 @@
     "homepage": "https://github.com/kripken/ammo.js",
     "devDependencies": {
         "ava": "^3.11.0",
+        "cross-env": "^7.0.3",
+        "shelljs": "^0.8.5",
         "http-server": "^14.1.0"
+    },
+    "ava": {
+        "files": [
+            "./tests/**",
+            "!tests/**/{fixtures,helpers}/**"
+        ],
+        "ignoredByWatcher": [
+            "{build}/**"
+        ],
+        "environmentVariables": {}
     },
     "scripts": {
         "test": "npm run test-js && npm run test-wasm",
-        "test-js": "AMMO_PATH=bin/ammo.js ava",
-        "test-wasm": "AMMO_PATH=bin/ammo.wasm.js ava"
-    }
+        "test-js": "cross-env AMMO_PATH=bin/ammo.js ava",
+        "test-wasm": "cross-env AMMO_PATH=bin/ammo.wasm.js ava"
+    },
+    "dependencies": {}
 }
