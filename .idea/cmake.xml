@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CMakeSharedSettings">
     <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" GENERATION_DIR="build/cmake-default-debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Release" ENABLED="true" GENERATION_DIR="build/cmake-default-release" CONFIG_NAME="Release" />
       <configuration PROFILE_NAME="Emscripten Debug" ENABLED="true" GENERATION_DIR="build/cmake-emsdk-debug" CONFIG_NAME="Debug" TOOLCHAIN_NAME="MinGW" GENERATION_OPTIONS="-G &quot;MinGW Makefiles&quot; -DCMAKE_TOOLCHAIN_FILE=build/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake">
         <ADDITIONAL_GENERATION_ENVIRONMENT>
           <envs>
@@ -10,8 +12,6 @@
           </envs>
         </ADDITIONAL_GENERATION_ENVIRONMENT>
       </configuration>
-      <configuration PROFILE_NAME="Debug" ENABLED="true" GENERATION_DIR="build/cmake-default-debug" CONFIG_NAME="Debug" />
-      <configuration PROFILE_NAME="Release" ENABLED="true" GENERATION_DIR="build/cmake-default-release" CONFIG_NAME="Release" />
     </configurations>
   </component>
 </project>

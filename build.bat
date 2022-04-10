@@ -30,6 +30,5 @@ cmake -S "%~dp0/" -B "%~dp0build\emscripten" -G "MinGW Makefiles"^
  -DCMAKE_BUILD_TYPE=Release^
  -DCLOSURE=1 -DTOTAL_MEMORY=268435456 -DALLOW_MEMORY_GROWTH=1
 
-make -C "%~dp0build\emscripten" -j8
-:: cmake --build "%~dp0build\emscripten" --parallel 30
-
+make -C "%~dp0build\emscripten" -j20
+::cmake --build "%~dp0build\emscripten" -- -j20
