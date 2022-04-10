@@ -32,7 +32,7 @@
 		<div id="info">Ammo.js ray test demo<br>Control the fly with the cursors, and the camera with the mouse.</div>
         <div id="container"><br /><br /><br /><br /><br />Loading...</div>
 
-		<script src="../../builds/ammo.js"></script>
+		<script src="../../bin/ammo.js"></script>
 
         <script src="../js/three/three.min.js"></script>
         <script src="../js/three/OrbitControls.js"></script>
@@ -78,7 +78,7 @@
 			var rays;
 			var raysVisuals;
 			var rayHit;
-			
+
 			var angVel = 12;
 			var flyVelocity = 1.5;
 			var velX = 0;
@@ -193,11 +193,11 @@
 
 				var pos = new THREE.Vector3();
 				var quat = new THREE.Quaternion();
-				
+
 				var roomX = 10;
 				var roomY = 2.5;
 				var roomZ = 6;
-				
+
 				var wallsMaterial = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
 				textureLoader.load( "../textures/grid.png", function( texture ) {
 					texture.wrapS = THREE.RepeatWrapping;
@@ -211,7 +211,7 @@
 				pos.set( - 0.5, -1, - 0.5 );
 				quat.set( 0, 0, 0, 1 );
 				createRigidBody( new THREE.Object3D(), createBoxShape( roomX + 1, 2, roomZ + 1 ), 0, pos, quat );
-				
+
 				// Ceiling
 				pos.set( - 0.5, roomY + 1, - 0.5 );
 				quat.set( 0, 0, 0, 1 );
@@ -221,19 +221,19 @@
 				pos.set( 0, roomY * 0.5 + 1, - roomZ * 0.5 - 0.5 );
 				quat.set( 0, 0, 0, 1 );
 				createRigidBody( new THREE.Object3D(), createBoxShape( roomX, roomY + 2, 1 ), 0, pos, quat );
-				
+
 				pos.set( 0, roomY * 0.5 + 1, + roomZ * 0.5 + 0.5 );
 				quat.set( 0, 0, 0, 1 );
 				createRigidBody( new THREE.Object3D(), createBoxShape( roomX, roomY + 2, 1 ), 0, pos, quat );
-				
+
 				pos.set( - roomX * 0.5 - 0.5, roomY * 0.5 + 1, 0 );
 				quat.set( 0, 0, 0, 1 );
 				createRigidBody( new THREE.Object3D(), createBoxShape( 1, roomY + 2, roomZ ), 0, pos, quat );
-				
+
 				pos.set( roomX * 0.5 + 0.5, roomY * 0.5 + 1, 0 );
 				quat.set( 0, 0, 0, 1 );
 				createRigidBody( new THREE.Object3D(), createBoxShape( 1, roomY + 2, roomZ ), 0, pos, quat );
-				
+
 				// Walls visual
 				pos.set( 0, roomY * 0.5, 0 );
 				quat.set( 0, 0, 0, 1 );
@@ -245,19 +245,19 @@
 				for ( var i = 0; i < vertices.length; i++ ) {
 					vertices[ i ].multiplyScalar( -1 );
 				}
-				
+
 				// Furniture
-				
+
 				var woodMaterial = new THREE.MeshLambertMaterial( { color: 0x332712 } );
-				
+
 				// Table
 				createParalellepiped( 3, 0.08, 1.8, 0, new THREE.Vector3( 0, 0.9, 0 ), new THREE.Quaternion(), woodMaterial );
 				createParalellepiped( 0.08, 0.9, 1.7, 0, new THREE.Vector3( - 1.3, 0.9 * 0.5, 0 ), new THREE.Quaternion(), woodMaterial );
 				createParalellepiped( 0.08, 0.9, 1.7, 0, new THREE.Vector3( 1.3, 0.9 * 0.5, 0 ), new THREE.Quaternion(), woodMaterial );
-				
+
 				// Closet
 				createParalellepiped( 0.6, 1.9, 1.6, 0, new THREE.Vector3( roomX * 0.5 - 0.3, 1.9 * 0.5, 0 ), new THREE.Quaternion(), woodMaterial );
-				
+
 				// Chair
 				var chairX = - roomX * 0.1;
 				var chairZ = - roomZ * 0.5 + 0.5;
@@ -278,7 +278,7 @@
 				fly.receiveShadow = true;
 				fly.position.y = 1.8;
 				scene.add( fly );
-				
+
 				// Fly rays
 				var rayXY = 0.5;
 				var rayZ = 1;
@@ -289,7 +289,7 @@
 				rays.push( new THREE.Vector3( 0, - rayXY, - rayZ * 0.6 ) );
 				rays.push( new THREE.Vector3( rayXY, 0, - rayZ ) );
 				rays.push( new THREE.Vector3( - rayXY, 0, - rayZ ) );
-				
+
 				for ( var i = 0; i < rays.length; i++ ) {
 					var l = rays[ i ].length();
 					var cylGeom = new THREE.CylinderGeometry( 0.02, 0.02, l, 6 );
@@ -303,7 +303,7 @@
 					raysVisuals.push( cylinder );
 					rayHit.push( false );
 				}
-				
+
             }
 
             function createParalellepiped( sx, sy, sz, mass, pos, quat, material ) {
@@ -317,19 +317,19 @@
 				return threeObject;
 
             }
-            
+
             function createVisualBox( sx, sy, sz, pos, quat, material ) {
-            
+
 				var threeObject = new THREE.Mesh( new THREE.BoxGeometry( sx, sy, sz, 1, 1, 1 ), material );
 				threeObject.position.copy( pos );
             	threeObject.quaternion.copy( quat );
 				threeObject.castShadow = true;
 				threeObject.receiveShadow = true;
 				scene.add( threeObject );
-				
+
 				return threeObject;
             }
-            
+
             function createBoxShape( sx, sy, sz ) {
 				var shape = new Ammo.btBoxShape( new Ammo.btVector3( sx * 0.5, sy * 0.5, sz * 0.5 ) );
 				shape.setMargin( margin );
@@ -462,20 +462,20 @@
                 time += deltaTime;
 
             }
-            
+
             function controlFly( deltaTime ) {
-            
+
 				var randomVel = 50;
 
 				var xi = instinctController.down ? -1 : ( instinctController.up ? 1 : 0 );
 				var yi = instinctController.left ? -1 : ( instinctController.right ? 1 : 0 );
-				
+
 				var xk = keyboardController.down ? -1 : ( keyboardController.up ? 1 : 0 );
 				var yk = keyboardController.left ? -1 : ( keyboardController.right ? 1 : 0 );
-				
+
 				var x = xi !== 0 ? xi : xk;
 				var y = yi !== 0 ? yi : yk;
-				
+
 				if ( y === 0 ) {
 					velY += ( Math.random() - 0.5 ) * 2 * randomVel * deltaTime;
 					velY = Math.max( - randomVel, Math.min( randomVel, velY ) );
@@ -485,7 +485,7 @@
 					velX = 0;
 					velY = 0;
 				}
-				
+
 				if ( x === 0 ) {
 					velX += ( Math.random() - 0.5 ) * 2 * randomVel * deltaTime;
 					velX = Math.max( - randomVel, Math.min( randomVel, velX ) );
@@ -502,14 +502,14 @@
 					tempQuat1.setFromAxisAngle( tempVec1, x * deltaTime * angVel );
 					fly.quaternion.multiply( tempQuat1 );
 				}
-				
+
 				if ( y !== 0 ) {
 					tempVec1.set( 1, 0, 0 );
 					tempQuat1.setFromAxisAngle( tempVec1, y * deltaTime * angVel );
 					fly.quaternion.multiply( tempQuat1 );
 				}
 				*/
-				
+
 				// Update fly rotation
 				fly.rotation.x = fly.rotation.x + x * deltaTime * angVel;
 				fly.rotation.y = fly.rotation.y + y * deltaTime * angVel;
@@ -522,10 +522,10 @@
             }
 
 			function castPhysicsRay( origin, dest, intersectionPoint, intersectionNormal ) {
-    
+
 				// Returns true if ray hit, and returns intersection data on the last two vector parameters
 				// TODO Mask and group filters can be added to the test (rayCallBack.m_collisionFilterGroup and m_collisionFilterMask)
-				
+
 				// Reset closestRayResultCallback to reuse it
 				var rayCallBack = Ammo.castObject( closestRayResultCallback, Ammo.RayResultCallback );
 				rayCallBack.set_m_closestHitFraction( 1 );
@@ -564,14 +564,14 @@
 			}
 
             function updatePhysics( deltaTime ) {
-            
+
 				// Make ray tests
 				for ( var i = 0; i < rays.length; i++ ) {
 
 					tempVec1.copy( rays[ i ] ).applyMatrix4( fly.matrixWorld );
 
 					rayHit[ i ] = castPhysicsRay( fly.position, tempVec1 );
-					
+
 					if ( rayHit[ i ] ) {
 						raysVisuals[ i ].material.color.setRGB( 1, 0, 0 );
 					}
@@ -580,12 +580,12 @@
 					}
 
 				}
-				
+
 				instinctController.up = rayHit[ 0 ];
 				instinctController.down = rayHit[ 1 ];
 				instinctController.right = rayHit[ 2 ];
 				instinctController.left = rayHit[ 3 ];
-				
+
 				// Control fly
 				controlFly( deltaTime );
 

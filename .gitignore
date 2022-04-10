@@ -8,16 +8,16 @@ CMakeFiles/
 bullet/BulletConfig.cmake
 .vscode/*.log
 
-builds/CMakeCache.txt
-builds/CMakeFiles/
-builds/Makefile
-builds/WebIDLGrammar.pkl
-builds/bullet/
-builds/cmake_install.cmake
-builds/glue.cpp
-builds/glue.js
-builds/glue.o
-builds/parser.out
+bin/CMakeCache.txt
+bin/CMakeFiles/
+bin/Makefile
+bin/WebIDLGrammar.pkl
+bin/bullet/
+bin/cmake_install.cmake
+bin/glue.cpp
+bin/glue.js
+bin/glue.o
+bin/parser.out
 node_modules
 *.diff
 

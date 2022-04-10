@@ -7,25 +7,25 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: '^3.5'
+          python-version: "^3.5"
       - uses: mymindstorm/setup-emsdk@v8
         with:
-          version: 'latest'
+          version: "latest"
       - run: emcc -v
       - run: python -V
       - run: cmake --version
       - run: ${{ matrix.make || 'make' }} --version
-      - run: cmake -B builds -DCLOSURE=1 ${{ matrix.cmake-args }}
-      - run: cmake --build builds -- VERBOSE=1
+      - run: cmake -B bin -DCLOSURE=1 ${{ matrix.cmake-args }}
+      - run: cmake --build bin -- VERBOSE=1
       - run: npm ci
       - name: Test Ammo Javascript
         run: npx ava
         env:
-          AMMO_BUILD: builds/ammo.js
+          AMMO_BUILD: bin/ammo.js
       - name: Test Ammo WebAssembly
         run: npx ava
         env:
-          AMMO_BUILD: builds/ammo.wasm.js
+          AMMO_BUILD: bin/ammo.wasm.js
     strategy:
       matrix:
         os:

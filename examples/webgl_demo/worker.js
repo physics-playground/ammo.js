@@ -1,7 +1,7 @@
 
 var Module = { TOTAL_MEMORY: 512*1024*1024 };
 
-importScripts('../../builds/ammo.js');
+importScripts('../../bin/ammo.js');
 
 Ammo().then(function(Ammo) {
   var NUM = 0, NUMRANGE = [];

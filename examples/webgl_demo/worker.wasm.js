@@ -1,10 +1,10 @@
 
 var Module = { TOTAL_MEMORY: 256*1024*1024 };
 
-importScripts('../../builds/ammo.wasm.js');
+importScripts('../../bin/ammo.wasm.js');
 
 var config = {
-  locateFile: () => '../../builds/ammo.wasm.wasm'
+  locateFile: () => '../../bin/ammo.wasm.wasm'
 }
 
 Ammo(config).then(function(Ammo) {

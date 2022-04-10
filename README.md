@@ -35,7 +35,7 @@ Discussion takes place on IRC at #emscripten on Mozilla's server
 
 ## Instructions
 
-`builds/ammo.js` contains a prebuilt version of ammo.js. This is probably what you want.
+`bin/ammo.js` contains a prebuilt version of ammo.js. This is probably what you want.
 
 You can also [build](#building) ammo.js yourself.
 
@@ -116,28 +116,28 @@ In order to build ammo.js yourself, you will need
 For more information about setting up Emscripten, see the [getting started
 guide](https://emscripten.org/docs/getting_started).
 
-To configure and build ammo into the `builds` directory, run the following:
+To configure and build ammo into the `bin` directory, run the following:
 
 ```bash
-$ cmake -B builds
-$ cmake --build builds
+$ cmake -B bin
+$ cmake --build bin
 ```
 
 There are also some key options that can be specified during cmake
 configuration, for example:
 
 ```bash
-cmake -B builds -DCLOSURE=1                # compile with closure
-cmake -B builds -DTOTAL_MEMORY=268435456   # allocate a 256MB heap
-cmake -B builds -DALLOW_MEMORY_GROWTH=1    # enable a resizable heap
+cmake -B bin -DCLOSURE=1                # compile with closure
+cmake -B bin -DTOTAL_MEMORY=268435456   # allocate a 256MB heap
+cmake -B bin -DALLOW_MEMORY_GROWTH=1    # enable a resizable heap
 ```
 
 On windows, you can build using cmake's
 [mingw](https://chocolatey.org/packages/mingw) generator:
 
 ```bat
-cmake -B builds -G 'MinGW Makefiles'
-cmake --build builds
+cmake -B bin -G 'MinGW Makefiles'
+cmake --build bin
 ```
 
 Note that if you have not installed `emscripten` via the `emsdk`, you can configure
@@ -159,7 +159,7 @@ If you want to add arguments to cmake, you have to edit the `docker-compose.yml`
 
 ## Reducing Build Size
 
-The size of the `ammo.js` builds can be reduced in several ways:
+The size of the `ammo.js` bin can be reduced in several ways:
 
 - Removing unneeded interfaces from `ammo.idl`. Some good examples of this are `btIDebugDraw` and `DebugDrawer`, which are both only needed if visual debug rendering is desired.
 
@@ -167,11 +167,11 @@ The size of the `ammo.js` builds can be reduced in several ways:
 
 ## Testing
 
-You can run the automatic tests with `npm test`, which in turn will run [ava](https://github.com/avajs/ava) against both the javascript and WebAssembly builds:
+You can run the automatic tests with `npm test`, which in turn will run [ava](https://github.com/avajs/ava) against both the javascript and WebAssembly bin:
 
 ```bash
-npm run test-js      # --> AMMO_PATH=builds/ammo.js ava
-npm run test-wasm    # --> AMMO_PATH=builds/ammo.wasm.js ava
+npm run test-js      # --> AMMO_PATH=bin/ammo.js ava
+npm run test-wasm    # --> AMMO_PATH=bin/ammo.wasm.js ava
 ```
 
 It's also possible to run ava directly for more options:
@@ -181,13 +181,13 @@ npx ava --verbose
 npx ava --node-arguments inspect
 ```
 
-When no `AMMO_PATH` is defined, `builds/ammo.js` is tested by default.
+When no `AMMO_PATH` is defined, `bin/ammo.js` is tested by default.
 
 ## Running the Examples
 
 [http-server](https://github.com/http-party/http-server) is included as a dev
 dependency as an easy way to run the examples. Make sure to serve everything
-from the repo root so that the examples can find ammo in the `builds`
+from the repo root so that the examples can find ammo in the `bin`
 directory:
 
 ```bash
@@ -216,12 +216,12 @@ then include that script in our automatic tests.
 
 ## Release Process
 
-Pushing a new build in `builds/ammo.js` should be done only after the
+Pushing a new build in `bin/ammo.js` should be done only after the
 following steps:
 
 - Configure with [closure](https://github.com/google/closure-compiler)
-  enabled: `cmake -B builds -DCLOSURE=1`
-- Build both the asm.js and wasm libraries: `cmake --build builds`
+  enabled: `cmake -B bin -DCLOSURE=1`
+- Build both the asm.js and wasm libraries: `cmake --build bin`
 - Make sure they pass all automatic tests: `npm test`
 - Run the WebGL demo in examples/webgl_demo and make sure it looks
   ok, using something like `firefox examples/webgl_demo/ammo.html`

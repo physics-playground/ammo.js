@@ -1,7 +1,7 @@
 const { readFileSync } = require('fs');
 
 function getClosureMapping() {
-  var raw = readFileSync('../builds/ammo.vars');
+  var raw = readFileSync('../bin/ammo.vars');
   var ret = {};
   raw.split('\n').forEach(function(line) {
     var parts = line.split(':');
