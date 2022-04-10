@@ -5,4 +5,4 @@ services:
     build: .
     volumes:
       - .:/code
-    command: bash -c "rm -f bin/ammo.* && cmake -B bin -DCLOSURE=1 && cmake --build bin"
+    command: bash -c "cmake -S . -B build/cmake-docker -DCLOSURE=1 && cmake --build build/cmake-docker"
