@@ -359,7 +359,7 @@ ENDIF(USE_GLUT)
 OPTION(BUILD_DEMOS "Set when you want to build the demos" ON)
 IF(BUILD_DEMOS)
 	IF(EXISTS ${BULLET_PHYSICS_SOURCE_DIR}/demos AND IS_DIRECTORY ${BULLET_PHYSICS_SOURCE_DIR}/demos)
-		SUBDIRS(Demos)
+		SUBDIRS(demos)
 	ENDIF()
 ENDIF(BUILD_DEMOS)
 
@@ -376,7 +376,7 @@ ENDIF(MSVC)
 
 OPTION(BUILD_EXTRAS "Set when you want to build the extras" ON)
 IF(BUILD_EXTRAS)
-  SUBDIRS(Extras)
+  SUBDIRS(extras)
 ENDIF(BUILD_EXTRAS)
 
 #Maya Dynamica plugin is moved to http://dynamica.googlecode.com

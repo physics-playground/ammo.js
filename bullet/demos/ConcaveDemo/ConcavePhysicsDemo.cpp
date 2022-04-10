@@ -4,8 +4,8 @@ Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -26,7 +26,7 @@ subject to the following restrictions:
 #include "btBulletWorldImporter.h"
 #endif //SERIALIZE_TO_DISK
 
-//by default, the sample only (de)serializes the BVH to disk. 
+//by default, the sample only (de)serializes the BVH to disk.
 //If you enable the SERIALIZE_SHAPE define then it will serialize the entire collision shape
 //then the animation will not play, because it is using the deserialized vertices
 //#define SERIALIZE_SHAPE
@@ -36,9 +36,9 @@ subject to the following restrictions:
 
 //#define USE_PARALLEL_DISPATCHER 1
 #ifdef USE_PARALLEL_DISPATCHER
-#include "../../Extras/BulletMultiThreaded/SpuGatheringCollisionDispatcher.h"
-#include "../../Extras/BulletMultiThreaded/Win32ThreadSupport.h"
-#include "../../Extras/BulletMultiThreaded/SpuNarrowPhaseCollisionTask/SpuGatheringCollisionTask.h"
+#include "../../extras/BulletMultiThreaded/SpuGatheringCollisionDispatcher.h"
+#include "../../extras/BulletMultiThreaded/Win32ThreadSupport.h"
+#include "../../extras/BulletMultiThreaded/SpuNarrowPhaseCollisionTask/SpuGatheringCollisionTask.h"
 #endif//USE_PARALLEL_DISPATCHER
 
 
@@ -152,7 +152,7 @@ void ConcaveDemo::keyboardCallback(unsigned char key, int x, int y)
 
 void	ConcaveDemo::initPhysics()
 {
-	
+
 	setTexturing(true);
 	setShadows(false);//true);
 
@@ -166,7 +166,7 @@ void	ConcaveDemo::initPhysics()
 	int vertStride = sizeof(btVector3);
 	int indexStride = 3*sizeof(int);
 
-	
+
 	const int totalTriangles = 2*(NUM_VERTS_X-1)*(NUM_VERTS_Y-1);
 
 	gVertices = new btVector3[totalVerts];
@@ -205,7 +205,7 @@ void	ConcaveDemo::initPhysics()
 
 
 	btVector3 aabbMin(-1000,-1000,-1000),aabbMax(1000,1000,1000);
-	
+
 	trimeshShape  = new btBvhTriangleMeshShape(m_indexVertexArrays,useQuantizedAabbCompression,aabbMin,aabbMax);
 	m_collisionShapes.push_back(trimeshShape);
 
@@ -234,23 +234,23 @@ void	ConcaveDemo::initPhysics()
 		{
 			btOptimizedBvh* bvh = import.getBvhByIndex(0);
 			btVector3 aabbMin(-1000,-1000,-1000),aabbMax(1000,1000,1000);
-	
+
 			trimeshShape  = new btBvhTriangleMeshShape(m_indexVertexArrays,useQuantizedAabbCompression,aabbMin,aabbMax,false);
 			trimeshShape->setOptimizedBvh(bvh);
 			//trimeshShape  = new btBvhTriangleMeshShape(m_indexVertexArrays,useQuantizedAabbCompression,aabbMin,aabbMax);
 			//trimeshShape->setOptimizedBvh(bvh);
-	
+
 		}
 		int numShape = import.getNumCollisionShapes();
 		if (numShape)
 		{
 			trimeshShape = (btBvhTriangleMeshShape*)import.getCollisionShapeByIndex(0);
-			
+
 			//if you know the name, you can also try to get the shape by name:
 			const char* meshName = import.getNameForPointer(trimeshShape);
 			if (meshName)
 				trimeshShape = (btBvhTriangleMeshShape*)import.getCollisionShapeByName(meshName);
-			
+
 		}
 	}
 
@@ -258,7 +258,7 @@ void	ConcaveDemo::initPhysics()
 #endif
 
 	btCollisionShape* groundShape = trimeshShape;
-	
+
 #else
 	btCollisionShape* groundShape = new btBoxShape(btVector3(50,3,50));
 	m_collisionShapes.push_back(groundShape);
@@ -299,7 +299,7 @@ void	ConcaveDemo::initPhysics()
 #ifdef USE_PARALLEL_DISPATCHER
 	m_dynamicsWorld->getDispatchInfo().m_enableSPU=true;
 #endif //USE_PARALLEL_DISPATCHER
-	
+
 	float mass = 0.f;
 	btTransform	startTransform;
 	startTransform.setIdentity();
@@ -308,7 +308,7 @@ void	ConcaveDemo::initPhysics()
 #ifdef USE_BOX_SHAPE
 	btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
 #else
-	
+
 	btCompoundShape* colShape = new btCompoundShape;
 	btCollisionShape* cylinderShape = new btCylinderShapeX(btVector3(4,1,1));
 	btCollisionShape* boxShape = new btBoxShape(btVector3(4,1,1));
@@ -318,7 +318,7 @@ void	ConcaveDemo::initPhysics()
 	btQuaternion orn(SIMD_HALF_PI,0,0);
 	localTransform.setRotation(orn);
 	colShape->addChildShape(localTransform,cylinderShape);
-	
+
 #endif //USE_BOX_SHAPE
 
 
@@ -341,13 +341,13 @@ void	ConcaveDemo::initPhysics()
 	staticBody->setCollisionFlags(staticBody->getCollisionFlags()  | btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK);
 
 
-	
-	
+
+
 }
 
 void ConcaveDemo::clientMoveAndDisplay()
 {
-	 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+	 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	float dt = getDeltaTimeMicroseconds() * 0.000001f;
 
@@ -357,7 +357,7 @@ void ConcaveDemo::clientMoveAndDisplay()
 		offset+=dt;
 
 	//	setVertexPositions(waveheight,offset);
-		
+
 		int i;
 		int j;
 		btVector3 aabbMin(BT_LARGE_FLOAT,BT_LARGE_FLOAT,BT_LARGE_FLOAT);
@@ -367,15 +367,15 @@ void ConcaveDemo::clientMoveAndDisplay()
 		{
 			for (j=NUM_VERTS_X/2-3;j<NUM_VERTS_Y/2+2;j++)
 			{
-			
+
 			aabbMax.setMax(gVertices[i+j*NUM_VERTS_X]);
 			aabbMin.setMin(gVertices[i+j*NUM_VERTS_X]);
-			
+
 				gVertices[i+j*NUM_VERTS_X].setValue((i-NUM_VERTS_X*0.5f)*TRIANGLE_SIZE,
 					//0.f,
 					waveheight*sinf((float)i+offset)*cosf((float)j+offset),
 					(j-NUM_VERTS_Y*0.5f)*TRIANGLE_SIZE);
-					
+
 			aabbMin.setMin(gVertices[i+j*NUM_VERTS_X]);
 			aabbMax.setMax(gVertices[i+j*NUM_VERTS_X]);
 
@@ -393,7 +393,7 @@ void ConcaveDemo::clientMoveAndDisplay()
 	//optional but useful: debug drawing
 	m_dynamicsWorld->debugDrawWorld();
 
-	
+
 	renderme();
 
     glFlush();
@@ -406,7 +406,7 @@ void ConcaveDemo::clientMoveAndDisplay()
 
 void ConcaveDemo::displayCallback(void) {
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	renderme();
 
@@ -466,7 +466,7 @@ void	ConcaveDemo::exitPhysics()
 
 	delete m_collisionConfiguration;
 
-	
+
 }
 
 
