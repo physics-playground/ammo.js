@@ -5,11 +5,35 @@
     "editor.formatOnType": false,
     "cmake.configureOnOpen": true,
     "cmake.configureOnEdit": true,
+    "cmake.ctestArgs": ["--output-log", "build/ctest.log", "--output-junit",
+        "build/ctest_junit.xml"],
     "python.linting.lintOnSave": true,
     "python.linting.pylintEnabled": true,
     "python.linting.mypyEnabled": true,
     "python.linting.flake8Enabled": false,
     "python.formatting.provider": "black",
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "ava.directoryReplaceFrom": "/tests",
+    "ava.directoryReplaceTo": "/tests",
+    "ava.extensionReplaceFrom": ".ts",
+    "ava.extensionReplaceTo": ".js",
+    "eslint.validate": ["javascript"],
+    "[html]": {
+        "editor.formatOnSave": true,
+        "editor.suggest.insertMode": "replace",
+        "gitlens.codeLens.scopes": [
+            "document"
+        ]
+    },
+    "eslint.alwaysShowStatus": true,
+    "eslint.format.enable": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.formatOnSave": true,
+        "editor.maxTokenizationLineLength": 2500
+    },
     "[json]": {
         "editor.formatOnSave": true,
         "editor.quickSuggestions": {
@@ -44,14 +68,18 @@
         ".clang-tidy": "yaml"
     },
     "cSpell.words": [
+        "Alon",
         "ammojs",
         "cmake",
+        "Coumans",
+        "emcc",
         "Emscripten",
         "emsdk",
         "Heightmap",
         "Makefiles",
         "raycast",
-        "webgl"
+        "webgl",
+        "Zakai"
     ],
     "yaml.schemas": {
         "https://json.schemastore.org/github-workflow.json": "github/workflows/build.yml"
