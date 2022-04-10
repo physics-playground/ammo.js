@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSharedSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Emscripten Debug" ENABLED="true" GENERATION_DIR="build/cmake-emsdk-debug" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=build/emsdk/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake">
+        <ADDITIONAL_GENERATION_ENVIRONMENT>
+          <envs>
+            <env name="EMSDK_PYTHON" value="D:\Projects\ammo.js\build\emsdk\python\3.9.2-nuget_64bit\python.exe" />
+          </envs>
+        </ADDITIONAL_GENERATION_ENVIRONMENT>
+      </configuration>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" GENERATION_DIR="build/cmake-debug" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Release" ENABLED="true" GENERATION_DIR="build/cmake-release" CONFIG_NAME="Release" />
+    </configurations>
+  </component>
+</project>
