@@ -4,8 +4,8 @@ Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -82,7 +82,7 @@ subject to the following restrictions:
 #include "BulletCollision/CollisionDispatch/btSimulationIslandManager.h"
 
 #ifdef BT_USE_CUDA
-#include "../Extras/CUDA/btCudaBroadphase.h"
+#include "../extras/CUDA/btCudaBroadphase.h"
 #else
 #include "BulletMultiThreaded/btGpu3DGridBroadphase.h"
 #endif
@@ -119,7 +119,7 @@ public:
 	{
 
 		btDefaultMotionState* myMotionState= 0;
-		
+
 		btVector3 aabbMin,aabbMax;
 		compoundTmpShape->getAabb(btTransform::getIdentity(),aabbMin,aabbMax);
 		int numSpheres = compoundTmpShape->getNumChildShapes();
@@ -129,7 +129,7 @@ public:
 			printf("error: exceeded 8 spheres\n");
 			return;
 		}
-			
+
 		btVector3* positions = new btVector3[numSpheres];
 		btScalar* radii = new btScalar[numSpheres];
 
@@ -143,7 +143,7 @@ public:
 
 		btMultiSphereShape* multiSphere = new btMultiSphereShape(positions,radii,numSpheres);
 		m_demo->addCollisionShape(multiSphere);
-		
+
 			btVector3 localInertia(0,0,0);
 			if (mass)
 			{
@@ -152,7 +152,7 @@ public:
 			}
 
 				//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
-			btRigidBody* body = new btRigidBody(mass,myMotionState,multiSphere,localInertia);	
+			btRigidBody* body = new btRigidBody(mass,myMotionState,multiSphere,localInertia);
 			body->setLinearFactor(btVector3(1,1,0));
 			body->setAngularFactor(btVector3(0,0,1));
 
@@ -178,7 +178,7 @@ void BasicDemo::clientMoveAndDisplay()
 	glDisable(GL_LIGHTING);
 	glColor3f(1.f, 1.f, 1.f);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glDisable(GL_TEXTURE_2D); // we always draw wireframe in this demo
 
@@ -196,7 +196,7 @@ void BasicDemo::clientMoveAndDisplay()
 		//optional but useful: debug drawing
 		m_dynamicsWorld->debugDrawWorld();
 	}
-	renderme(); 
+	renderme();
 
 	ms = getDeltaTimeMicroseconds();
 
@@ -210,8 +210,8 @@ void BasicDemo::clientMoveAndDisplay()
 
 void BasicDemo::displayCallback(void) {
 
-	
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	renderme();
 
@@ -280,11 +280,11 @@ void	BasicDemo::initPhysics()
 
 	m_dispatcher->setNearCallback(cudaDemoNearCallback);
 
-	
+
 #if USE_CUDA_DEMO_PAIR_CASHE
-	gPairCache = new (btAlignedAlloc(sizeof(btGpuDemoPairCache),16)) btGpuDemoPairCache(MAX_PROXIES, 24, MAX_SMALL_PROXIES); 
+	gPairCache = new (btAlignedAlloc(sizeof(btGpuDemoPairCache),16)) btGpuDemoPairCache(MAX_PROXIES, 24, MAX_SMALL_PROXIES);
 #else
-	gPairCache = new (btAlignedAlloc(sizeof(btHashedOverlappingPairCache),16))btHashedOverlappingPairCache(); 
+	gPairCache = new (btAlignedAlloc(sizeof(btHashedOverlappingPairCache),16))btHashedOverlappingPairCache();
 #endif
 
 
@@ -327,14 +327,14 @@ void	BasicDemo::initPhysics()
 		#define SPRADIUS btScalar(SCALING*0.1f)
 		#define SPRPOS btScalar(SCALING*0.05f)
 		static btVector3 sSphPos[8];
-		
+
 		for (int k=0;k<8;k++)
 		{
 			sSphPos[k].setValue((k-4)*0.25*SCALING,0,0);
 		}
-		
+
 		btVector3 inertiaHalfExtents(SPRADIUS,  SPRADIUS,  SPRADIUS);
-		static btScalar sSphRad[8] = 
+		static btScalar sSphRad[8] =
 		{
 //			 SPRADIUS,  SPRADIUS,  SPRADIUS, SPRADIUS,SPRADIUS,  SPRADIUS,  SPRADIUS, 0.3
 			 SPRADIUS,  SPRADIUS,  SPRADIUS, SPRADIUS,SPRADIUS,  SPRADIUS,  SPRADIUS, SPRADIUS
@@ -384,7 +384,7 @@ void	BasicDemo::initPhysics()
 			btMultiSphereShape* multiSphere = (btMultiSphereShape*)m_collisionShapes[1];
 			myMotionState = new btDefaultMotionState(worldTransform);
 			multiSphere->calculateLocalInertia(mass, localInertia);
-			btRigidBody* body = new btRigidBody(mass,myMotionState,multiSphere,localInertia);	
+			btRigidBody* body = new btRigidBody(mass,myMotionState,multiSphere,localInertia);
 			body->setLinearFactor(btVector3(1,1,0));
 			body->setAngularFactor(btVector3(0,0,1));
 			body->setWorldTransform(worldTransform);
@@ -416,7 +416,7 @@ void	BasicDemo::initPhysics()
 						colShape[collisionShapeIndex]->calculateLocalInertia(mass,localInertia);
 
 
-			
+
 					//using motionstate is recommended, it provides interpolation capabilities, and only synchronizes 'active' objects
 					//btDefaultMotionState* myMotionState = new btDefaultMotionState(startTransform);
 					btRigidBody::btRigidBodyConstructionInfo rbInfo(mass,0,colShape[collisionShapeIndex],localInertia);
@@ -549,7 +549,7 @@ void BasicDemo::clientResetScene()
 	}
 }
 
-	
+
 
 void	BasicDemo::exitPhysics()
 {
@@ -578,16 +578,16 @@ void	BasicDemo::exitPhysics()
 	}
 
 	delete m_dynamicsWorld;
-	
+
 	delete m_solver;
-	
+
 	delete m_broadphase;
-	
+
 	delete m_dispatcher;
 
 	delete m_collisionConfiguration;
 
-	
+
 }
 
 
@@ -596,9 +596,9 @@ void BasicDemo::keyboardCallback(unsigned char key, int x, int y)
 {
 	(void)x;
 	(void)y;
-	switch (key) 
+	switch (key)
 	{
-		case 'q' : 
+		case 'q' :
 			exitPhysics();
 			exit(0);
 			break;
@@ -635,13 +635,13 @@ void BasicDemo::keyboardCallback(unsigned char key, int x, int y)
 				}
 				break;
 			}
-		default : 
+		default :
 			{
 				DemoApplication::keyboardCallback(key, x, y);
 			}
 			break;
 	}
-	
+
 	if(key == ' ')
 	{
 #if USE_CUDA_DEMO_PAIR_CASHE
@@ -655,7 +655,7 @@ void BasicDemo::keyboardCallback(unsigned char key, int x, int y)
 
 #define BATCH_NUM_COLORS 12
 
-const float cBatchColorTab[BATCH_NUM_COLORS * 3] = 
+const float cBatchColorTab[BATCH_NUM_COLORS * 3] =
 	{
 		1.f, 0.f, 0.f,
 		0.f, 1.f, 0.f,
@@ -682,7 +682,7 @@ void BasicDemo::DrawConstraintInfo()
 	glDisable(GL_LIGHTING);
 	glColor3f(1, 1, 1);
 	sprintf(buf,"solver on %s", gUseCPUSolver ? "CPU" : "CUDA");
-	xOffs = m_glutScreenWidth - (strlen(buf) + 1) * fontW;	
+	xOffs = m_glutScreenWidth - (strlen(buf) + 1) * fontW;
 	GLDebugDrawString(xOffs, yOffs,buf);
 	yOffs += fontH;
 	btGpuDemoDynamicsWorld* cddw = (btGpuDemoDynamicsWorld*)m_dynamicsWorld;
@@ -691,7 +691,7 @@ void BasicDemo::DrawConstraintInfo()
 		const float* pCol = cBatchColorTab + i * 3;
 		glColor3f(pCol[0], pCol[1], pCol[2]);
 		sprintf(buf,"%2d : %5d", i, cddw->m_numInBatches[i]);
-		xOffs = m_glutScreenWidth - (strlen(buf) + 1) * fontW;	
+		xOffs = m_glutScreenWidth - (strlen(buf) + 1) * fontW;
 		GLDebugDrawString(xOffs, yOffs,buf);
 		yOffs += fontH;
 	}
@@ -724,7 +724,7 @@ void BasicDemo::renderme()
 
 extern int gNumClampedCcdMotions;
 #define SHOW_NUM_DEEP_PENETRATIONS 1
-#ifdef SHOW_NUM_DEEP_PENETRATIONS 
+#ifdef SHOW_NUM_DEEP_PENETRATIONS
 	extern int gNumDeepPenetrationChecks;
 	extern int gNumSplitImpulseRecoveries;
 	extern int gNumGjkChecks;
@@ -739,42 +739,42 @@ void BasicDemo::outputDebugInfo(int & xOffset,int & yStart, int  yIncr)
 	char buf[124];
 	glDisable(GL_LIGHTING);
 	glColor3f(0, 0, 0);
-	
+
 	sprintf(buf,"mouse move+buttons to interact");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"space to reset");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"cursor keys and z,x to navigate");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"i to toggle simulation, s single step");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"q to quit");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"h to toggle help text");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"p to toggle profiling (+results to file)");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"c to toggle constraint drawing");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
@@ -784,23 +784,23 @@ void BasicDemo::outputDebugInfo(int & xOffset,int & yStart, int  yIncr)
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"u to toggle between CPU  and CUDA solvers");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
+
 	sprintf(buf,"d to toggle between different batch builders");
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
 	if (getDynamicsWorld())
 	{
-		
+
 		sprintf(buf,"# objects = %d",getDynamicsWorld()->getNumCollisionObjects());
 		GLDebugDrawString(xOffset,yStart,buf);
 		yStart += yIncr;
-		
+
 		sprintf(buf,"# pairs = %d",getDynamicsWorld()->getBroadphase()->getOverlappingPairCache()->getNumOverlappingPairs());
 		GLDebugDrawString(xOffset,yStart,buf);
 		yStart += yIncr;

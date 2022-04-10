@@ -1,9 +1,9 @@
 
 
 INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/src 
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL
+${BULLET_PHYSICS_SOURCE_DIR}/src
+${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL
+${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
 )
 
 
@@ -15,16 +15,16 @@ ENDIF (APPLE)
 
 IF (USE_GLUT)
 	LINK_LIBRARIES(
-		OpenGLSupport 
+		OpenGLSupport
 		BulletSoftBodySolvers_OpenCL_Apple
 		BulletMultiThreaded
 		BulletSoftBody
-		BulletDynamics  
-		BulletCollision  
+		BulletDynamics
+		BulletCollision
 		LinearMath
 		${OPENCL_LIBRARY}
-		${GLUT_glut_LIBRARY} 
-		${OPENGL_gl_LIBRARY} 
+		${GLUT_glut_LIBRARY}
+		${OPENGL_gl_LIBRARY}
 		${OPENGL_glu_LIBRARY}
 		${CMAK_GLEW_LIBRARY}
 	)
@@ -32,9 +32,9 @@ IF (USE_GLUT)
 
 	ADD_EXECUTABLE(AppOpenCLClothDemo_Apple
 		../cl_cloth_demo.cpp
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.cpp
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.h
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLInclude.h
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.cpp
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.h
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLInclude.h
 		../gl_win.cpp
 		../clstuff.cpp
 		../clstuff.h

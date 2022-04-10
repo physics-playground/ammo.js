@@ -4,8 +4,8 @@ Copyright (c) 2003-2006 Erwin Coumans  http://continuousphysics.com/Bullet/
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -73,7 +73,7 @@ int gProcessedCol = 0;
 #define SPE_CACHELINE_SIZE 		128
 #define SPE_CACHE_SET_TAGID(set) 	15
 ///make sure that spe_cache.h is below those defines!
-#include "../Extras/software_cache/cache/include/spe_cache.h"
+#include "../extras/software_cache/cache/include/spe_cache.h"
 
 
 int g_CacheMisses=0;
@@ -144,7 +144,7 @@ ATTRIBUTE_ALIGNED16(struct)	CollisionTask_LocalStoreMemory
 	bvhMeshShape_LocalStoreMemory bvhShapeData;
 	ATTRIBUTE_ALIGNED16(SpuConvexPolyhedronVertexData convexVertexData[2]);
 	CompoundShape_LocalStoreMemory compoundShapeData[2];
-		
+
 	///The following pointers might either point into this local store memory, or to the original/other memory locations.
 	///See SpuFakeDma for implementation of cellDmaSmallGetReadOnly.
 	btCollisionObject*	m_lsColObj0Ptr;
@@ -174,7 +174,7 @@ ATTRIBUTE_ALIGNED16(struct)	CollisionTask_LocalStoreMemory
 	{
 		return m_lsCollisionAlgorithmPtr;
 	}
-	
+
 	btPersistentManifold*	getContactManifoldPtr()
 	{
 		return m_lsManifoldPtr;
@@ -182,7 +182,7 @@ ATTRIBUTE_ALIGNED16(struct)	CollisionTask_LocalStoreMemory
 };
 
 
-#if defined(__CELLOS_LV2__) || defined(USE_LIBSPE2) 
+#if defined(__CELLOS_LV2__) || defined(USE_LIBSPE2)
 
 ATTRIBUTE_ALIGNED16(CollisionTask_LocalStoreMemory	gLocalStoreMemory);
 
@@ -243,7 +243,7 @@ SIMD_FORCE_INLINE void small_cache_read_triple(	void* ls0, ppu_address_t ea0,
 		ATTRIBUTE_ALIGNED16(char	tmpBuffer2[32]);
 
 		uint32_t i;
-		
+
 
 		///make sure last 4 bits are the same, for cellDmaSmallGet
 		char* localStore0 = (char*)ls0;
@@ -264,7 +264,7 @@ SIMD_FORCE_INLINE void small_cache_read_triple(	void* ls0, ppu_address_t ea0,
 #else
 		tmpTarget1 = (char*)cellDmaSmallGetReadOnly(tmpTarget1,ea1,size,DMA_TAG(1),0,0);
 #endif
-		
+
 		char* localStore2 = (char*)ls2;
 		last4BitsOffset = ea2 & 0x0f;
 		char* tmpTarget2 = tmpBuffer2 + last4BitsOffset;
@@ -273,8 +273,8 @@ SIMD_FORCE_INLINE void small_cache_read_triple(	void* ls0, ppu_address_t ea0,
 #else
 		tmpTarget2 = (char*)cellDmaSmallGetReadOnly(tmpTarget2,ea2,size,DMA_TAG(1),0,0);
 #endif
-		
-		
+
+
 		cellDmaWaitTagStatusAll( DMA_MASK(1) );
 
 		//this is slowish, perhaps memcpy on SPU is smarter?
@@ -285,7 +285,7 @@ SIMD_FORCE_INLINE void small_cache_read_triple(	void* ls0, ppu_address_t ea0,
 			localStore2[i] = tmpTarget2[i];
 		}
 
-		
+
 }
 
 
@@ -300,7 +300,7 @@ ATTRIBUTE_ALIGNED16(class) spuNodeCallback : public btNodeOverlapCallback
 
 	ATTRIBUTE_ALIGNED16(btVector3	spuTriangleVertices[3]);
 	ATTRIBUTE_ALIGNED16(btScalar	spuUnscaledVertex[4]);
-	
+
 
 
 public:
@@ -340,7 +340,7 @@ public:
 								&m_lsMemPtr->spuIndices[2],(ppu_address_t)&indexBasePtr[2],
 								sizeof(int));
 		}
-		
+
 		//		spu_printf("SPU index0=%d ,",spuIndices[0]);
 		//		spu_printf("SPU index1=%d ,",spuIndices[1]);
 		//		spu_printf("SPU index2=%d ,",spuIndices[2]);
@@ -363,7 +363,7 @@ public:
 									&spuUnscaledVertex[1],(ppu_address_t)&graphicsbasePtr[1],
 									&spuUnscaledVertex[2],(ppu_address_t)&graphicsbasePtr[2],
 									sizeof(btScalar));
-			
+
 			m_tmpTriangleShape.getVertexPtr(j).setValue(spuUnscaledVertex[0]*meshScaling.getX(),
 				spuUnscaledVertex[1]*meshScaling.getY(),
 				spuUnscaledVertex[2]*meshScaling.getZ());
@@ -392,21 +392,21 @@ public:
 
 void btConvexPlaneCollideSingleContact (SpuCollisionPairInput* wuInput,CollisionTask_LocalStoreMemory* lsMemPtr,SpuContactResult&  spuContacts)
 {
-	
+
 	btConvexShape* convexShape = (btConvexShape*) wuInput->m_spuCollisionShapes[0];
 	btStaticPlaneShape* planeShape = (btStaticPlaneShape*) wuInput->m_spuCollisionShapes[1];
 
     bool hasCollision = false;
 	const btVector3& planeNormal = planeShape->getPlaneNormal();
 	const btScalar& planeConstant = planeShape->getPlaneConstant();
-	
-	
+
+
 	btTransform convexWorldTransform = wuInput->m_worldTransform0;
 	btTransform convexInPlaneTrans;
 	convexInPlaneTrans= wuInput->m_worldTransform1.inverse() * convexWorldTransform;
 	btTransform planeInConvex;
 	planeInConvex= convexWorldTransform.inverse() * wuInput->m_worldTransform1;
-	
+
 	//btVector3 vtx = convexShape->localGetSupportVertexWithoutMarginNonVirtual(planeInConvex.getBasis()*-planeNormal);
 	btVector3 vtx = convexShape->localGetSupportVertexNonVirtual(planeInConvex.getBasis()*-planeNormal);
 
@@ -441,7 +441,7 @@ void	ProcessConvexPlaneSpuCollision(SpuCollisionPairInput* wuInput, CollisionTas
 		if ( btLikely( wuInput->m_shapeType0== CONVEX_HULL_SHAPE_PROXYTYPE ) )
 		{
 			//	spu_printf("SPU: DMA btConvexHullShape\n");
-			
+
 			dmaSize = sizeof(btConvexHullShape);
 			dmaPpuAddress2 = wuInput->m_collisionShapes[0];
 
@@ -457,15 +457,15 @@ void	ProcessConvexPlaneSpuCollision(SpuCollisionPairInput* wuInput, CollisionTas
 			cellDmaGet(&convexHullShape1, dmaPpuAddress2  , dmaSize, DMA_TAG(1), 0, 0);
 			//cellDmaWaitTagStatusAll(DMA_MASK(1));
 		}
-		
+
 		if ( btLikely( wuInput->m_shapeType0 == CONVEX_HULL_SHAPE_PROXYTYPE ) )
-		{		
+		{
 			cellDmaWaitTagStatusAll(DMA_MASK(1));
 			dmaConvexVertexData (&lsMemPtr->convexVertexData[0], (btConvexHullShape*)&convexHullShape0);
 			lsMemPtr->convexVertexData[0].gSpuConvexShapePtr = wuInput->m_spuCollisionShapes[0];
 		}
 
-			
+
 		if ( btLikely( wuInput->m_shapeType1 == CONVEX_HULL_SHAPE_PROXYTYPE ) )
 		{
 			cellDmaWaitTagStatusAll(DMA_MASK(1));
@@ -473,7 +473,7 @@ void	ProcessConvexPlaneSpuCollision(SpuCollisionPairInput* wuInput, CollisionTas
 			lsMemPtr->convexVertexData[1].gSpuConvexShapePtr = wuInput->m_spuCollisionShapes[1];
 		}
 
-		
+
 		btConvexPointCloudShape cpc0,cpc1;
 
 		if ( btLikely( wuInput->m_shapeType0 == CONVEX_HULL_SHAPE_PROXYTYPE ) )
@@ -488,7 +488,7 @@ void	ProcessConvexPlaneSpuCollision(SpuCollisionPairInput* wuInput, CollisionTas
 
 		if ( btLikely( wuInput->m_shapeType1 == CONVEX_HULL_SHAPE_PROXYTYPE ) )
 		{
-			cellDmaWaitTagStatusAll(DMA_MASK(2));		
+			cellDmaWaitTagStatusAll(DMA_MASK(2));
 			lsMemPtr->convexVertexData[1].gConvexPoints = &lsMemPtr->convexVertexData[1].g_convexPointBuffer[0];
 			btConvexHullShape* ch = (btConvexHullShape*)wuInput->m_spuCollisionShapes[1];
 			const btVector3& localScaling = ch->getLocalScalingNV();
@@ -527,8 +527,8 @@ void	ProcessConvexPlaneSpuCollision(SpuCollisionPairInput* wuInput, CollisionTas
 		btConvexPlaneCollideSingleContact(wuInput,lsMemPtr,spuContacts);
 
 
-		
-	
+
+
 }
 
 
@@ -540,7 +540,7 @@ void	ProcessConvexPlaneSpuCollision(SpuCollisionPairInput* wuInput, CollisionTas
 void	ProcessConvexConcaveSpuCollision(SpuCollisionPairInput* wuInput, CollisionTask_LocalStoreMemory* lsMemPtr, SpuContactResult& spuContacts)
 {
 	//order: first collision shape is convex, second concave. m_isSwapped is true, if the original order was opposite
-	
+
 	btBvhTriangleMeshShape*	trimeshShape = (btBvhTriangleMeshShape*)wuInput->m_spuCollisionShapes[1];
 	//need the mesh interface, for access to triangle vertices
 	dmaBvhShapeData (&lsMemPtr->bvhShapeData, trimeshShape);
@@ -588,7 +588,7 @@ void	ProcessConvexConcaveSpuCollision(SpuCollisionPairInput* wuInput, CollisionT
 		///DMA in the index info
 		dmaBvhIndexedMesh (&lsMemPtr->bvhShapeData.gIndexMesh, indexArray, 0 /* index into indexArray */, 1 /* dmaTag */);
 		cellDmaWaitTagStatusAll(DMA_MASK(1));
-		
+
 		//display the headers
 		int numBatch = subTrees.size();
 		for (int i=0;i<numBatch;)
@@ -596,10 +596,10 @@ void	ProcessConvexConcaveSpuCollision(SpuCollisionPairInput* wuInput, CollisionT
 			//@todo- can reorder DMA transfers for less stall
 			int remaining = subTrees.size() - i;
 			int nextBatch = remaining < MAX_SPU_SUBTREE_HEADERS ? remaining : MAX_SPU_SUBTREE_HEADERS;
-			
+
 			dmaBvhSubTreeHeaders (&lsMemPtr->bvhShapeData.gSubtreeHeaders[0], (ppu_address_t)(&subTrees[i]), nextBatch, 1);
 			cellDmaWaitTagStatusAll(DMA_MASK(1));
-			
+
 
 			//			spu_printf("nextBatch = %d\n",nextBatch);
 
@@ -650,7 +650,7 @@ void	ProcessSpuConvexConvexCollision(SpuCollisionPairInput* wuInput, CollisionTa
 {
 	register int dmaSize;
 	register ppu_address_t	dmaPpuAddress2;
-	
+
 #ifdef DEBUG_SPU_COLLISION_DETECTION
 	//spu_printf("SPU: ProcessSpuConvexConvexCollision\n");
 #endif //DEBUG_SPU_COLLISION_DETECTION
@@ -664,14 +664,14 @@ void	ProcessSpuConvexConvexCollision(SpuCollisionPairInput* wuInput, CollisionTa
 	{
 		//try generic GJK
 
-		
-		
+
+
 		//SpuConvexPenetrationDepthSolver* penetrationSolver=0;
 		btVoronoiSimplexSolver simplexSolver;
 		btGjkEpaPenetrationDepthSolver	epaPenetrationSolver2;
-		
+
 		btConvexPenetrationDepthSolver* penetrationSolver = &epaPenetrationSolver2;
-		
+
 		//SpuMinkowskiPenetrationDepthSolver	minkowskiPenetrationSolver;
 #ifdef ENABLE_EPA
 		if (gUseEpa)
@@ -691,7 +691,7 @@ void	ProcessSpuConvexConvexCollision(SpuCollisionPairInput* wuInput, CollisionTa
 		if ( btLikely( wuInput->m_shapeType0== CONVEX_HULL_SHAPE_PROXYTYPE ) )
 		{
 			//	spu_printf("SPU: DMA btConvexHullShape\n");
-			
+
 			dmaSize = sizeof(btConvexHullShape);
 			dmaPpuAddress2 = wuInput->m_collisionShapes[0];
 
@@ -707,15 +707,15 @@ void	ProcessSpuConvexConvexCollision(SpuCollisionPairInput* wuInput, CollisionTa
 			cellDmaGet(&convexHullShape1, dmaPpuAddress2  , dmaSize, DMA_TAG(1), 0, 0);
 			//cellDmaWaitTagStatusAll(DMA_MASK(1));
 		}
-		
+
 		if ( btLikely( wuInput->m_shapeType0 == CONVEX_HULL_SHAPE_PROXYTYPE ) )
-		{		
+		{
 			cellDmaWaitTagStatusAll(DMA_MASK(1));
 			dmaConvexVertexData (&lsMemPtr->convexVertexData[0], (btConvexHullShape*)&convexHullShape0);
 			lsMemPtr->convexVertexData[0].gSpuConvexShapePtr = wuInput->m_spuCollisionShapes[0];
 		}
 
-			
+
 		if ( btLikely( wuInput->m_shapeType1 == CONVEX_HULL_SHAPE_PROXYTYPE ) )
 		{
 			cellDmaWaitTagStatusAll(DMA_MASK(1));
@@ -723,7 +723,7 @@ void	ProcessSpuConvexConvexCollision(SpuCollisionPairInput* wuInput, CollisionTa
 			lsMemPtr->convexVertexData[1].gSpuConvexShapePtr = wuInput->m_spuCollisionShapes[1];
 		}
 
-		
+
 		btConvexPointCloudShape cpc0,cpc1;
 
 		if ( btLikely( wuInput->m_shapeType0 == CONVEX_HULL_SHAPE_PROXYTYPE ) )
@@ -738,7 +738,7 @@ void	ProcessSpuConvexConvexCollision(SpuCollisionPairInput* wuInput, CollisionTa
 
 		if ( btLikely( wuInput->m_shapeType1 == CONVEX_HULL_SHAPE_PROXYTYPE ) )
 		{
-			cellDmaWaitTagStatusAll(DMA_MASK(2));		
+			cellDmaWaitTagStatusAll(DMA_MASK(2));
 			lsMemPtr->convexVertexData[1].gConvexPoints = &lsMemPtr->convexVertexData[1].g_convexPointBuffer[0];
 			btConvexHullShape* ch = (btConvexHullShape*)wuInput->m_spuCollisionShapes[1];
 			const btVector3& localScaling = ch->getLocalScalingNV();
@@ -782,7 +782,7 @@ void	ProcessSpuConvexConvexCollision(SpuCollisionPairInput* wuInput, CollisionTa
 			btAssert(gjk.m_degenerateSimplex <MAX_DEGENERATE_STATS);
 			degenerateStats[gjk.m_degenerateSimplex]++;
 
-#ifdef USE_SEPDISTANCE_UTIL			
+#ifdef USE_SEPDISTANCE_UTIL
 			btScalar sepDist = gjk.getCachedSeparatingDistance()+spuManifold->getContactBreakingThreshold();
 			lsMemPtr->getlocalCollisionAlgorithm()->m_sepDistance.initSeparatingDistance(gjk.getCachedSeparatingAxis(),sepDist,wuInput->m_worldTransform0,wuInput->m_worldTransform1);
 			lsMemPtr->needsDmaPutContactManifoldAlgo = true;
@@ -808,15 +808,15 @@ SIMD_FORCE_INLINE void	dmaAndSetupCollisionObjects(SpuCollisionPairInput& collis
 {
 	register int dmaSize;
 	register ppu_address_t	dmaPpuAddress2;
-		
+
 	dmaSize = sizeof(btCollisionObject);//btTransform);
 	dmaPpuAddress2 = /*collisionPairInput.m_isSwapped ? (ppu_address_t)lsMem.gProxyPtr1->m_clientObject :*/ (ppu_address_t)lsMem.getlocalCollisionAlgorithm()->getCollisionObject0();
-	lsMem.m_lsColObj0Ptr = (btCollisionObject*)cellDmaGetReadOnly(&lsMem.gColObj0Buffer, dmaPpuAddress2  , dmaSize, DMA_TAG(1), 0, 0);		
+	lsMem.m_lsColObj0Ptr = (btCollisionObject*)cellDmaGetReadOnly(&lsMem.gColObj0Buffer, dmaPpuAddress2  , dmaSize, DMA_TAG(1), 0, 0);
 
 	dmaSize = sizeof(btCollisionObject);//btTransform);
 	dmaPpuAddress2 = /*collisionPairInput.m_isSwapped ? (ppu_address_t)lsMem.gProxyPtr0->m_clientObject :*/ (ppu_address_t)lsMem.getlocalCollisionAlgorithm()->getCollisionObject1();
-	lsMem.m_lsColObj1Ptr = (btCollisionObject*)cellDmaGetReadOnly(&lsMem.gColObj1Buffer, dmaPpuAddress2  , dmaSize, DMA_TAG(2), 0, 0);		
-	
+	lsMem.m_lsColObj1Ptr = (btCollisionObject*)cellDmaGetReadOnly(&lsMem.gColObj1Buffer, dmaPpuAddress2  , dmaSize, DMA_TAG(2), 0, 0);
+
 	cellDmaWaitTagStatusAll(DMA_MASK(1) | DMA_MASK(2));
 
 	btCollisionObject* ob0 = lsMem.getColObj0();
@@ -833,8 +833,8 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 							ppu_address_t collisionShape0Ptr, void* collisionShape0Loc,
 							ppu_address_t collisionShape1Ptr, void* collisionShape1Loc, bool dmaShapes = true)
 {
-	
-	if (btBroadphaseProxy::isConvex(collisionPairInput.m_shapeType0) 
+
+	if (btBroadphaseProxy::isConvex(collisionPairInput.m_shapeType0)
 		&& btBroadphaseProxy::isConvex(collisionPairInput.m_shapeType1))
 	{
 		if (dmaShapes)
@@ -857,8 +857,8 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 		collisionPairInput.m_spuCollisionShapes[0] = spuConvexShape0;
 		collisionPairInput.m_spuCollisionShapes[1] = spuConvexShape1;
 		ProcessSpuConvexConvexCollision(&collisionPairInput,&lsMem,spuContacts);
-	} 
-	else if (btBroadphaseProxy::isCompound(collisionPairInput.m_shapeType0) && 
+	}
+	else if (btBroadphaseProxy::isCompound(collisionPairInput.m_shapeType0) &&
 			btBroadphaseProxy::isCompound(collisionPairInput.m_shapeType1))
 	{
 		//snPause();
@@ -869,14 +869,14 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 
 		// Both are compounds, do N^2 CD for now
 		///@todo: add some AABB-based pruning (probably not -> slower)
-	
+
 		btCompoundShape* spuCompoundShape0 = (btCompoundShape*)collisionShape0Loc;
 		btCompoundShape* spuCompoundShape1 = (btCompoundShape*)collisionShape1Loc;
 
 		dmaCompoundShapeInfo (&lsMem.compoundShapeData[0], spuCompoundShape0, 1);
 		dmaCompoundShapeInfo (&lsMem.compoundShapeData[1], spuCompoundShape1, 2);
 		cellDmaWaitTagStatusAll(DMA_MASK(1) | DMA_MASK(2));
-		
+
 
 		dmaCompoundSubShapes (&lsMem.compoundShapeData[0], spuCompoundShape0, 1);
 		cellDmaWaitTagStatusAll(DMA_MASK(1));
@@ -911,9 +911,9 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 				cinput.m_shapeType1 = childShape1.m_childShapeType;
 				cinput.m_collisionMargin1 = childShape1.m_childMargin;
 				/* Recursively call handleCollisionPair () with new collision pair input */
-				
-				handleCollisionPair(cinput, lsMem, spuContacts,			
-					(ppu_address_t)childShape0.m_childShape, lsMem.compoundShapeData[0].gSubshapeShape[i], 
+
+				handleCollisionPair(cinput, lsMem, spuContacts,
+					(ppu_address_t)childShape0.m_childShape, lsMem.compoundShapeData[0].gSubshapeShape[i],
 					(ppu_address_t)childShape1.m_childShape, lsMem.compoundShapeData[1].gSubshapeShape[j], false);
 			}
 		}
@@ -921,7 +921,7 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 	else if (btBroadphaseProxy::isCompound(collisionPairInput.m_shapeType0) )
 	{
 		//snPause();
-		
+
 		dmaCollisionShape (collisionShape0Loc, collisionShape0Ptr, 1, collisionPairInput.m_shapeType0);
 		dmaCollisionShape (collisionShape1Loc, collisionShape1Ptr, 2, collisionPairInput.m_shapeType1);
 		cellDmaWaitTagStatusAll(DMA_MASK(1) | DMA_MASK(2));
@@ -941,21 +941,21 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 			// Dma the child shape
 			dmaCollisionShape (&lsMem.compoundShapeData[0].gSubshapeShape[i], (ppu_address_t)childShape.m_childShape, 1, childShape.m_childShapeType);
 			cellDmaWaitTagStatusAll(DMA_MASK(1));
-			
+
 			SpuCollisionPairInput cinput (collisionPairInput);
 			cinput.m_worldTransform0 = collisionPairInput.m_worldTransform0 * childShape.m_transform;
 			cinput.m_shapeType0 = childShape.m_childShapeType;
 			cinput.m_collisionMargin0 = childShape.m_childMargin;
 
-			handleCollisionPair(cinput, lsMem, spuContacts,			
-				(ppu_address_t)childShape.m_childShape, lsMem.compoundShapeData[0].gSubshapeShape[i], 
+			handleCollisionPair(cinput, lsMem, spuContacts,
+				(ppu_address_t)childShape.m_childShape, lsMem.compoundShapeData[0].gSubshapeShape[i],
 				collisionShape1Ptr, collisionShape1Loc, false);
 		}
 	}
 	else if (btBroadphaseProxy::isCompound(collisionPairInput.m_shapeType1) )
 	{
 		//snPause();
-		
+
 		dmaCollisionShape (collisionShape0Loc, collisionShape0Ptr, 1, collisionPairInput.m_shapeType0);
 		dmaCollisionShape (collisionShape1Loc, collisionShape1Ptr, 2, collisionPairInput.m_shapeType1);
 		cellDmaWaitTagStatusAll(DMA_MASK(1) | DMA_MASK(2));
@@ -963,7 +963,7 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 		btCompoundShape* spuCompoundShape = (btCompoundShape*)collisionShape1Loc;
 		dmaCompoundShapeInfo (&lsMem.compoundShapeData[0], spuCompoundShape, 1);
 		cellDmaWaitTagStatusAll(DMA_MASK(1));
-		
+
 		int childShapeCount = spuCompoundShape->getNumChildShapes();
 		btAssert(childShapeCount< MAX_SPU_COMPOUND_SUBSHAPES);
 
@@ -981,14 +981,14 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 			cinput.m_shapeType1 = childShape.m_childShapeType;
 			cinput.m_collisionMargin1 = childShape.m_childMargin;
 			handleCollisionPair(cinput, lsMem, spuContacts,
-				collisionShape0Ptr, collisionShape0Loc, 
+				collisionShape0Ptr, collisionShape0Loc,
 				(ppu_address_t)childShape.m_childShape, lsMem.compoundShapeData[0].gSubshapeShape[i], false);
 		}
-		
+
 	}
 	else
 	{
-		//a non-convex shape is involved									
+		//a non-convex shape is involved
 		bool handleConvexConcave = false;
 
 		//snPause();
@@ -1002,10 +1002,10 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 			DoSwap(collisionPairInput.m_shapeType0, collisionPairInput.m_shapeType1);
 			DoSwap(collisionPairInput.m_worldTransform0, collisionPairInput.m_worldTransform1);
 			DoSwap(collisionPairInput.m_collisionMargin0, collisionPairInput.m_collisionMargin1);
-			
+
 			collisionPairInput.m_isSwapped = true;
 		}
-		
+
 		if (btBroadphaseProxy::isConvex(collisionPairInput.m_shapeType0)&&
 			btBroadphaseProxy::isConcave(collisionPairInput.m_shapeType1))
 		{
@@ -1019,7 +1019,7 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 				dmaCollisionShape (collisionShape1Loc, collisionShape1Ptr, 2, collisionPairInput.m_shapeType1);
 				cellDmaWaitTagStatusAll(DMA_MASK(1) | DMA_MASK(2));
 			}
-			
+
 			if (collisionPairInput.m_shapeType1 == STATIC_PLANE_PROXYTYPE)
 			{
 				btConvexInternalShape* spuConvexShape0 = (btConvexInternalShape*)collisionShape0Loc;
@@ -1050,7 +1050,7 @@ void	handleCollisionPair(SpuCollisionPairInput& collisionPairInput, CollisionTas
 		}
 
 	}
-	
+
 	spuContacts.flush();
 
 }
@@ -1083,11 +1083,11 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 	lsMem.g_workUnitTaskBuffers.backBufferDmaGet(dmaInPtr, nextNumOnPage*sizeof(SpuGatherAndProcessWorkUnitInput), DMA_TAG(3));
 	dmaInPtr += MIDPHASE_WORKUNIT_PAGE_SIZE;
 
-	
+
 	register unsigned char *inputPtr;
 	register unsigned int numOnPage;
 	register unsigned int j;
-	SpuGatherAndProcessWorkUnitInput* wuInputs;	
+	SpuGatherAndProcessWorkUnitInput* wuInputs;
 	register int dmaSize;
 	register ppu_address_t	dmaPpuAddress;
 	register ppu_address_t	dmaPpuAddress2;
@@ -1095,7 +1095,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 	int numPairs;
 	register int p;
 	SpuCollisionPairInput collisionPairInput;
-	
+
 	for (unsigned int i = 0; btLikely(i < numPages); i++)
 	{
 
@@ -1119,8 +1119,8 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 		}
 
 		wuInputs = reinterpret_cast<SpuGatherAndProcessWorkUnitInput *>(inputPtr);
-		
-		
+
+
 		for (j = 0; btLikely( j < numOnPage ); j++)
 		{
 #ifdef DEBUG_SPU_COLLISION_DETECTION
@@ -1129,14 +1129,14 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 
 
 			numPairs = wuInputs[j].m_endIndex - wuInputs[j].m_startIndex;
-			
+
 			if ( btLikely( numPairs ) )
 			{
 					dmaSize = numPairs*sizeof(btBroadphasePair);
 					dmaPpuAddress = wuInputs[j].m_pairArrayPtr+wuInputs[j].m_startIndex * sizeof(btBroadphasePair);
 					lsMem.m_pairsPointer = (btBroadphasePair*)cellDmaGetReadOnly(&lsMem.gBroadphasePairsBuffer, dmaPpuAddress  , dmaSize, DMA_TAG(1), 0, 0);
 					cellDmaWaitTagStatusAll(DMA_MASK(1));
-				
+
 
 				for (p=0;p<numPairs;p++)
 				{
@@ -1175,7 +1175,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 					//		spu_printf("SPU collisionPairInput->m_shapeType1 = %d\n",collisionPairInput->m_shapeType1);
 #endif //DEBUG_SPU_COLLISION_DETECTION
 
-							
+
 							dmaSize = sizeof(btPersistentManifold);
 
 							dmaPpuAddress2 = collisionPairInput.m_persistentManifoldPtr;
@@ -1185,11 +1185,11 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 							collisionPairInput.m_shapeType1 = lsMem.getlocalCollisionAlgorithm()->getShapeType1();
 							collisionPairInput.m_collisionMargin0 = lsMem.getlocalCollisionAlgorithm()->getCollisionMargin0();
 							collisionPairInput.m_collisionMargin1 = lsMem.getlocalCollisionAlgorithm()->getCollisionMargin1();
-							
-							
-							
+
+
+
 							//??cellDmaWaitTagStatusAll(DMA_MASK(1));
-							
+
 
 							if (1)
 							{
@@ -1205,7 +1205,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 #ifdef USE_SEPDISTANCE_UTIL
 									lsMem.getlocalCollisionAlgorithm()->m_sepDistance.updateSeparatingDistance(collisionPairInput.m_worldTransform0,collisionPairInput.m_worldTransform1);
 #endif //USE_SEPDISTANCE_UTIL
-							
+
 #define USE_DEDICATED_BOX_BOX 1
 #ifdef USE_DEDICATED_BOX_BOX
 									bool boxbox = ((lsMem.getlocalCollisionAlgorithm()->getShapeType0()==BOX_SHAPE_PROXYTYPE)&&
@@ -1223,7 +1223,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 											lsMem.getColObj0()->getFriction(),lsMem.getColObj1()->getFriction(),
 											collisionPairInput.m_isSwapped);
 
-						
+
 									//float distance=0.f;
 									btVector3 normalInB;
 
@@ -1233,7 +1233,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 										lsMem.getlocalCollisionAlgorithm()->m_sepDistance.getConservativeSeparatingDistance()<=0.f
 #else
 										1
-#endif											
+#endif
 										)
 										{
 //#define USE_PE_BOX_BOX 1
@@ -1280,7 +1280,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 												vmTransform3 trB;
 												trB.setTranslation(getVmVector3(collisionPairInput.m_worldTransform1.getOrigin()));
 												trB.setUpper3x3(getVmMatrix3(collisionPairInput.m_worldTransform1.getBasis()));
-												
+
 												float distanceThreshold = spuManifold->getContactBreakingThreshold();//0.001f;
 
 
@@ -1291,7 +1291,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 
 
 //												float distance = boxBoxDistance(resultNormal,resultClosestBoxPointA,resultClosestBoxPointB,  boxA, transformA, boxB,transformB,distanceThreshold);
-												
+
 												normalInB = -getBtVector3(n);//resultNormal);
 
 												//if(dist < distanceThreshold)//spuManifold->getContactBreakingThreshold())
@@ -1304,8 +1304,8 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 														pointOnB,
 														dist);
 												}
-											} 
-#else									
+											}
+#else
 											{
 
 												btScalar margin0 = lsMem.getlocalCollisionAlgorithm()->getCollisionMargin0();
@@ -1340,7 +1340,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 
 													}
 												};
-												
+
 												SpuBridgeContactCollector  bridgeOutput(spuContacts);
 
 												btDiscreteCollisionDetectorInterface::ClosestPointInput input;
@@ -1349,12 +1349,12 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 												input.m_transformB = collisionPairInput.m_worldTransform1;
 
 												btBoxBoxDetector detector(&box0,&box1);
-												
+
 												detector.getClosestPoints(input,bridgeOutput,0);
 
 											}
 #endif //USE_PE_BOX_BOX
-											
+
 											lsMem.needsDmaPutContactManifoldAlgo = true;
 #ifdef USE_SEPDISTANCE_UTIL
 											btScalar sepDist2 = distance+spuManifold->getContactBreakingThreshold();
@@ -1367,7 +1367,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 										}
 
 										spuContacts.flush();
-											
+
 
 									} else
 #endif //USE_DEDICATED_BOX_BOX
@@ -1399,7 +1399,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 											spuContacts.flush();
 										}
 									}
-								
+
 								}
 
 							}
@@ -1422,7 +1422,7 @@ void	processCollisionTask(void* userPtr, void* lsMemPtr)
 			}
 		} //end for (j = 0; j < numOnPage; j++)
 
-	}//	for 
+	}//	for
 
 
 

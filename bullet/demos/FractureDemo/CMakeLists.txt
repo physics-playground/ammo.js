@@ -2,17 +2,17 @@
 
 
 # For every executable you have with a main method you should have an add_executable line below.
-# For every add executable line you should list every .cpp and .h file you have associated with that executable.  
+# For every add executable line you should list every .cpp and .h file you have associated with that executable.
 
 
 # This is the variable for Windows.  I use this to define the root of my directory structure.
 SET(GLUT_ROOT ${BULLET_PHYSICS_SOURCE_DIR}/Glut)
 
-# You shouldn't have to modify anything below this line 
+# You shouldn't have to modify anything below this line
 ########################################################
 
 INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/src ${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL 
+${BULLET_PHYSICS_SOURCE_DIR}/src ${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
 )
 
 
@@ -25,7 +25,7 @@ IF (USE_GLUT)
 IF (WIN32)
 ADD_EXECUTABLE(AppFractureDemo
 		main.cpp
-		FractureDemo.cpp 
+		FractureDemo.cpp
 		FractureDemo.h
 		btFractureBody.h
 		btFractureBody.cpp
@@ -36,7 +36,7 @@ ADD_EXECUTABLE(AppFractureDemo
 ELSE()
 	ADD_EXECUTABLE(AppFractureDemo
 		main.cpp
-		FractureDemo.cpp 
+		FractureDemo.cpp
 		FractureDemo.h
 		btFractureBody.h
 		btFractureBody.cpp
@@ -70,7 +70,7 @@ ENDIF()
 	ENDIF(WIN32)
 ELSE (USE_GLUT)
 
- 
+
 
 	LINK_LIBRARIES(
 	OpenGLSupport  BulletDynamics  BulletCollision LinearMath  ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
@@ -81,7 +81,7 @@ ELSE (USE_GLUT)
 		WIN32
 		../OpenGL/Win32AppMain.cpp
 		Win32FractureDemo.cpp
-		FractureDemo.cpp 
+		FractureDemo.cpp
 		FractureDemo.h
 		btFractureBody.h
 		btFractureBody.cpp
@@ -89,8 +89,8 @@ ELSE (USE_GLUT)
 		btFractureDynamicsWorld.h
 		${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
 	)
-	
-	
+
+
 ENDIF (USE_GLUT)
 
 IF (INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)

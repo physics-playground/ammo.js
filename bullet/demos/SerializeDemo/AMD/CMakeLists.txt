@@ -1,11 +1,11 @@
 
 
 INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/src 
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL 
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletFileLoader
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletWorldImporter
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL
+${BULLET_PHYSICS_SOURCE_DIR}/src
+${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
+${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletFileLoader
+${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletWorldImporter
+${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL
 ${AMD_OPENCL_INCLUDES}
 )
 
@@ -20,17 +20,17 @@ ENDIF(WIN32)
 
 IF (USE_GLUT)
 	LINK_LIBRARIES(
-		OpenGLSupport  
-		BulletWorldImporter 
-		BulletSoftBody 
-		BulletDynamics  
-		BulletCollision 
-		BulletFileLoader 
-		LinearMath  
+		OpenGLSupport
+		BulletWorldImporter
+		BulletSoftBody
+		BulletDynamics
+		BulletCollision
+		BulletFileLoader
+		LinearMath
 		BulletSoftBodySolvers_OpenCL_AMD
 		BulletMultiThreaded
-			${GLUT_glut_LIBRARY} 
-			${OPENGL_gl_LIBRARY} 
+			${GLUT_glut_LIBRARY}
+			${OPENGL_gl_LIBRARY}
 			${OPENGL_glu_LIBRARY}
 			${CMAK_GLEW_LIBRARY}
 			${CMAKE_ATISTREAMSDK_LIBRARY}
@@ -39,24 +39,24 @@ IF (USE_GLUT)
 	IF (WIN32)
 		ADD_EXECUTABLE(AppSerializeDemo_AMD
 			../main.cpp
-			../SerializeDemo.cpp 
+			../SerializeDemo.cpp
 			../SerializeDemo.h
 			${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.cpp
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.h
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLInclude.h
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/clew.c
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/clew.h
-		
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.cpp
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.h
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLInclude.h
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/clew.c
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/clew.h
+
 		)
 	ELSE()
 		ADD_EXECUTABLE(AppSerializeDemo_AMD
 			../main.cpp
-			../SerializeDemo.cpp 
+			../SerializeDemo.cpp
 			../SerializeDemo.h
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.cpp
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.h
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLInclude.h
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.cpp
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.h
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLInclude.h
 
 		)
 	ENDIF()
@@ -77,20 +77,20 @@ IF (USE_GLUT)
 			ENDIF(CMAKE_CL_64)
 		ENDIF(WIN32)
 	ENDIF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
-	
+
 ELSE (USE_GLUT)
 
 	LINK_LIBRARIES(
-		OpenGLSupport  
-		BulletWorldImporter 
-		BulletSoftBody 
-		BulletDynamics  
-		BulletCollision 
-		BulletFileLoader 
-		LinearMath  
+		OpenGLSupport
+		BulletWorldImporter
+		BulletSoftBody
+		BulletDynamics
+		BulletCollision
+		BulletFileLoader
+		LinearMath
 		BulletSoftBodySolvers_OpenCL_AMD
 		BulletMultiThreaded
-		${OPENGL_gl_LIBRARY} 
+		${OPENGL_gl_LIBRARY}
 		${OPENGL_glu_LIBRARY}
 		${CMAKE_GLEW_LIBRARY}
 		${CMAKE_ATISTREAMSDK_LIBRARY}
@@ -100,12 +100,12 @@ ELSE (USE_GLUT)
 		WIN32
 		../../OpenGL/Win32AppMain.cpp
 		../Win32SerializeDemo.cpp
-		../SerializeDemo.cpp 
+		../SerializeDemo.cpp
 		../SerializeDemo.h
 		${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.cpp
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.h
-		${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLInclude.h
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.cpp
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.h
+		${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLInclude.h
 	)
 ENDIF (USE_GLUT)
 
@@ -128,7 +128,7 @@ IF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES AND NOT INTERNAL_UPDATE_
 	ADD_CUSTOM_COMMAND(
 		TARGET AppSerializeDemo_AMD
 		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/SerializeDemo/testFileCloth.bullet ${CMAKE_CURRENT_BINARY_DIR}/testFile.bullet
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/SerializeDemo/testFileCloth.bullet ${CMAKE_CURRENT_BINARY_DIR}/testFile.bullet
 		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/src/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/OpenCLC10/ApplyForces.cl ${CMAKE_CURRENT_BINARY_DIR}/OpenCLC10/ApplyForces.cl
 		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/src/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/OpenCLC10/ComputeBounds.cl ${CMAKE_CURRENT_BINARY_DIR}/OpenCLC10/ComputeBounds.cl
 		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/src/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/OpenCLC10/Integrate.cl ${CMAKE_CURRENT_BINARY_DIR}/OpenCLC10/Integrate.cl

@@ -1,13 +1,13 @@
-INCLUDE_DIRECTORIES( 
+INCLUDE_DIRECTORIES(
 	${BULLET_PHYSICS_SOURCE_DIR}/src
-	${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletFileLoader
-	${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletWorldImporter
+	${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletFileLoader
+	${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletWorldImporter
 )
 
 ADD_LIBRARY(
-	BulletXmlWorldImporter 
-	btBulletXmlWorldImporter.cpp 
-	btBulletXmlWorldImporter.h 
+	BulletXmlWorldImporter
+	btBulletXmlWorldImporter.cpp
+	btBulletXmlWorldImporter.h
 	string_split.cpp
 	string_split.h
 	tinyxml.cpp

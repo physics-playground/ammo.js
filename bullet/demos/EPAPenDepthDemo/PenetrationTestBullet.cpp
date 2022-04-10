@@ -38,9 +38,9 @@
 //We can use the Bullet EPA or sampling penetration depth solver, but comparison might be useful
 //#define COMPARE_WITH_SOLID35_AND_OTHER_EPA 1
 #ifdef COMPARE_WITH_SOLID35_AND_OTHER_EPA
-#include "../Extras/ExtraSolid35/Solid3EpaPenetrationDepth.h"
-#include "../Extras/ExtraSolid35/Solid3JohnsonSimplexSolver.h"
-#include "../Extras/EPA/EpaPenetrationDepthSolver.h"
+#include "../extras/ExtraSolid35/Solid3EpaPenetrationDepth.h"
+#include "../extras/ExtraSolid35/Solid3JohnsonSimplexSolver.h"
+#include "../extras/EPA/EpaPenetrationDepthSolver.h"
 #endif //COMPARE_WITH_SOLID35_AND_OTHER_EPA
 
 #define USE_ORIGINAL 1
@@ -178,12 +178,12 @@ bool MyConvex::LoadFromFile(const char* filename)
 
 
 //See http://www.lighthouse3d.com/opengl/glut/index.php?bmpfontortho
-static void setOrthographicProjection() 
+static void setOrthographicProjection()
 {
 
 	// switch to projection mode
 	glMatrixMode(GL_PROJECTION);
-	// save previous matrix which contains the 
+	// save previous matrix which contains the
 	//settings for the perspective projection
 	glPushMatrix();
 	// reset matrix
@@ -198,7 +198,7 @@ static void setOrthographicProjection()
 	glMatrixMode(GL_MODELVIEW);
 }
 
-static void resetPerspectiveProjection() 
+static void resetPerspectiveProjection()
 {
 	glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
@@ -320,17 +320,17 @@ static bool TestEPA(const MyConvex& hull0, const MyConvex& hull1)
 	static Solid3EpaPenetrationDepth Solver2;
 	static EpaPenetrationDepthSolver Solver3;
 #endif
-	
+
 
 	btConvexPenetrationDepthSolver* Solver = NULL ;
-			if(gMethod==0)	
+			if(gMethod==0)
 				Solver = &Solver0;
-	else	if(gMethod==1)	
+	else	if(gMethod==1)
 				Solver = &Solver1;
 #ifdef COMPARE_WITH_SOLID35_AND_OTHER_EPA
-	else	if(gMethod==2)	
+	else	if(gMethod==2)
 				Solver = &Solver2;
-	else					
+	else
 				Solver = &Solver3;
 #endif //COMPARE_WITH_SOLID35_AND_OTHER_EPA
 
@@ -345,7 +345,7 @@ static bool TestEPA(const MyConvex& hull0, const MyConvex& hull1)
 	btDiscreteCollisionDetectorInterface::ClosestPointInput input;
 	input.m_transformA = hull0.mTransform;
 	input.m_transformB = hull1.mTransform;
-	
+
 
 	MyResult output;
 	GJK.getClosestPoints(input, output, 0);
@@ -560,7 +560,7 @@ static void ArrowKeyCallback(int key, int x, int y)
 {
 	KeyboardCallback(key,x,y);
 }
-	
+
 static void MouseCallback(int button, int state, int x, int y)
 {
 	mx = x;
@@ -638,7 +638,7 @@ static void MotionCallback(int x, int y)
 {
 	int dx = mx - x;
 	int dy = my - y;
-	
+
 	Dir = Dir.normalize();
 	N = Dir.cross(btVector3(0,1,0));
 
@@ -655,7 +655,7 @@ static void RenderCallback()
 {
 	// Clear buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    
+
 	// Setup camera
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -709,9 +709,9 @@ static void RenderCallback()
 	GLDebugDrawString(xOffset,yStart,buf);
 	yStart += yIncr;
 
-	
 
-	
+
+
 
 	if (gLastUsedMethod >= 3)
 	{
@@ -749,7 +749,7 @@ static void RenderCallback()
 		yStart += yIncr;
 	}
 
-	
+
 
 
 	resetPerspectiveProjection();
@@ -779,7 +779,7 @@ static void RenderCallback()
 		gConvex0.mTransform = Saved;
 	}
 
-	glutSwapBuffers();	
+	glutSwapBuffers();
 }
 
 static void ReshapeCallback(int width, int height)

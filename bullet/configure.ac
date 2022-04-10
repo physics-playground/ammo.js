@@ -163,7 +163,7 @@ CXXFLAGS="$ARCH_SPECIFIC_CFLAGS $CXXFLAGS $CFLAGS"
 #----------------------------------------------------------------------------
 # Emit generated files.
 #----------------------------------------------------------------------------
-AC_CONFIG_FILES([bullet.pc Makefile Demos/Makefile Demos/SoftDemo/Makefile Demos/AllBulletDemos/Makefile Demos/MultiThreadedDemo/Makefile  Demos/OpenGL/Makefile  Demos/ForkLiftDemo/Makefile Demos/FeatherstoneMultiBodyDemo/Makefile Demos/BasicDemo/Makefile Demos/CcdPhysicsDemo/Makefile Demos/VehicleDemo/Makefile Demos/TerrainDemo/Makefile src/Makefile Extras/Makefile])
+AC_CONFIG_FILES([bullet.pc Makefile demos/Makefile demos/SoftDemo/Makefile demos/AllBulletDemos/Makefile demos/MultiThreadedDemo/Makefile  demos/OpenGL/Makefile  demos/ForkLiftDemo/Makefile demos/FeatherstoneMultiBodyDemo/Makefile demos/BasicDemo/Makefile demos/CcdPhysicsDemo/Makefile demos/VehicleDemo/Makefile demos/TerrainDemo/Makefile src/Makefile extras/Makefile])
 AC_OUTPUT
 
 AC_MSG_NOTICE([

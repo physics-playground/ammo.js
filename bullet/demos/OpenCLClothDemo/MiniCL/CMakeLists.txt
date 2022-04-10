@@ -1,9 +1,9 @@
 
 
 INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/src 
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL
+${BULLET_PHYSICS_SOURCE_DIR}/src
+${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL
+${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
 )
 
 ADD_DEFINITIONS(-DUSE_MINICL)
@@ -23,19 +23,19 @@ ENDIF()
 
 IF (USE_GLUT)
 	LINK_LIBRARIES(
-		OpenGLSupport 
+		OpenGLSupport
 		BulletSoftBodySolvers_OpenCL_Mini
 		MiniCL
 		BulletMultiThreaded
 		BulletSoftBody
-		BulletDynamics  
-		BulletCollision  
-		LinearMath 
-		${GLUT_glut_LIBRARY} 
-		${OPENGL_gl_LIBRARY} 
+		BulletDynamics
+		BulletCollision
+		LinearMath
+		${GLUT_glut_LIBRARY}
+		${OPENGL_gl_LIBRARY}
 		${OPENGL_glu_LIBRARY}
 		${CMAK_GLEW_LIBRARY}
-		
+
 	)
 
 
@@ -46,9 +46,9 @@ IF (USE_GLUT)
 		../clstuff.h
 		../gl_win.h
 		${BULLET_PHYSICS_SOURCE_DIR}/src/BulletMultiThreaded/GpuSoftBodySolvers/OpenCL/MiniCL/MiniCLTaskWrap.cpp
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.cpp
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.h
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLInclude.h
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.cpp
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.h
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLInclude.h
 
 	)
 ELSE (USE_GLUT)
@@ -58,7 +58,7 @@ IF(WIN32)
 IF (CMAKE_CL_64)
 	IF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
 		ADD_CUSTOM_COMMAND(	TARGET AppOpenCLClothDemo_Mini		POST_BUILD
-					COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/glut64.dll ${CMAKE_CURRENT_BINARY_DIR}	
+					COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/glut64.dll ${CMAKE_CURRENT_BINARY_DIR}
 					)
 	ENDIF()
 ELSE(CMAKE_CL_64)

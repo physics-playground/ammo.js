@@ -2,25 +2,25 @@
 
 
 # For every executable you have with a main method you should have an add_executable line below.
-# For every add executable line you should list every .cpp and .h file you have associated with that executable.  
+# For every add executable line you should list every .cpp and .h file you have associated with that executable.
 
 
-# You shouldn't have to modify anything below this line 
+# You shouldn't have to modify anything below this line
 ########################################################
 
 
 
 INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/Extras  
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/GIMPACTUtils  
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/HACD
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/ConvexDecomposition  
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/LibXML 
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/LibXML/include 
-${BULLET_PHYSICS_SOURCE_DIR}/src 
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL 
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletFileLoader
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletWorldImporter
+${BULLET_PHYSICS_SOURCE_DIR}/extras
+${BULLET_PHYSICS_SOURCE_DIR}/extras/GIMPACTUtils
+${BULLET_PHYSICS_SOURCE_DIR}/extras/HACD
+${BULLET_PHYSICS_SOURCE_DIR}/extras/ConvexDecomposition
+${BULLET_PHYSICS_SOURCE_DIR}/extras/LibXML
+${BULLET_PHYSICS_SOURCE_DIR}/extras/LibXML/include
+${BULLET_PHYSICS_SOURCE_DIR}/src
+${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
+${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletFileLoader
+${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletWorldImporter
 ${VECTOR_MATH_INCLUDE}
 )
 
@@ -51,7 +51,7 @@ SET(AllBulletDemos_SRCS
   ../ConstraintDemo/ConstraintDemo.cpp
   ../Benchmarks/BenchmarkDemo.cpp
   ../Box2dDemo/Box2dDemo.cpp
-  
+
 )
 
 IF (WIN32)
@@ -89,7 +89,7 @@ IF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
 	ADD_CUSTOM_COMMAND(
 	TARGET AppAllBulletDemos
 	POST_BUILD
-	COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/SerializeDemo/testFile.bullet  ${CMAKE_CURRENT_BINARY_DIR}/testFile.bullet
+	COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/SerializeDemo/testFile.bullet  ${CMAKE_CURRENT_BINARY_DIR}/testFile.bullet
 	COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/file.obj ${CMAKE_CURRENT_BINARY_DIR}
 	)
 ENDIF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)

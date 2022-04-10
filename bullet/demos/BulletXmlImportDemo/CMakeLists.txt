@@ -2,22 +2,22 @@
 
 
 # For every executable you have with a main method you should have an add_executable line below.
-# For every add executable line you should list every .cpp and .h file you have associated with that executable.  
+# For every add executable line you should list every .cpp and .h file you have associated with that executable.
 
 
 # This is the variable for Windows.  I use this to define the root of my directory structure.
 SET(GLUT_ROOT ${BULLET_PHYSICS_SOURCE_DIR}/Glut)
 
-# You shouldn't have to modify anything below this line 
+# You shouldn't have to modify anything below this line
 ########################################################
 
 
 INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/src 
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL 
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletFileLoader
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletWorldImporter
-${BULLET_PHYSICS_SOURCE_DIR}/Extras/Serialize/BulletXmlWorldImporter
+${BULLET_PHYSICS_SOURCE_DIR}/src
+${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
+${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletFileLoader
+${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletWorldImporter
+${BULLET_PHYSICS_SOURCE_DIR}/extras/Serialize/BulletXmlWorldImporter
 )
 
 ADD_DEFINITIONS(-DDESERIALIZE_SOFT_BODIES)
@@ -30,14 +30,14 @@ IF (USE_GLUT)
 	IF (WIN32)
 		ADD_EXECUTABLE(AppBulletXmlImportDemo
 			main.cpp
-			BulletXmlImportDemo.cpp 
+			BulletXmlImportDemo.cpp
 			BulletXmlImportDemo.h
 			${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
 		)
 	ELSE()
 		ADD_EXECUTABLE(AppBulletXmlImportDemo
 			main.cpp
-			BulletXmlImportDemo.cpp 
+			BulletXmlImportDemo.cpp
 			BulletXmlImportDemo.h
 		)
 	ENDIF()
@@ -58,7 +58,7 @@ IF (USE_GLUT)
 			ENDIF(CMAKE_CL_64)
 		ENDIF(WIN32)
 	ENDIF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
-	
+
 ELSE (USE_GLUT)
 
 	LINK_LIBRARIES(
@@ -69,7 +69,7 @@ ELSE (USE_GLUT)
 		WIN32
 		../OpenGL/Win32AppMain.cpp
 		Win32BulletXmlImportDemo.cpp
-		BulletXmlImportDemo.cpp 
+		BulletXmlImportDemo.cpp
 		BulletXmlImportDemo.h
 		${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
 	)
@@ -77,10 +77,10 @@ ENDIF (USE_GLUT)
 
 IF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES AND NOT INTERNAL_UPDATE_SERIALIZATION_STRUCTURES)
 	ADD_CUSTOM_COMMAND(
-		TARGET AppBulletXmlImportDemo 
+		TARGET AppBulletXmlImportDemo
 		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/BulletXmlImportDemo/bullet_basic.xml ${CMAKE_CURRENT_BINARY_DIR}/bullet_basic.xml
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/BulletXmlImportDemo/bullet_basic.xml ${CMAKE_CURRENT_BINARY_DIR}/Debug/bullet_basic.xml
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/BulletXmlImportDemo/bullet_basic.xml ${CMAKE_CURRENT_BINARY_DIR}/bullet_basic.xml
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/BulletXmlImportDemo/bullet_basic.xml ${CMAKE_CURRENT_BINARY_DIR}/Debug/bullet_basic.xml
 	)
 ENDIF ()
 

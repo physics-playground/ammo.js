@@ -10,7 +10,7 @@ SET(BULLET_VERSION 2.76)
 IF (NOT CMAKE_BUILD_TYPE)
 # SET(CMAKE_BUILD_TYPE "Debug")
  SET(CMAKE_BUILD_TYPE "Release")
-ENDIF (NOT CMAKE_BUILD_TYPE) 
+ENDIF (NOT CMAKE_BUILD_TYPE)
 
 
 OPTION(USE_MSVC_RUNTIME_LIBRARY_DLL "Use MSVC Runtime Library DLL (/MD or /MDd)" ON)
@@ -22,13 +22,13 @@ IF(MSVC)
 	IF (NOT USE_MSVC_INCREMENTAL_LINKING)
 		#MESSAGE("MSVC_INCREMENTAL_DEFAULT"+${MSVC_INCREMENTAL_DEFAULT})
 		SET( MSVC_INCREMENTAL_YES_FLAG "/INCREMENTAL:NO")
-		 
-		STRING(REPLACE "INCREMENTAL:YES" "INCREMENTAL:NO" replacementFlags ${CMAKE_EXE_LINKER_FLAGS_DEBUG}) 
+
+		STRING(REPLACE "INCREMENTAL:YES" "INCREMENTAL:NO" replacementFlags ${CMAKE_EXE_LINKER_FLAGS_DEBUG})
 		SET(CMAKE_EXE_LINKER_FLAGS_DEBUG "/INCREMENTAL:NO ${replacementFlags}" )
 		MESSAGE("CMAKE_EXE_LINKER_FLAGS_DEBUG=${CMAKE_EXE_LINKER_FLAGS_DEBUG}")
-		
+
 		STRING(REPLACE "INCREMENTAL:YES" "INCREMENTAL:NO" replacementFlags3 ${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO})
-		SET(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO ${replacementFlags3}) 
+		SET(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO ${replacementFlags3})
 		SET(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "/INCREMENTAL:NO ${replacementFlags3}" )
 	ENDIF (NOT USE_MSVC_INCREMENTAL_LINKING)
 
@@ -58,11 +58,11 @@ IF(MSVC)
   ENDIF()
 ENDIF(MSVC)
 
-   
+
 IF(COMMAND cmake_policy)
    cmake_policy(SET CMP0003 NEW)
 ENDIF(COMMAND cmake_policy)
-   
+
 
 
 
@@ -71,7 +71,7 @@ SET(DX11_INCLUDE_PATH  "${DXSDK_DIR}Include" CACHE DOCSTRING "Microsoft directX 
 IF (CMAKE_CL_64)
 	SET(DX11_LIB_PATH "${DXSDK_DIR}Lib/x64" CACHE DOCSTRING "Microsoft DirectX SDK library path")
 ELSE()
-	SET(DX11_LIB_PATH "${DXSDK_DIR}Lib/x86" CACHE DOCSTRING "Microsoft DirectX SDK library path")	
+	SET(DX11_LIB_PATH "${DXSDK_DIR}Lib/x86" CACHE DOCSTRING "Microsoft DirectX SDK library path")
 ENDIF()
 
 SET(BulletClothExample_SRCS
@@ -84,7 +84,7 @@ SET(BulletClothExample_SRCS
 	DXUT/Optional/DXUTres.cpp
 	DXUT/Optional/DXUTsettingsdlg.cpp
 	DXUT/Optional/SDKmesh.cpp
-	DXUT/Optional/SDKmisc.cpp	
+	DXUT/Optional/SDKmisc.cpp
 
 	cloth_renderer.cpp
 )
@@ -112,8 +112,8 @@ SET(BulletClothExample_HDRS
 
 
 INCLUDE_DIRECTORIES(
-	${DX11_INCLUDE_PATH} 
-	${BULLET_PHYSICS_SOURCE_DIR}/src  
+	${DX11_INCLUDE_PATH}
+	${BULLET_PHYSICS_SOURCE_DIR}/src
 	"DXUT/Core"
 	"DXUT/Optional"
 	${VECTOR_MATH_INCLUDE}
@@ -126,8 +126,8 @@ ADD_DEFINITIONS(-DUNICODE)
 ADD_DEFINITIONS(-D_UNICODE)
 
 ADD_EXECUTABLE(AppDX11ClothDemo WIN32
-	${BulletClothExample_SRCS} 
-	${BulletClothExample_HDRS} 
+	${BulletClothExample_SRCS}
+	${BulletClothExample_HDRS}
 )
 TARGET_LINK_LIBRARIES(AppDX11ClothDemo
 	d3dcompiler
@@ -156,15 +156,14 @@ IF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
 	ADD_CUSTOM_COMMAND(
 		TARGET AppDX11ClothDemo
 		POST_BUILD
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/DX11ClothDemo/cloth_renderer_PS.hlsl ${CMAKE_CURRENT_BINARY_DIR}/cloth_renderer_PS.hlsl
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/DX11ClothDemo/cloth_renderer_VS.hlsl ${CMAKE_CURRENT_BINARY_DIR}/cloth_renderer_VS.hlsl
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/DX11ClothDemo/texture.bmp ${CMAKE_CURRENT_BINARY_DIR}/texture.bmp
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/DX11ClothDemo/amdFlag.bmp  ${CMAKE_CURRENT_BINARY_DIR}/amdFlag.bmp
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/DX11ClothDemo/atiFlag.bmp  ${CMAKE_CURRENT_BINARY_DIR}/atiFlag.bmp
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/DX11ClothDemo/texture.png ${CMAKE_CURRENT_BINARY_DIR}/texture.png
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/DX11ClothDemo/Media/UI/Font.dds ${CMAKE_CURRENT_BINARY_DIR}/Media/UI/Font.dds
-		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/Demos/DX11ClothDemo/Media/Tiny/tiny.sdkmesh ${CMAKE_CURRENT_BINARY_DIR}/Media/Tiny/tiny.sdkmesh
-		
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/DX11ClothDemo/cloth_renderer_PS.hlsl ${CMAKE_CURRENT_BINARY_DIR}/cloth_renderer_PS.hlsl
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/DX11ClothDemo/cloth_renderer_VS.hlsl ${CMAKE_CURRENT_BINARY_DIR}/cloth_renderer_VS.hlsl
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/DX11ClothDemo/texture.bmp ${CMAKE_CURRENT_BINARY_DIR}/texture.bmp
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/DX11ClothDemo/amdFlag.bmp  ${CMAKE_CURRENT_BINARY_DIR}/amdFlag.bmp
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/DX11ClothDemo/atiFlag.bmp  ${CMAKE_CURRENT_BINARY_DIR}/atiFlag.bmp
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/DX11ClothDemo/texture.png ${CMAKE_CURRENT_BINARY_DIR}/texture.png
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/DX11ClothDemo/Media/UI/Font.dds ${CMAKE_CURRENT_BINARY_DIR}/Media/UI/Font.dds
+		COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/demos/DX11ClothDemo/Media/Tiny/tiny.sdkmesh ${CMAKE_CURRENT_BINARY_DIR}/Media/Tiny/tiny.sdkmesh
+
 	)
 ENDIF()
-	

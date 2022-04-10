@@ -1,5 +1,5 @@
 
-%Use the \path{Demos/MyDemo} instead of \texttt{Demos/MyDemo} otherwise text doesn't wrap
+%Use the \path{demos/MyDemo} instead of \texttt{demos/MyDemo} otherwise text doesn't wrap
 %and runs into the right margin
 
 \chapter{Introduction to Bullet}
@@ -26,21 +26,21 @@ Bullet Physics is a professional open source collision detection, rigid body and
 \subsection{Preparing for Bullet 3.0 alpha}
 \begin{itemize}
 	\item The new Bullet 3.x version is making good progress, and the performance on high-end GPUs such as AMD 7970 and NVIDIA 680 is good. See the github repository at \url{https://github.com/erwincoumans/bullet3}
-\end{itemize}	
+\end{itemize}
 \subsection{New in Bullet 2.82}
 \begin{itemize}
-	\item Featherstone articulated body algorithm implementation with integration in the Bullet constraint solver. See See \path{Demos/FeatherstoneMultiBodyDemo}
+	\item Featherstone articulated body algorithm implementation with integration in the Bullet constraint solver. See See \path{demos/FeatherstoneMultiBodyDemo}
 	\item New MLCP constraint solver interface for higher quality direct solvers. Dantzig (OpenDE), PATH and Projected Gauss Seidel MLCP solvers, with fallback to the original Bullet sequential impulse solver. See \path{src/BulletDynamics/MLCPSolvers}
-	\item New btFixedConstraint as alternative to a btGeneric6DofConstraint with all DOFs locked. See \path{Demos/VoronoiFractureDemo}
+	\item New btFixedConstraint as alternative to a btGeneric6DofConstraint with all DOFs locked. See \path{demos/VoronoiFractureDemo}
 	\item Various bug fixes, related to force feedback and friction. Improved performance between btCompoundShape using the new btCompoundCompoundCollisionAlgorithm. See the commit log at \url{https://code.google.com/p/bullet/source/list}
 \end{itemize}
 \subsection{New in Bullet 2.81}
 \begin{itemize}
 	\item SIMD and Neon optimizations for iOS and Mac OSX, thanks to a contribution from Apple
-	\item Rolling Friction using a constraint, thanks to Erin Catto for the idea. See \path{Demos/RollingFrictionDemo/RollingFrictionDemo.cpp}
-	\item XML serialization. See \path{Bullet/Demos/BulletXmlImportDemo} and \path{Bullet/Demos/SerializeDemo}
-	\item Gear constraint. See \path{Bullet/Demos/ConstraintDemo}.
-	\item Improved continuous collision response, feeding speculative contacts to the constraint solver. See \path{Bullet/Demos/CcdPhysicsDemo}
+	\item Rolling Friction using a constraint, thanks to Erin Catto for the idea. See \path{demos/RollingFrictionDemo/RollingFrictionDemo.cpp}
+	\item XML serialization. See \path{Bullet/demos/BulletXmlImportDemo} and \path{Bullet/demos/SerializeDemo}
+	\item Gear constraint. See \path{Bullet/demos/ConstraintDemo}.
+	\item Improved continuous collision response, feeding speculative contacts to the constraint solver. See \path{Bullet/demos/CcdPhysicsDemo}
 	\item Improved premake4 build system including support for Mac OSX, Linux and iOS
 	\item Refactoring of collision detection pipeline using stack allocation instead of modifying the collision object. This will allow better future multithreading optimizations.
 \end{itemize}

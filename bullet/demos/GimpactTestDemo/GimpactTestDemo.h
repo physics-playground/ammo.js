@@ -37,7 +37,7 @@ class btDefaultCollisionConfiguration;
 
 #include "BulletCollision/Gimpact/btGImpactCollisionAlgorithm.h"
 	#ifdef BULLET_GIMPACT_CONVEX_DECOMPOSITION
-	#include "../Extras/GIMPACTUtils/btGImpactConvexDecompositionShape.h"
+	#include "../extras/GIMPACTUtils/btGImpactConvexDecompositionShape.h"
 	#endif
 
 
@@ -60,22 +60,22 @@ class GimpactConcaveDemo : public PlatformDemoApplication
 
 public:
 	GimpactConcaveDemo()
-		:	m_steps_done(0), 
+		:	m_steps_done(0),
 			m_trimeshShape(NULL),
 		  m_trimeshShape2(NULL),
 		  m_indexVertexArrays(NULL),
 		  m_indexVertexArrays2(NULL),
-	
+
 
 	kinematicTorus(NULL),
-	
-	
+
+
 	m_gimpactCollisionCreateFunc(NULL),
 	m_collisionConfiguration(NULL),
 
 	m_dispatcher(NULL),
 
-	m_broadphase(NULL),	 
+	m_broadphase(NULL),
 		 m_constraintSolver(NULL)
 	{
 	}

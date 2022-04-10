@@ -4,9 +4,9 @@ ADD_DEFINITIONS(-DUSE_NVIDIA_OPENCL)
 ADD_DEFINITIONS(-DCL_PLATFORM_NVIDIA)
 
 INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/src 
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL
+${BULLET_PHYSICS_SOURCE_DIR}/src
+${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL
+${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
 ${NVIDIA_OPENCL_INCLUDES}
 )
 
@@ -26,15 +26,15 @@ ENDIF(CMAKE_CL_64)
 IF (USE_GLUT)
 
 	LINK_LIBRARIES(
-		OpenGLSupport 
+		OpenGLSupport
 		BulletSoftBodySolvers_OpenCL_NVidia
 		BulletMultiThreaded
 		BulletSoftBody
-		BulletDynamics  
-		BulletCollision  
-		LinearMath 
-		${GLUT_glut_LIBRARY} 
-		${OPENGL_gl_LIBRARY} 
+		BulletDynamics
+		BulletCollision
+		LinearMath
+		${GLUT_glut_LIBRARY}
+		${OPENGL_gl_LIBRARY}
 		${OPENGL_glu_LIBRARY}
 		${CMAK_GLEW_LIBRARY}
 		${NVIDIA_OPENCL_LIBRARIES}
@@ -42,9 +42,9 @@ IF (USE_GLUT)
 
 	ADD_EXECUTABLE(AppOpenCLClothDemo_NVidia
 		../cl_cloth_demo.cpp
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.cpp
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.h
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLInclude.h
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.cpp
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.h
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLInclude.h
 		../gl_win.cpp
 		../clstuff.cpp
 		../clstuff.h
@@ -58,7 +58,7 @@ IF(WIN32)
 IF (CMAKE_CL_64)
 	IF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
 		ADD_CUSTOM_COMMAND(	TARGET AppOpenCLClothDemo_NVidia		POST_BUILD
-					COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/glut64.dll ${CMAKE_CURRENT_BINARY_DIR}	
+					COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/glut64.dll ${CMAKE_CURRENT_BINARY_DIR}
 					)
 	ENDIF()
 ELSE(CMAKE_CL_64)

@@ -24,11 +24,11 @@ AllBulletDemo_SOURCES=\
 			Main.cpp
 AllBulletDemo_CXXFLAGS=\
 		       	-I@top_builddir@/src \
-		       	-I@top_builddir@/Extras/GIMPACTUtils \
-		       	-I@top_builddir@/Extras/ConvexDecomposition \
-		       	-I@top_builddir@/Extras/HACD \
-		       	-I@top_builddir@/Extras \
-			-I@top_builddir@/Demos/OpenGL \
-			-I@top_builddir@/Demos/SoftDemo \
+		       	-I@top_builddir@/extras/GIMPACTUtils \
+		       	-I@top_builddir@/extras/ConvexDecomposition \
+		       	-I@top_builddir@/extras/HACD \
+		       	-I@top_builddir@/extras \
+			-I@top_builddir@/demos/OpenGL \
+			-I@top_builddir@/demos/SoftDemo \
 			$(CXXFLAGS)
-AllBulletDemo_LDADD=-L../OpenGL -lbulletopenglsupport -L../../src -L../../Extras -lgimpactutils -lconvexdecomposition -lHACD -lBulletSoftBody -lBulletDynamics -lBulletCollision -lLinearMath -lglui @opengl_LIBS@
+AllBulletDemo_LDADD=-L../OpenGL -lbulletopenglsupport -L../../src -L../../extras -lgimpactutils -lconvexdecomposition -lHACD -lBulletSoftBody -lBulletDynamics -lBulletCollision -lLinearMath -lglui @opengl_LIBS@

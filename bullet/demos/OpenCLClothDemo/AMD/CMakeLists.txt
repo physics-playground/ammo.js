@@ -1,9 +1,9 @@
 
 
 INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/src 
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL
-${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL
+${BULLET_PHYSICS_SOURCE_DIR}/src
+${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL
+${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
 ${AMD_OPENCL_INCLUDES}
 )
 
@@ -24,15 +24,15 @@ ENDIF(CMAKE_CL_64)
 
 IF (USE_GLUT)
 	LINK_LIBRARIES(
-		OpenGLSupport 
+		OpenGLSupport
 		BulletSoftBodySolvers_OpenCL_AMD
 		BulletMultiThreaded
 		BulletSoftBody
-		BulletDynamics  
-		BulletCollision  
-		LinearMath 
-		${GLUT_glut_LIBRARY} 
-		${OPENGL_gl_LIBRARY} 
+		BulletDynamics
+		BulletCollision
+		LinearMath
+		${GLUT_glut_LIBRARY}
+		${OPENGL_gl_LIBRARY}
 		${OPENGL_glu_LIBRARY}
 		${CMAK_GLEW_LIBRARY}
 			${CMAKE_ATISTREAMSDK_LIBRARY}
@@ -41,10 +41,10 @@ IF (USE_GLUT)
 
 	ADD_EXECUTABLE(AppOpenCLClothDemo_AMD
 		../cl_cloth_demo.cpp
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.cpp
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLUtils.h
-					${BULLET_PHYSICS_SOURCE_DIR}/Demos/SharedOpenCL/btOpenCLInclude.h
-#		${BULLET_PHYSICS_SOURCE_DIR}/Demos/OpenGL/GLDebugDrawer.cpp
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.cpp
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLUtils.h
+					${BULLET_PHYSICS_SOURCE_DIR}/demos/SharedOpenCL/btOpenCLInclude.h
+#		${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL/GLDebugDrawer.cpp
 		../gl_win.cpp
 		../clstuff.cpp
 
@@ -61,10 +61,10 @@ IF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
 	IF(WIN32)
 		IF (CMAKE_CL_64)
 			ADD_CUSTOM_COMMAND(	TARGET AppOpenCLClothDemo_AMD		POST_BUILD
-						COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/glut64.dll ${CMAKE_CURRENT_BINARY_DIR}	
+						COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/glut64.dll ${CMAKE_CURRENT_BINARY_DIR}
 						)
 		ELSE(CMAKE_CL_64)
-		
+
 			ADD_CUSTOM_COMMAND(	TARGET AppOpenCLClothDemo_AMD	POST_BUILD
 						COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/GLUT32.DLL ${CMAKE_CURRENT_BINARY_DIR}
 						)

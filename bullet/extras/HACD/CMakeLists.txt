@@ -1,5 +1,5 @@
 INCLUDE_DIRECTORIES(
- ${BULLET_PHYSICS_SOURCE_DIR}/Extras/HACD
+ ${BULLET_PHYSICS_SOURCE_DIR}/extras/HACD
 )
 
 SET(HACD_SRCS
@@ -18,7 +18,7 @@ SET(HACD_HDRS
 	hacdVector.h
 	hacdVersion.h
 	hacdCircularList.inl
-	hacdVector.inl	
+	hacdVector.inl
 )
 
 ADD_LIBRARY(HACD ${HACD_SRCS} ${HACD_HDRS})

@@ -209,24 +209,24 @@
 		32CA4F630368D1EE00C91783 /* AllBulletDemos_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllBulletDemos_Prefix.pch; sourceTree = "<group>"; };
 		3620538A0DCE4FB70048F794 /* file.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = file.obj; path = ../../file.obj; sourceTree = SOURCE_ROOT; };
 		366318BF0DCE4C6600FB1C5E /* BspDemo.bsp */ = {isa = PBXFileReference; lastKnownFileType = file; name = BspDemo.bsp; path = ../../BspDemo.bsp; sourceTree = SOURCE_ROOT; };
-		3699D1880DCF64EE001D9494 /* DemoEntries.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DemoEntries.cpp; path = ../../Demos/AllBulletDemos/DemoEntries.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1890DCF64EE001D9494 /* CcdPhysicsDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CcdPhysicsDemo.cpp; path = ../../Demos/CcdPhysicsDemo/CcdPhysicsDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D18A0DCF64EE001D9494 /* BasicDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BasicDemo.cpp; path = ../../Demos/BasicDemo/BasicDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D18C0DCF64EE001D9494 /* BspDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BspDemo.cpp; path = ../../Demos/BspDemo/BspDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D18D0DCF64EE001D9494 /* BspConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BspConverter.cpp; path = ../../Demos/BspDemo/BspConverter.cpp; sourceTree = SOURCE_ROOT; };
-		3699D18E0DCF64EE001D9494 /* BspLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BspLoader.cpp; path = ../../Demos/BspDemo/BspLoader.cpp; sourceTree = SOURCE_ROOT; };
-		3699D18F0DCF64EE001D9494 /* MotorDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MotorDemo.cpp; path = ../../Demos/DynamicControlDemo/MotorDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1900DCF64EE001D9494 /* ConcavePhysicsDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConcavePhysicsDemo.cpp; path = ../../Demos/ConcaveDemo/ConcavePhysicsDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1910DCF64EE001D9494 /* ConcaveRaycastDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConcaveRaycastDemo.cpp; path = ../../Demos/ConcaveRaycastDemo/ConcaveRaycastDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1920DCF64EE001D9494 /* ConcaveConvexcastDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConcaveConvexcastDemo.cpp; path = ../../Demos/ConcaveConvexcastDemo/ConcaveConvexcastDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1930DCF64EE001D9494 /* ConvexDecompositionDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConvexDecompositionDemo.cpp; path = ../../Demos/ConvexDecompositionDemo/ConvexDecompositionDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1940DCF64EE001D9494 /* SliderConstraintDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SliderConstraintDemo.cpp; path = ../../Demos/SliderConstraintDemo/SliderConstraintDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1950DCF64EE001D9494 /* RagdollDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RagdollDemo.cpp; path = ../../Demos/RagdollDemo/RagdollDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1960DCF64EE001D9494 /* GimpactTestDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GimpactTestDemo.cpp; path = ../../Demos/GimpactTestDemo/GimpactTestDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1970DCF64EE001D9494 /* Raytracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Raytracer.cpp; path = ../../Demos/Raytracer/Raytracer.cpp; sourceTree = SOURCE_ROOT; };
-		3699D1980DCF64EE001D9494 /* LinearConvexCastDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LinearConvexCastDemo.cpp; path = ../../Demos/GjkConvexCastDemo/LinearConvexCastDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D19A0DCF64EE001D9494 /* SoftDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoftDemo.cpp; path = ../../Demos/SoftDemo/SoftDemo.cpp; sourceTree = SOURCE_ROOT; };
-		3699D19B0DCF64EE001D9494 /* ConstraintDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConstraintDemo.cpp; path = ../../Demos/ConstraintDemo/ConstraintDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1880DCF64EE001D9494 /* DemoEntries.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DemoEntries.cpp; path = ../../demos/AllBulletDemos/DemoEntries.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1890DCF64EE001D9494 /* CcdPhysicsDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CcdPhysicsDemo.cpp; path = ../../demos/CcdPhysicsDemo/CcdPhysicsDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D18A0DCF64EE001D9494 /* BasicDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BasicDemo.cpp; path = ../../demos/BasicDemo/BasicDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D18C0DCF64EE001D9494 /* BspDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BspDemo.cpp; path = ../../demos/BspDemo/BspDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D18D0DCF64EE001D9494 /* BspConverter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BspConverter.cpp; path = ../../demos/BspDemo/BspConverter.cpp; sourceTree = SOURCE_ROOT; };
+		3699D18E0DCF64EE001D9494 /* BspLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BspLoader.cpp; path = ../../demos/BspDemo/BspLoader.cpp; sourceTree = SOURCE_ROOT; };
+		3699D18F0DCF64EE001D9494 /* MotorDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MotorDemo.cpp; path = ../../demos/DynamicControlDemo/MotorDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1900DCF64EE001D9494 /* ConcavePhysicsDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConcavePhysicsDemo.cpp; path = ../../demos/ConcaveDemo/ConcavePhysicsDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1910DCF64EE001D9494 /* ConcaveRaycastDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConcaveRaycastDemo.cpp; path = ../../demos/ConcaveRaycastDemo/ConcaveRaycastDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1920DCF64EE001D9494 /* ConcaveConvexcastDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConcaveConvexcastDemo.cpp; path = ../../demos/ConcaveConvexcastDemo/ConcaveConvexcastDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1930DCF64EE001D9494 /* ConvexDecompositionDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConvexDecompositionDemo.cpp; path = ../../demos/ConvexDecompositionDemo/ConvexDecompositionDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1940DCF64EE001D9494 /* SliderConstraintDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SliderConstraintDemo.cpp; path = ../../demos/SliderConstraintDemo/SliderConstraintDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1950DCF64EE001D9494 /* RagdollDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RagdollDemo.cpp; path = ../../demos/RagdollDemo/RagdollDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1960DCF64EE001D9494 /* GimpactTestDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GimpactTestDemo.cpp; path = ../../demos/GimpactTestDemo/GimpactTestDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1970DCF64EE001D9494 /* Raytracer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Raytracer.cpp; path = ../../demos/Raytracer/Raytracer.cpp; sourceTree = SOURCE_ROOT; };
+		3699D1980DCF64EE001D9494 /* LinearConvexCastDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = LinearConvexCastDemo.cpp; path = ../../demos/GjkConvexCastDemo/LinearConvexCastDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D19A0DCF64EE001D9494 /* SoftDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoftDemo.cpp; path = ../../demos/SoftDemo/SoftDemo.cpp; sourceTree = SOURCE_ROOT; };
+		3699D19B0DCF64EE001D9494 /* ConstraintDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConstraintDemo.cpp; path = ../../demos/ConstraintDemo/ConstraintDemo.cpp; sourceTree = SOURCE_ROOT; };
 		36A05AB80DCB349700ADF289 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		36A05AC80DCB367300ADF289 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
 		36A05B900DCB9EF000ADF289 /* BulletIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = BulletIcon.icns; sourceTree = "<group>"; };
@@ -578,8 +578,8 @@
 		7AE465D80F4CA288007715D6 /* btCharacterControllerInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btCharacterControllerInterface.h; path = ../../src/BulletDynamics/Character/btCharacterControllerInterface.h; sourceTree = SOURCE_ROOT; };
 		7AE465D90F4CA288007715D6 /* btKinematicCharacterController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = btKinematicCharacterController.cpp; path = ../../src/BulletDynamics/Character/btKinematicCharacterController.cpp; sourceTree = SOURCE_ROOT; };
 		7AE465DA0F4CA288007715D6 /* btKinematicCharacterController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btKinematicCharacterController.h; path = ../../src/BulletDynamics/Character/btKinematicCharacterController.h; sourceTree = SOURCE_ROOT; };
-		7AE465E30F4CA2DC007715D6 /* ForkLiftDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ForkLiftDemo.cpp; path = ../../Demos/ForkLiftDemo/ForkLiftDemo.cpp; sourceTree = SOURCE_ROOT; };
-		7AE465E40F4CA2DC007715D6 /* ForkLiftDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkLiftDemo.h; path = ../../Demos/ForkLiftDemo/ForkLiftDemo.h; sourceTree = SOURCE_ROOT; };
+		7AE465E30F4CA2DC007715D6 /* ForkLiftDemo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ForkLiftDemo.cpp; path = ../../demos/ForkLiftDemo/ForkLiftDemo.cpp; sourceTree = SOURCE_ROOT; };
+		7AE465E40F4CA2DC007715D6 /* ForkLiftDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ForkLiftDemo.h; path = ../../demos/ForkLiftDemo/ForkLiftDemo.h; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* AllBulletDemos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AllBulletDemos.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC1BE0E311F7BB5E00A57EBB /* btDefaultSoftBodySolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = btDefaultSoftBodySolver.cpp; sourceTree = "<group>"; };
@@ -1208,7 +1208,7 @@
 				7ACE5AC10DDFA30100CA06EA /* RenderTexture.h */,
 			);
 			name = OpenGL;
-			path = ../../Demos/OpenGL;
+			path = ../../demos/OpenGL;
 			sourceTree = SOURCE_ROOT;
 		};
 		7ACE5B2E0DDFA36000CA06EA /* ConvexDecomposition */ = {
@@ -1548,20 +1548,20 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AllBulletDemos_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					../../Demos/AllBulletDemos/,
-					../../Demos/OpenGL,
+					../../demos/AllBulletDemos/,
+					../../demos/OpenGL,
 					../../src,
-					../../Extras/COLLADA_DOM/include,
-					../../Extras/COLLADA_DOM/include/1.4,
-					../../Extras/LibXML/include,
-					../../Extras/LibXML,
-					../../Extras/ConvexDecomposition,
-					../../Extras/GIMPACTUtils,
-					../../Extras/GIMPACT/include,
-					../../Extras,
-					../../Extras/BulletColladaConverter,
+					../../extras/COLLADA_DOM/include,
+					../../extras/COLLADA_DOM/include/1.4,
+					../../extras/LibXML/include,
+					../../extras/LibXML,
+					../../extras/ConvexDecomposition,
+					../../extras/GIMPACTUtils,
+					../../extras/GIMPACT/include,
+					../../extras,
+					../../extras/BulletColladaConverter,
 					/System/Library/Frameworks/GLUT.framework/Headers,
-					../../Extras/HACD,
+					../../extras/HACD,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -1632,10 +1632,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_63)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../src/BulletSoftBody/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/../../Extras/COLLADA_DOM/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_11 = "\"$(SRCROOT)/../../Extras/GIMPACTUtils/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_12 = "\"$(SRCROOT)/../../Extras/GIMPACT/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_13 = "\"$(SRCROOT)/../../Demos/OpenGL/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/../../extras/COLLADA_DOM/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_11 = "\"$(SRCROOT)/../../extras/GIMPACTUtils/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_12 = "\"$(SRCROOT)/../../extras/GIMPACT/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_13 = "\"$(SRCROOT)/../../demos/OpenGL/Release\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_14 = "\"$(SRCROOT)/../../src/BulletCollision/BULLET_PHYSICS.build/Release/libLibBulletCollision.a.build/Objects-normal/i386\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_15 = "\"$(SRCROOT)/../../src/BulletCollision/BULLET_PHYSICS.build/Release/libLibBulletCollision.a.build/Objects-normal/ppc\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_16 = "\"$(SRCROOT)/../../src/BulletCollision/BULLET_PHYSICS.build/Release/libLibBulletCollision.a.build/Objects-normal/ppc64\"";
@@ -1661,13 +1661,13 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_34 = "\"$(SRCROOT)/../../src/LinearMath/Debug\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_35 = "\"$(SRCROOT)/../../src/LinearMath\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_36 = "\"$(SRCROOT)/../../src/LinearMath/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_37 = "\"$(SRCROOT)/../../Demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/i386\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_38 = "\"$(SRCROOT)/../../Demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/ppc\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_39 = "\"$(SRCROOT)/../../Demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/ppc64\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_37 = "\"$(SRCROOT)/../../demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/i386\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_38 = "\"$(SRCROOT)/../../demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/ppc\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_39 = "\"$(SRCROOT)/../../demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/ppc64\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../src/LinearMath/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_40 = "\"$(SRCROOT)/../../Demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/x86_64\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_41 = "\"$(SRCROOT)/../../Demos/OpenGL/Debug\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_42 = "\"$(SRCROOT)/../../Demos/OpenGL/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_40 = "\"$(SRCROOT)/../../demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/x86_64\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_41 = "\"$(SRCROOT)/../../demos/OpenGL/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_42 = "\"$(SRCROOT)/../../demos/OpenGL/Release\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_43 = "\"$(SRCROOT)/../ConvexDecomposition/BULLET_PHYSICS.build/Release/libLibConvexDecomposition.a.build/Objects-normal/i386\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_44 = "\"$(SRCROOT)/../ConvexDecomposition/BULLET_PHYSICS.build/Release/libLibConvexDecomposition.a.build/Objects-normal/ppc\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_45 = "\"$(SRCROOT)/../ConvexDecomposition/BULLET_PHYSICS.build/Release/libLibConvexDecomposition.a.build/Objects-normal/ppc64\"";
@@ -1686,14 +1686,14 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_57 = "\"$(SRCROOT)/../GIMPACTUtils/BULLET_PHYSICS.build/Release/libLibGIMPACTUtils.a.build/Objects-normal/i386\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_58 = "\"$(SRCROOT)/../GIMPACTUtils/BULLET_PHYSICS.build/Release/libLibGIMPACTUtils.a.build/Objects-normal/ppc\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_59 = "\"$(SRCROOT)/../GIMPACTUtils/BULLET_PHYSICS.build/Release/libLibGIMPACTUtils.a.build/Objects-normal/ppc64\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../Extras/glui/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../extras/glui/Release\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_60 = "\"$(SRCROOT)/../GIMPACTUtils/BULLET_PHYSICS.build/Release/libLibGIMPACTUtils.a.build/Objects-normal/x86_64\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_61 = "\"$(SRCROOT)/../GIMPACTUtils/Debug\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_62 = "\"$(SRCROOT)/../GIMPACTUtils\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_63 = "\"$(SRCROOT)/../GIMPACTUtils/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../Extras/ConvexDecomposition/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../Extras/BulletColladaConverter/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../Extras/LibXML/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../extras/ConvexDecomposition/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../extras/BulletColladaConverter/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../extras/LibXML/Release\"";
 				PRODUCT_NAME = AllBulletDemos;
 			};
 			name = Debug;
@@ -1707,20 +1707,20 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = AllBulletDemos_Prefix.pch;
 				HEADER_SEARCH_PATHS = (
-					../../Demos/AllBulletDemos/,
-					../../Demos/OpenGL,
+					../../demos/AllBulletDemos/,
+					../../demos/OpenGL,
 					../../src,
-					../../Extras/COLLADA_DOM/include,
-					../../Extras/COLLADA_DOM/include/1.4,
-					../../Extras/LibXML/include,
-					../../Extras/LibXML,
-					../../Extras/ConvexDecomposition,
-					../../Extras/GIMPACTUtils,
-					../../Extras/GIMPACT/include,
-					../../Extras,
-					../../Extras/BulletColladaConverter,
+					../../extras/COLLADA_DOM/include,
+					../../extras/COLLADA_DOM/include/1.4,
+					../../extras/LibXML/include,
+					../../extras/LibXML,
+					../../extras/ConvexDecomposition,
+					../../extras/GIMPACTUtils,
+					../../extras/GIMPACT/include,
+					../../extras,
+					../../extras/BulletColladaConverter,
 					/System/Library/Frameworks/GLUT.framework/Headers,
-					../../Extras/HACD,
+					../../extras/HACD,
 				);
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
@@ -1791,10 +1791,10 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_63)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)/../../src/BulletSoftBody/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/../../Extras/COLLADA_DOM/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_11 = "\"$(SRCROOT)/../../Extras/GIMPACTUtils/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_12 = "\"$(SRCROOT)/../../Extras/GIMPACT/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_13 = "\"$(SRCROOT)/../../Demos/OpenGL/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_10 = "\"$(SRCROOT)/../../extras/COLLADA_DOM/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_11 = "\"$(SRCROOT)/../../extras/GIMPACTUtils/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_12 = "\"$(SRCROOT)/../../extras/GIMPACT/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_13 = "\"$(SRCROOT)/../../demos/OpenGL/Release\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_14 = "\"$(SRCROOT)/../../src/BulletCollision/BULLET_PHYSICS.build/Release/libLibBulletCollision.a.build/Objects-normal/i386\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_15 = "\"$(SRCROOT)/../../src/BulletCollision/BULLET_PHYSICS.build/Release/libLibBulletCollision.a.build/Objects-normal/ppc\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_16 = "\"$(SRCROOT)/../../src/BulletCollision/BULLET_PHYSICS.build/Release/libLibBulletCollision.a.build/Objects-normal/ppc64\"";
@@ -1820,13 +1820,13 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_34 = "\"$(SRCROOT)/../../src/LinearMath/Debug\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_35 = "\"$(SRCROOT)/../../src/LinearMath\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_36 = "\"$(SRCROOT)/../../src/LinearMath/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_37 = "\"$(SRCROOT)/../../Demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/i386\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_38 = "\"$(SRCROOT)/../../Demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/ppc\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_39 = "\"$(SRCROOT)/../../Demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/ppc64\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_37 = "\"$(SRCROOT)/../../demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/i386\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_38 = "\"$(SRCROOT)/../../demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/ppc\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_39 = "\"$(SRCROOT)/../../demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/ppc64\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_4 = "\"$(SRCROOT)/../../src/LinearMath/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_40 = "\"$(SRCROOT)/../../Demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/x86_64\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_41 = "\"$(SRCROOT)/../../Demos/OpenGL/Debug\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_42 = "\"$(SRCROOT)/../../Demos/OpenGL/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_40 = "\"$(SRCROOT)/../../demos/OpenGL/BULLET_PHYSICS.build/Release/libLibOpenGLSupport.a.build/Objects-normal/x86_64\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_41 = "\"$(SRCROOT)/../../demos/OpenGL/Debug\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_42 = "\"$(SRCROOT)/../../demos/OpenGL/Release\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_43 = "\"$(SRCROOT)/../ConvexDecomposition/BULLET_PHYSICS.build/Release/libLibConvexDecomposition.a.build/Objects-normal/i386\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_44 = "\"$(SRCROOT)/../ConvexDecomposition/BULLET_PHYSICS.build/Release/libLibConvexDecomposition.a.build/Objects-normal/ppc\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_45 = "\"$(SRCROOT)/../ConvexDecomposition/BULLET_PHYSICS.build/Release/libLibConvexDecomposition.a.build/Objects-normal/ppc64\"";
@@ -1845,14 +1845,14 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_57 = "\"$(SRCROOT)/../GIMPACTUtils/BULLET_PHYSICS.build/Release/libLibGIMPACTUtils.a.build/Objects-normal/i386\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_58 = "\"$(SRCROOT)/../GIMPACTUtils/BULLET_PHYSICS.build/Release/libLibGIMPACTUtils.a.build/Objects-normal/ppc\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_59 = "\"$(SRCROOT)/../GIMPACTUtils/BULLET_PHYSICS.build/Release/libLibGIMPACTUtils.a.build/Objects-normal/ppc64\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../Extras/glui/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_6 = "\"$(SRCROOT)/../../extras/glui/Release\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_60 = "\"$(SRCROOT)/../GIMPACTUtils/BULLET_PHYSICS.build/Release/libLibGIMPACTUtils.a.build/Objects-normal/x86_64\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_61 = "\"$(SRCROOT)/../GIMPACTUtils/Debug\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_62 = "\"$(SRCROOT)/../GIMPACTUtils\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_63 = "\"$(SRCROOT)/../GIMPACTUtils/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../Extras/ConvexDecomposition/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../Extras/BulletColladaConverter/Release\"";
-				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../Extras/LibXML/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_7 = "\"$(SRCROOT)/../../extras/ConvexDecomposition/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_8 = "\"$(SRCROOT)/../../extras/BulletColladaConverter/Release\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_9 = "\"$(SRCROOT)/../../extras/LibXML/Release\"";
 				PRODUCT_NAME = AllBulletDemos;
 			};
 			name = Release;
@@ -1867,18 +1867,18 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../Demos/AllBulletDemos/,
-					../../Demos/OpenGL,
+					../../demos/AllBulletDemos/,
+					../../demos/OpenGL,
 					../../src,
-					../../Extras/COLLADA_DOM/include,
-					../../Extras/COLLADA_DOM/include/1.4,
-					../../Extras/LibXML/include,
-					../../Extras/LibXML,
-					../../Extras/ConvexDecomposition,
-					../../Extras/GIMPACTUtils,
-					../../Extras/GIMPACT/include,
-					../../Extras,
-					../../Extras/BulletColladaConverter,
+					../../extras/COLLADA_DOM/include,
+					../../extras/COLLADA_DOM/include/1.4,
+					../../extras/LibXML/include,
+					../../extras/LibXML,
+					../../extras/ConvexDecomposition,
+					../../extras/GIMPACTUtils,
+					../../extras/GIMPACT/include,
+					../../extras,
+					../../extras/BulletColladaConverter,
 					/System/Library/Frameworks/GLUT.framework/Headers,
 				);
 				ONLY_ACTIVE_ARCH_PRE_XCODE_3_1 = "$(NATIVE_ARCH)";
@@ -1896,18 +1896,18 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
-					../../Demos/AllBulletDemos/,
-					../../Demos/OpenGL,
+					../../demos/AllBulletDemos/,
+					../../demos/OpenGL,
 					../../src,
-					../../Extras/COLLADA_DOM/include,
-					../../Extras/COLLADA_DOM/include/1.4,
-					../../Extras/LibXML/include,
-					../../Extras/LibXML,
-					../../Extras/ConvexDecomposition,
-					../../Extras/GIMPACTUtils,
-					../../Extras/GIMPACT/include,
-					../../Extras,
-					../../Extras/BulletColladaConverter,
+					../../extras/COLLADA_DOM/include,
+					../../extras/COLLADA_DOM/include/1.4,
+					../../extras/LibXML/include,
+					../../extras/LibXML,
+					../../extras/ConvexDecomposition,
+					../../extras/GIMPACTUtils,
+					../../extras/GIMPACT/include,
+					../../extras,
+					../../extras/BulletColladaConverter,
 					/System/Library/Frameworks/GLUT.framework/Headers,
 				);
 				PREBINDING = NO;

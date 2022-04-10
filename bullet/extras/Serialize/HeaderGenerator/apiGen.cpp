@@ -104,7 +104,7 @@ void writeTemplate(short *structData)
 	bString type = mDNA->getType(structData[0]);
 	bString className=type;
 	bString prefix = isBulletFile? "bullet_" : "blender_";
-	
+
 	int thisLen = structData[1];
 	structData+=2;
 
@@ -121,7 +121,7 @@ void writeTemplate(short *structData)
 		{
 			bString newDataType = "";
 			bString newDataName = "";
-			
+
 			bStringMap::iterator addB = mStructs.find(dataType);
 			if (addB != mStructs.end())
 			{
@@ -129,7 +129,7 @@ void writeTemplate(short *structData)
 				newDataName = dataName;
 			}
 
-			else 
+			else
 			{
 				if (dataTypeStandard(dataType))
 				{
@@ -148,7 +148,7 @@ void writeTemplate(short *structData)
 					{
 					}
 
-				} 
+				}
 			}
 
 			if (!newDataType.empty() && !newDataName.empty())
@@ -163,7 +163,7 @@ void writeTemplate(short *structData)
 		bStringMap::iterator include = mStructs.find(dataType);
 		if (include != mStructs.end())
 		{
-			if (dataName[0] != '*') 
+			if (dataName[0] != '*')
 			{
 				if (includeFiles.find(dataType)== includeFiles.end())
 				{
@@ -219,9 +219,9 @@ int main(int argc,char** argv)
 	if (!dump) return 0;
 	fprintf(dump, "%s\n", data);
 
-	
-	char* filename = "../../../Demos/SerializeDemo/testFile.bullet";
-	
+
+	char* filename = "../../../demos/SerializeDemo/testFile.bullet";
+
 	if (argc==2)
 		filename = argv[1];
 
@@ -232,7 +232,7 @@ int main(int argc,char** argv)
 	if (index2>=0)
 		isBulletFile=true;
 
-	
+
 	FILE* fp = fopen (filename,"rb");
 
 	if (!fp)
@@ -251,15 +251,15 @@ int main(int argc,char** argv)
 	fseek(fp, 0, SEEK_END); /* seek to end */
 	newpos = ftell(fp); /* find position of end -- this is the length */
 	fseek(fp, currentpos, SEEK_SET); /* restore previous cursor position */
-	
+
 	len = newpos;
-	
+
 	memBuf = (char*)malloc(len);
 	bytesRead = fread(memBuf,len,1,fp);
 
 	bool swap = false;
 
-	
+
 	if (isBulletFile)
 	{
 		btBulletFile f(memBuf,len);
@@ -270,8 +270,8 @@ int main(int argc,char** argv)
 		swap = (f.getFlags() & FD_ENDIAN_SWAP)!=0;
 	}
 
-	
-	
+
+
 
 
 	char *blenderData = memBuf;
@@ -293,7 +293,7 @@ int main(int argc,char** argv)
 		tempBuffer++;
 	}
 
-	
+
 
 	FILE* fpdna = fopen("dnaString.txt","w");
 	char buf[1024];
@@ -305,13 +305,13 @@ int main(int argc,char** argv)
 		if ((i%32)==0)
 		{
 			sprintf(buf,"%d,\n",dnaval);
-			
+
 		} else
 		{
 			sprintf(buf,"%d,",dnaval);
 		}
-		
-		
+
+
 		fwrite(buf,strlen(buf),1,fpdna);
 	}
 
@@ -321,9 +321,9 @@ int main(int argc,char** argv)
 
 	mDNA = new bDNA();
 	//mDNA->initMemory();
-	
+
 	mDNA->init(memBuf+sdnaPos, len-sdnaPos, swap);
-	
+
 
 	for (int i=0; i<mDNA->getNumStructs(); i++)
 	{
