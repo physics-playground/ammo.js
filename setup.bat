@@ -1,17 +1,21 @@
 @echo off
 
-set EMSDK_LOCAL=%~dp0build\emsdk
-
 setlocal EnableDelayedExpansion
-    if not exist "%EMSDK_LOCAL%" (
-        git clone "https://github.com/emscripten-core/emsdk.git" "%EMSDK_LOCAL%"
-        call "%EMSDK_LOCAL%\emsdk.bat" install latest
+    set _emsdk_local=%~dp0build\emsdk
+    set _emsdk=%_emsdk_local%\emsdk.bat
+
+    if not exist "%_emsdk_local%" (
+        git clone "https://github.com/emscripten-core/emsdk.git" "%_emsdk_local%"
+        call "%_emsdk%" install latest
     )
 
-    call "%EMSDK_LOCAL%\emsdk.bat" activate latest
-    call "%EMSDK_LOCAL%\emsdk_env.bat"
+    call "%_emsdk%" install mingw-4.6.2-32bit
+    call "%_emsdk%" activate mingw-4.6.2-32bit
 
-    git -C "%EMSDK_LOCAL%" pull
-endlocal
+    call "%_emsdk%" activate latest
+    call "%_emsdk_local%\emsdk_env.bat"
 
-"%EMSDK_LOCAL%\emsdk_env.bat"
+    git -C "%_emsdk_local%" pull
+endlocal & (
+    set "EMSDK_LOCAL=%_emsdk_local%"
+)
