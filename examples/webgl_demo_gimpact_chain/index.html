@@ -28,6 +28,7 @@
         a {
             color: #a06851;
         }
+
     </style>
 </head>
 
@@ -44,7 +45,6 @@
     <script src="../js/three/stats.min.js"></script>
 
     <script>
-
         const gltfLoader = new THREE.GLTFLoader();
         const textureLoader = new THREE.TextureLoader();
 
@@ -116,13 +116,13 @@
                 scene.add(ambientLight);
 
                 const light = new THREE.DirectionalLight(0xffffff, 1);
-                light.position.set(- 10, 10, 5);
+                light.position.set(-10, 10, 5);
                 light.castShadow = true;
                 const d = 10;
-                light.shadow.camera.left = - d;
+                light.shadow.camera.left = -d;
                 light.shadow.camera.right = d;
                 light.shadow.camera.top = d;
-                light.shadow.camera.bottom = - d;
+                light.shadow.camera.bottom = -d;
 
                 light.shadow.camera.near = 2;
                 light.shadow.camera.far = 50;
@@ -151,7 +151,8 @@
                 let m_broadphase = new Ammo.btDbvtBroadphase();
                 let m_constraintSolver = new Ammo.btSequentialImpulseConstraintSolver();
 
-                physicsWorld = new Ammo.btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_constraintSolver, m_collisionConfiguration);
+                physicsWorld = new Ammo.btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_constraintSolver,
+                    m_collisionConfiguration);
                 physicsWorld.setGravity(new Ammo.btVector3(0, -9.810, 0));
 
                 Ammo.btGImpactCollisionAlgorithm.prototype.registerAlgorithm(physicsWorld.getDispatcher());
@@ -181,8 +182,11 @@
                                     quat.copy(child.quaternion);
 
                                     if (child.name == 'Static') {
-                                        let body = createRigidBody(child, trimesh, 0, pos, quat);
-                                        body.setCollisionFlags(body.getCollisionFlags() | 1/* btCollisionObject:: CF_STATIC_OBJECT */);
+                                        let body = createRigidBody(child, trimesh, 0, pos,
+                                            quat);
+                                        body.setCollisionFlags(body.getCollisionFlags() |
+                                            1 /* btCollisionObject:: CF_STATIC_OBJECT */
+                                            );
                                     } else {
                                         createRigidBody(child, trimesh, 1, pos, quat);
                                     }
@@ -197,9 +201,12 @@
             function createObjects() {
 
                 // Ground
-                pos.set(0, - 0.5, 0);
+                pos.set(0, -0.5, 0);
                 quat.set(0, 0, 0, 1);
-                const ground = createParalellepipedWithPhysics(40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial({ color: 0xFFFFFF }));
+                const ground = createParalellepipedWithPhysics(40, 1, 40, 0, pos, quat, new THREE
+                    .MeshPhongMaterial({
+                        color: 0xFFFFFF
+                    }));
                 scene.add(ground);
                 ground.receiveShadow = true;
                 textureLoader.load('../textures/grid.png', function (texture) {
@@ -219,7 +226,7 @@
                 let brickHeight = brickLength * 0.5;
                 let numBricksLength = 6;
                 let numBricksHeight = 8;
-                let z0 = - numBricksLength * brickLength * 0.5;
+                let z0 = -numBricksLength * brickLength * 0.5;
                 pos.set(0, brickHeight * 0.5, z0);
                 quat.set(0, 0, 0, 1);
                 for (let j = 0; j < numBricksHeight; j++) {
@@ -242,15 +249,15 @@
                             brickMassCurrent *= 0.5;
                         }
 
-                        let brick = createParalellepiped(brickDepth, brickHeight, brickLengthCurrent, brickMassCurrent, pos, quat, createMaterial());
+                        let brick = createParalellepiped(brickDepth, brickHeight, brickLengthCurrent,
+                            brickMassCurrent, pos, quat, createMaterial());
                         brick.castShadow = true;
                         brick.receiveShadow = true;
                         scene.add(brick);
 
                         if (oddRow && (i == 0 || i == nRow - 2)) {
                             pos.z += 0.75 * brickLength;
-                        }
-                        else {
+                        } else {
                             pos.z += brickLength;
                         }
 
@@ -296,7 +303,9 @@
             function createMaterial(color) {
 
                 color = color || createRandomColor();
-                return new THREE.MeshPhongMaterial({ color: color });
+                return new THREE.MeshPhongMaterial({
+                    color: color
+                });
 
             }
 
@@ -331,7 +340,8 @@
                 const localInertia = new Ammo.btVector3(0, 0, 0);
                 physicsShape.calculateLocalInertia(mass, localInertia);
 
-                const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape, localInertia);
+                const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape,
+                    localInertia);
                 const body = new Ammo.btRigidBody(rbInfo);
 
                 body.setFriction(0.5);
@@ -440,8 +450,7 @@
 
                     totvert = vertices.length;
 
-                }
-                else {
+                } else {
                     console.error("cannot make mesh shape for non-Mesh object");
                 }
 
@@ -450,7 +459,11 @@
                 }
 
                 if (!scale)
-                    scale = { x: 1, y: 1, z: 1 };
+                    scale = {
+                        x: 1,
+                        y: 1,
+                        z: 1
+                    };
 
                 /* vertices, faces */
                 let ammoMesh = new Ammo.btTriangleMesh();
