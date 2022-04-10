@@ -59,3 +59,8 @@ jobs:
         run: npx ava
         env:
           AMMO_BUILD: bin/ammo.wasm.js
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}
+          path: bin/ammo.*
