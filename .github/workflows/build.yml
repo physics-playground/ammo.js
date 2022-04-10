@@ -46,7 +46,7 @@ jobs:
       - run: python -V
       - run: cmake --version
       - run: ${{ matrix.make || 'make' }} --version
-      - run: cmake -B bin -DCLOSURE=1 ${{ matrix.cmake-args }}
+      - run: cmake -B bin -DCLOSURE=1 -DCMAKE_TOOLCHAIN_FILE="${{env.EMSDK}}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake" ${{ matrix.cmake-args }}
       - run: cmake --build bin -- VERBOSE=1
       - run: npm ci
 

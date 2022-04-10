@@ -1,12 +1,4 @@
-build/
-.cmake/
-build.ninja
-CMakeCache.txt
-cmake_install.cmake
-Testing/
-CMakeFiles/
-bullet/BulletConfig.cmake
-.vscode/*.log
+/build/
 
 bin/CMakeCache.txt
 bin/CMakeFiles/
@@ -20,6 +12,19 @@ bin/glue.o
 bin/parser.out
 node_modules
 *.diff
+
+#
+# Intermediate build files
+#
+
+.cmake/
+build.ninja
+CMakeCache.txt
+cmake_install.cmake
+Testing/
+CMakeFiles/
+bullet/BulletConfig.cmake
+.vscode/*.log
 
 # Vim
 [._]*.s[a-v][a-z]
