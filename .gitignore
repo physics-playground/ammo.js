@@ -1,17 +1,14 @@
-/build/
+#
+# Ignored files for `ammo.js`
+#
 
-bin/CMakeCache.txt
-bin/CMakeFiles/
-bin/Makefile
-bin/WebIDLGrammar.pkl
-bin/bullet/
-bin/cmake_install.cmake
-bin/glue.cpp
-bin/glue.js
-bin/glue.o
-bin/parser.out
+# Ignore generated binaries
+/build/
+/bin/
+
+# NPM related files
 node_modules
-*.diff
+.yarn/
 
 #
 # Intermediate build files
@@ -25,6 +22,7 @@ Testing/
 CMakeFiles/
 bullet/BulletConfig.cmake
 .vscode/*.log
+*.diff
 
 # Vim
 [._]*.s[a-v][a-z]
