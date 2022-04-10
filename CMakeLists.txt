@@ -3,9 +3,8 @@ set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
 FIND_PACKAGE(Python3)
 set(PYTHON ${Python3_EXECUTABLE} CACHE STRING "Python path")
-set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten CACHE STRING "Emscripten path")
-#set(CMAKE_TOOLCHAIN_FILE Emscripten.cmake)
-#set(CMAKE_TOOLCHAIN_FILE ${EMSCRIPTEN_ROOT}/cmake/Modules/Platform/Emscripten.cmake)
+
+set(EMSCRIPTEN_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/build/emsdk/upstream/emscripten CACHE STRING "Emscripten path")
 set(WEBIDL_BINDER_SCRIPT ${EMSCRIPTEN_ROOT}/tools/webidl_binder.py)
 set(AMMO_FRONT_MATTER_FILE ${CMAKE_CURRENT_SOURCE_DIR}/front-matter.js)
 set(AMMO_HEADER_FILE ${CMAKE_CURRENT_SOURCE_DIR}/ammo.h)
