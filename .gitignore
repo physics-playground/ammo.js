@@ -1,3 +1,13 @@
+build/
+.cmake/
+build.ninja
+CMakeCache.txt
+cmake_install.cmake
+Testing/
+CMakeFiles/
+bullet/BulletConfig.cmake
+.vscode/*.log
+
 builds/CMakeCache.txt
 builds/CMakeFiles/
 builds/Makefile
