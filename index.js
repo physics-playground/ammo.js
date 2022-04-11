@@ -43,11 +43,12 @@ Ammo(config).then((Ammo) => {
     function resetPositions() {
         const side = Math.ceil(NUM ** (1 / 3));
         let i = 1;
-        for (let x = 0; x < side; x++) {
-            for (let y = 0; y < side; y++) {
-                for (let z = 0; z < side; z++) {
-                    if (i == bodies.length) break;
-                    const body = bodies[i++];
+        for (let x = 0; x < side; x += 1) {
+            for (let y = 0; y < side; y += 1) {
+                for (let z = 0; z < side; z += 1) {
+                    if (i === bodies.length) break;
+                    const body = bodies[i];
+                    i += 1;
                     const origin = body.getWorldTransform().getOrigin();
                     origin.setX((x - side / 2) * (2.2 + Math.random()));
                     origin.setY(y * (3 + Math.random()));
@@ -64,7 +65,7 @@ Ammo(config).then((Ammo) => {
     }
 
     function startUp() {
-        NUMRANGE.forEach((i) => {
+        NUMRANGE.forEach(() => {
             const startTransform = new Ammo.btTransform();
             startTransform.setIdentity();
             const mass = 1;
@@ -107,7 +108,7 @@ Ammo(config).then((Ammo) => {
             }
             return false;
         }
-        for (let i = 1; i <= NUM; i++) {
+        for (let i = 1; i <= NUM; i += 1) {
             const body = bodies[i];
             if (!body.isActive()) {
                 nextTimeToRestart = Date.now() + 1000; // add another second after first is inactive
@@ -133,13 +134,14 @@ Ammo(config).then((Ammo) => {
         }
         meanDt = alpha * dt + (1 - alpha) * meanDt;
 
-        const alpha2 = 1 / frame++;
+        const alpha2 = 1 / frame;
+        frame += 1;
         meanDt2 = alpha2 * dt + (1 - alpha2) * meanDt2;
 
         const data = { objects: [], currFPS: Math.round(1000 / meanDt), allFPS: Math.round(1000 / meanDt2) };
 
         // Read bullet data into JS objects
-        for (let i = 0; i < NUM; i++) {
+        for (let i = 0; i < NUM; i += 1) {
             const object = [];
             readBulletObject(i + 1, object);
             data.objects[i] = object;
