@@ -1,87 +1,76 @@
 # This is basically the overall name of the project in Visual Studio this is the name of the Solution File
 
-
 # For every executable you have with a main method you should have an add_executable line below.
 # For every add executable line you should list every .cpp and .h file you have associated with that executable.
 
-
 # This is the variable for Windows.  I use this to define the root of my directory structure.
-SET(GLUT_ROOT ${BULLET_PHYSICS_SOURCE_DIR}/Glut)
+set(GLUT_ROOT ${BULLET_PHYSICS_SOURCE_DIR}/Glut)
 
 # You shouldn't have to modify anything below this line
 ########################################################
 
-INCLUDE_DIRECTORIES(
-${BULLET_PHYSICS_SOURCE_DIR}/src ${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
+include_directories(
+        ${BULLET_PHYSICS_SOURCE_DIR}/src ${BULLET_PHYSICS_SOURCE_DIR}/demos/OpenGL
 )
 
+if(USE_GLUT)
+    link_libraries(
+            OpenGLSupport BulletDynamics BulletCollision LinearMath ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
+    )
 
+    if(WIN32)
+        add_executable(AppVoronoiFractureDemo
+                main.cpp
+                VoronoiFractureDemo.cpp
+                VoronoiFractureDemo.h
+                ${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
+                )
+    else()
+        add_executable(AppVoronoiFractureDemo
+                main.cpp
+                VoronoiFractureDemo.cpp
+                VoronoiFractureDemo.h
+                )
+    endif()
 
-IF (USE_GLUT)
-	LINK_LIBRARIES(
-	OpenGLSupport  BulletDynamics  BulletCollision LinearMath  ${GLUT_glut_LIBRARY} ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
-	)
+    if(WIN32)
+        if(NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
+            if(CMAKE_CL_64)
+                add_custom_command(
+                        TARGET AppVoronoiFractureDemo
+                        POST_BUILD
+                        COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/glut64.dll ${CMAKE_CURRENT_BINARY_DIR}
+                )
+            else(CMAKE_CL_64)
+                add_custom_command(
+                        TARGET AppVoronoiFractureDemo
+                        POST_BUILD
+                        #		  		COMMAND copy /Y ${BULLET_PHYSICS_SOURCE_DIR}/GLUT32.DLL ${CMAKE_CURRENT_BINARY_DIR}
+                        COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/GLUT32.DLL ${CMAKE_CURRENT_BINARY_DIR}
+                )
+            endif(CMAKE_CL_64)
+        endif(NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
 
-IF (WIN32)
-ADD_EXECUTABLE(AppVoronoiFractureDemo
-		main.cpp
-		VoronoiFractureDemo.cpp
-		VoronoiFractureDemo.h
-		${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
-	)
-ELSE()
-	ADD_EXECUTABLE(AppVoronoiFractureDemo
-		main.cpp
-		VoronoiFractureDemo.cpp
-		VoronoiFractureDemo.h
-	)
-ENDIF()
+    endif(WIN32)
+else(USE_GLUT)
 
+    link_libraries(
+            OpenGLSupport BulletDynamics BulletCollision LinearMath ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
+    )
 
+    add_executable(AppVoronoiFractureDemo
+            WIN32
+            ../OpenGL/Win32AppMain.cpp
+            Win32VoronoiFractureDemo.cpp
+            VoronoiFractureDemo.cpp
+            VoronoiFractureDemo.h
+            ${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
+            )
 
+endif(USE_GLUT)
 
-	IF (WIN32)
-		IF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
-			IF (CMAKE_CL_64)
-				ADD_CUSTOM_COMMAND(
-					TARGET AppVoronoiFractureDemo
-					POST_BUILD
-					COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/glut64.dll ${CMAKE_CURRENT_BINARY_DIR}
-				)
-			ELSE(CMAKE_CL_64)
-				ADD_CUSTOM_COMMAND(
-					TARGET AppVoronoiFractureDemo
-					POST_BUILD
-#		  		COMMAND copy /Y ${BULLET_PHYSICS_SOURCE_DIR}/GLUT32.DLL ${CMAKE_CURRENT_BINARY_DIR}
-					COMMAND ${CMAKE_COMMAND} ARGS -E copy_if_different ${BULLET_PHYSICS_SOURCE_DIR}/GLUT32.DLL ${CMAKE_CURRENT_BINARY_DIR}
-				)
-			ENDIF(CMAKE_CL_64)
-		ENDIF (NOT INTERNAL_CREATE_DISTRIBUTABLE_MSVC_PROJECTFILES)
-
-	ENDIF(WIN32)
-ELSE (USE_GLUT)
-
-
-
-	LINK_LIBRARIES(
-	OpenGLSupport  BulletDynamics  BulletCollision LinearMath  ${OPENGL_gl_LIBRARY} ${OPENGL_glu_LIBRARY}
-	)
-
-
-	ADD_EXECUTABLE(AppVoronoiFractureDemo
-		WIN32
-		../OpenGL/Win32AppMain.cpp
-		Win32VoronoiFractureDemo.cpp
-		VoronoiFractureDemo.cpp
-		VoronoiFractureDemo.h
-		${BULLET_PHYSICS_SOURCE_DIR}/build/bullet.rc
-	)
-
-
-ENDIF (USE_GLUT)
-
-IF (INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
-			SET_TARGET_PROPERTIES(AppVoronoiFractureDemo PROPERTIES  DEBUG_POSTFIX "_Debug")
-			SET_TARGET_PROPERTIES(AppVoronoiFractureDemo PROPERTIES  MINSIZEREL_POSTFIX "_MinsizeRel")
-			SET_TARGET_PROPERTIES(AppVoronoiFractureDemo PROPERTIES  RELWITHDEBINFO_POSTFIX "_RelWithDebugInfo")
-ENDIF(INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
+if(INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)
+    set_target_properties(AppVoronoiFractureDemo PROPERTIES DEBUG_POSTFIX "_Debug")
+    set_target_properties(AppVoronoiFractureDemo PROPERTIES MINSIZEREL_POSTFIX "_MinsizeRel")
+    set_target_properties(AppVoronoiFractureDemo PROPERTIES RELWITHDEBINFO_POSTFIX "_RelWithDebugInfo")
+endif(INTERNAL_ADD_POSTFIX_EXECUTABLE_NAMES)

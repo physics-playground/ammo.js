@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.13 FATAL_ERROR)
 set(CMAKE_POLICY_DEFAULT_CMP0077 NEW)
 
-FIND_PACKAGE(Python3)
+find_package(Python3)
 set(PYTHON ${Python3_EXECUTABLE} CACHE STRING "Python path")
 
-if (DEFINED ENV{EMSDK})
-	set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten CACHE STRING "Emscripten path")
+if(DEFINED ENV{EMSDK})
+    set(EMSCRIPTEN_ROOT $ENV{EMSDK}/upstream/emscripten CACHE STRING "Emscripten path")
 else()
-	set(EMSCRIPTEN_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/build/emsdk/upstream/emscripten CACHE STRING "Emscripten path")
+    set(EMSCRIPTEN_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/build/emsdk/upstream/emscripten CACHE STRING "Emscripten path")
 endif()
 
 set(WEBIDL_BINDER_SCRIPT ${EMSCRIPTEN_ROOT}/tools/webidl_binder.py)
@@ -37,9 +37,9 @@ set(TOTAL_MEMORY 67108864 CACHE STRING "Total Memory")
 # Enable for resizable heap, with some amount of slowness
 set(ALLOW_MEMORY_GROWTH 0 CACHE STRING "Allow Memory Growth")
 
+# Removed `--llvm-lto` as it is ignored when using LLVM backend which we always use
 set(EMCC_ARGS
         --extern-pre-js ${AMMO_FRONT_MATTER_FILE}
-        --llvm-lto 1
         --post-js glue.js
         --post-js ${AMMO_ONLOAD_FILE}
         -O3
@@ -56,11 +56,11 @@ set(EMCC_ARGS
 if(${CLOSURE})
     # Ignore closure errors about the bullet Node class
     # (Node is a DOM thing too)
-    LIST(APPEND EMCC_ARGS
+    list(APPEND EMCC_ARGS
             --closure 1
             -s IGNORE_CLOSURE_COMPILER_ERRORS=1)
 else()
-    LIST(APPEND EMCC_ARGS
+    list(APPEND EMCC_ARGS
             -s NO_DYNAMIC_EXECUTION=1)
 endif()
 
@@ -82,47 +82,51 @@ set(EMCC_GLUE_ARGS
 
 #######################################
 
-project("ammo")
-add_subdirectory(bullet EXCLUDE_FROM_ALL)
-
-add_custom_target(make-bin-directory ALL
-    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/bin)
+project(ammo LANGUAGES CXX)
+set(CMAKE_CXX_STANDARD 14)
 
 #######################################
 
-if (EMSCRIPTEN)
-	add_custom_command(
-			OUTPUT glue.cpp glue.js
-			BYPRODUCTS parser.out WebIDLGrammar.pkl
-			COMMAND ${PYTHON} ${WEBIDL_BINDER_SCRIPT} ${AMMO_IDL_FILE} glue
-			DEPENDS ${AMMO_IDL_FILE}
-			COMMENT "Generating ammo bindings"
-			VERBATIM)
-	add_custom_command(
-			OUTPUT glue.o
-			COMMAND emcc glue.cpp ${EMCC_GLUE_ARGS} -o glue.o
-			DEPENDS glue.cpp ${AMMO_HEADER_FILE}
-			COMMENT "Building ammo bindings"
-			VERBATIM)
-	add_custom_target(ammo-bindings ALL DEPENDS glue.js glue.o)
+if(EMSCRIPTEN)
+    add_subdirectory(bullet EXCLUDE_FROM_ALL)
 
-	#######################################
+    add_custom_target(ammo-prepare-target ALL
+            COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_SOURCE_DIR}/bin)
 
-	add_custom_command(
-			OUTPUT ${CMAKE_SOURCE_DIR}/bin/ammo.js
-			COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_JS_ARGS} -o ${CMAKE_SOURCE_DIR}/bin/ammo.js
-			DEPENDS ammo-bindings make-bin-directory ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
-			COMMENT "Building ammo javascript"
-			VERBATIM)
-	add_custom_target(ammo-javascript ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/ammo.js)
+    add_custom_command(
+            OUTPUT glue.cpp glue.js
+            BYPRODUCTS parser.out WebIDLGrammar.pkl
+            COMMAND ${PYTHON} ${WEBIDL_BINDER_SCRIPT} ${AMMO_IDL_FILE} glue
+            DEPENDS ${AMMO_IDL_FILE}
+            COMMENT "Generating ammo bindings"
+            VERBATIM)
+    add_custom_command(
+            OUTPUT glue.o
+            COMMAND emcc glue.cpp ${EMCC_GLUE_ARGS} -o glue.o
+            DEPENDS glue.cpp ${AMMO_HEADER_FILE}
+            COMMENT "Building ammo bindings"
+            VERBATIM)
+    add_custom_target(ammo-bindings ALL DEPENDS glue.js glue.o)
 
-	#######################################
+    #######################################
 
-	add_custom_command(
-			OUTPUT ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.wasm
-			COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_WASM_ARGS} -o ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js
-			DEPENDS ammo-bindings make-bin-directory ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
-			COMMENT "Building ammo webassembly"
-			VERBATIM)
-	add_custom_target(ammo-wasm ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.wasm)
+    add_custom_command(
+            OUTPUT ${CMAKE_SOURCE_DIR}/bin/ammo.js
+            COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_JS_ARGS} -o ${CMAKE_SOURCE_DIR}/bin/ammo.js
+            DEPENDS ammo-bindings ammo-prepare-target ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
+            COMMENT "Building ammo javascript"
+            VERBATIM)
+    add_custom_target(ammo-javascript ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/ammo.js)
+
+    #######################################
+
+    add_custom_command(
+            OUTPUT ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.wasm
+            COMMAND emcc glue.o ${BULLET_LIBS} ${EMCC_WASM_ARGS} -o ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js
+            DEPENDS ammo-bindings ammo-prepare-target ${AMMO_FRONT_MATTER_FILE} ${AMMO_ONLOAD_FILE} ${BULLET_TARGETS}
+            COMMENT "Building ammo webassembly"
+            VERBATIM)
+    add_custom_target(ammo-wasm ALL DEPENDS ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.js ${CMAKE_SOURCE_DIR}/bin/ammo.wasm.wasm)
+else()
+    add_subdirectory(bullet)
 endif()

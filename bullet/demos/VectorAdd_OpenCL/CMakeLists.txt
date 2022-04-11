@@ -1,16 +1,15 @@
+if(BUILD_MINICL_OPENCL_DEMOS)
+    subdirs(MiniCL)
+endif()
 
-IF(BUILD_MINICL_OPENCL_DEMOS)
-	SUBDIRS( MiniCL  )
-ENDIF()
+if(BUILD_AMD_OPENCL_DEMOS)
+    subdirs(AMD)
+endif()
 
-IF(BUILD_AMD_OPENCL_DEMOS)
-	SUBDIRS(AMD)
-ENDIF()
+if(BUILD_NVIDIA_OPENCL_DEMOS)
+    subdirs(NVidia)
+endif()
 
-IF(BUILD_NVIDIA_OPENCL_DEMOS)
-	SUBDIRS(NVidia)
-ENDIF()
-
-IF(APPLE)
-	SUBDIRS(Apple)
-ENDIF()
+if(APPLE)
+    subdirs(Apple)
+endif()
