@@ -1,47 +1,51 @@
-Ammo().then(function(Ammo) {
+const test = require('ava');
+const loadAmmo = require('./helpers/load-ammo.js');
 
-  var transform = new Ammo.btTransform();
-  transform.setIdentity();
+// Initialize global Ammo once for all tests:
+test.before(async (t) => loadAmmo());
 
-  var vec = new Ammo.btVector3();
-  var quat = new Ammo.btQuaternion();
-  quat.setValue(0, 0, 0 , 1);
+// Skipped to reflect current state
+test.skip('userData', (t) => {
+    const transform = new Ammo.btTransform();
+    transform.setIdentity();
 
-  // Create box shape
-  vec.setValue(0.5, 0.5, 0.5);
-  var boxShape = new Ammo.btBoxShape(vec);
+    const vec = new Ammo.btVector3();
+    const quat = new Ammo.btQuaternion();
+    quat.setValue(0, 0, 0, 1);
 
-  // Create rigid body
-  vec.setValue(0, 0, 0);
-  transform.setOrigin(vec);
-  transform.setRotation(quat);
-  var motionState = new Ammo.btDefaultMotionState(transform);
-  var mass = 10;
-  boxShape.calculateLocalInertia(mass, vec);
-  var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, boxShape, vec);
-  var rigidBody = new Ammo.btRigidBody(rbInfo);
+    // Create box shape
+    vec.setValue(0.5, 0.5, 0.5);
+    const boxShape = new Ammo.btBoxShape(vec);
 
-  // Note that in bullet, the user pointer and index are in an union.
+    // Create rigid body
+    vec.setValue(0, 0, 0);
+    transform.setOrigin(vec);
+    transform.setRotation(quat);
+    const motionState = new Ammo.btDefaultMotionState(transform);
+    const mass = 10;
+    boxShape.calculateLocalInertia(mass, vec);
+    const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, boxShape, vec);
+    const rigidBody = new Ammo.btRigidBody(rbInfo);
 
-  var theValue = 1234;
+    // Note that in bullet, the user pointer and index are in an union.
 
-  rigidBody.setUserPointer(theValue);
-  var userPointer1 = rigidBody.getUserPointer();
-  assert(userPointer1.ptr == theValue, "User pointer is not the same" );
+    let theValue = 1234;
 
-  theValue = 4567;
+    rigidBody.setUserPointer(theValue);
+    const userPointer1 = rigidBody.getUserPointer();
+    t.assert(userPointer1.ptr === theValue, 'User pointer is not the same');
 
-  rigidBody.setUserIndex(theValue);
-  var userIndex1 = rigidBody.getUserIndex();
-  assert(userIndex1 == theValue, "User index is not the same" );
+    theValue = 4567;
 
-  Ammo.destroy(rigidBody.getCollisionShape());
-  Ammo.destroy(motionState);
-  Ammo.destroy(rigidBody);
-  Ammo.destroy(rbInfo);
-  Ammo.destroy(vec);
-  Ammo.destroy(quat);
-  Ammo.destroy(transform);
+    rigidBody.setUserIndex(theValue);
+    const userIndex1 = rigidBody.getUserIndex();
+    t.assert(userIndex1 === theValue, 'User index is not the same');
 
-  print('ok.');
+    Ammo.destroy(rigidBody.getCollisionShape());
+    Ammo.destroy(motionState);
+    Ammo.destroy(rigidBody);
+    Ammo.destroy(rbInfo);
+    Ammo.destroy(vec);
+    Ammo.destroy(quat);
+    Ammo.destroy(transform);
 });

@@ -1,15 +1,82 @@
 {
-  "name": "ammo.js",
-  "version": "0.0.2",
-  "description": "Direct port of the Bullet physics engine to JavaScript using Emscripten",
-  "main": "builds/ammo.js",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/kripken/ammo.js.git"
-  },
-  "author": "Alon Zakai <alonzakai@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/kripken/ammo.js/issues"
-  },
-  "homepage": "https://github.com/kripken/ammo.js"
+    "name": "ammo.js",
+    "version": "0.0.2",
+    "description": "Port of Bullet Physics to JavaScript using Emscripten.",
+    "main": "bin/ammo.js",
+    "license": "zlib",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/physics-playground/ammo.js.git"
+    },
+    "author": "Alon Zakai <alonzakai@gmail.com>",
+    "bugs": {
+        "url": "https://github.com/physics-playground/ammo.js/issues"
+    },
+    "homepage": "https://github.com/physics-playground/ammo.js",
+    "devDependencies": {
+        "ava": "^3.11.0",
+        "cross-env": "^7.0.3",
+        "eslint": "^8.13.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.26.0",
+        "http-server": "^14.1.0",
+        "shelljs": "^0.8.5"
+    },
+    "eslintConfig": {
+        "globals": {
+            "Module": "writable",
+            "Ammo": "readonly"
+        },
+        "env": {
+            "browser": true,
+            "commonjs": true,
+            "es2021": true,
+            "node": true
+        },
+        "extends": [
+            "airbnb-base"
+        ],
+        "parserOptions": {
+            "ecmaVersion": 12
+        },
+        "rules": {
+            "max-len": [
+                "error",
+                100
+            ],
+            "indent": [
+                "error",
+                4
+            ],
+            "new-cap": [
+                "error",
+                {
+                    "newIsCapExceptionPattern": "^Ammo\\.."
+                }
+            ],
+            "dot-notation": [
+                "error",
+                {
+                    "allowKeywords": true,
+                    "allowPattern": "^(([A-Z]+(_[A-Z]+)+)|Ammo)$"
+                }
+            ]
+        }
+    },
+    "ava": {
+        "files": [
+            "./tests/**",
+            "!tests/**/{fixtures,helpers}/**"
+        ],
+        "ignoredByWatcher": [
+            "{build}/**"
+        ],
+        "environmentVariables": {}
+    },
+    "scripts": {
+        "test": "npm run test-js && npm run test-wasm",
+        "test-js": "cross-env AMMO_PATH=bin/ammo.js ava",
+        "test-wasm": "cross-env AMMO_PATH=bin/ammo.wasm.js ava"
+    },
+    "dependencies": {}
 }

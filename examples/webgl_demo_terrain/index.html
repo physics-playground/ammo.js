@@ -33,7 +33,7 @@
         <div id="container"><br /><br /><br /><br /><br />Loading...</div>
         <div id="info">Ammo.js terrain heightfield demo</div>
 
-		<script src="../../builds/ammo.js"></script>
+		<script src="../../bin/ammo.js"></script>
 
         <script src="../js/three/three.min.js"></script>
         <script src="../js/three/OrbitControls.js"></script>
@@ -41,6 +41,8 @@
         <script src="../js/three/stats.min.js"></script>
 
         <script>
+
+		Ammo().then(function(Ammo) {
 
 			// Detects webgl
             if ( ! Detector.webgl ) {
@@ -188,7 +190,7 @@
 
 				// Create the terrain body
 
-				groundShape = this.createTerrainShape( heightData );
+				groundShape = createTerrainShape( heightData );
 				var groundTransform = new Ammo.btTransform();
 	  			groundTransform.setIdentity();
 	  			// Shifts the terrain, since bullet re-centers it on its bounding box.
@@ -416,6 +418,8 @@
 			      	}
 			    }
 			}
+
+		});
 
         </script>
 
