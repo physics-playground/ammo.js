@@ -20,7 +20,9 @@
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-plugin-import": "^2.26.0",
         "http-server": "^14.1.0",
-        "shelljs": "^0.8.5"
+        "run-script-os": "^1.1.6",
+        "shelljs": "^0.8.5",
+        "webidl2ts": "^1.0.0"
     },
     "eslintConfig": {
         "globals": {
@@ -74,9 +76,15 @@
         "environmentVariables": {}
     },
     "scripts": {
+        "setup": "run-script-os",
+        "setup:win32": "call setup.bat",
+        "build": "npm run setup && run-script-os && npm run generate",
+        "build:win32": "call build.bat",
         "test": "npm run test-js && npm run test-wasm",
         "test-js": "cross-env AMMO_PATH=bin/ammo.js ava",
-        "test-wasm": "cross-env AMMO_PATH=bin/ammo.wasm.js ava"
-    },
-    "dependencies": {}
+        "test-wasm": "cross-env AMMO_PATH=bin/ammo.wasm.js ava",
+        "generate": "npm run generate:module && npm run generate:ambient",
+        "generate:module": "webidl2ts -i ammo.idl -o types/ammo.d.ts -ed -n Ammo",
+        "generate:ambient": "webidl2ts -i ammo.idl -o types/ambient/ammo.d.ts -e -n Ammo"
+    }
 }

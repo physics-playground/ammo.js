@@ -2,7 +2,9 @@
 
 setlocal EnableDelayedExpansion
 
-call "%~dp0setup.bat"
+if not exist "%~dp0build\emsdk\python\3.9.2-nuget_64bit\python.exe" (
+    call "%~dp0setup.bat"
+)
 
 set EMSDK_PYTHON=%~dp0build\emsdk\python\3.9.2-nuget_64bit\python.exe
 set EMSDK_MAKE=%~dp0build\emsdk\mingw\4.6.2_32bit\mingw32-make.exe
