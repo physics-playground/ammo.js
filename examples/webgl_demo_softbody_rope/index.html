@@ -4,7 +4,8 @@
 <head>
     <title>Ammo.js softbody rope demo</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
         body {
             color: #61443e;
@@ -38,10 +39,10 @@
 
     <script src="../../bin/ammo.js"></script>
 
-    <script src="../js/three/three.min.js"></script>
-    <script src="../js/three/OrbitControls.js"></script>
-    <script src="../js/three/Detector.js"></script>
-    <script src="../js/three/stats.min.js"></script>
+    <script src="../static/js/three/three.min.js"></script>
+    <script src="../static/js/three/OrbitControls.js"></script>
+    <script src="../static/js/three/Detector.js"></script>
+    <script src="../static/js/three/stats.min.js"></script>
 
     <script>
         Ammo().then(function (Ammo) {
@@ -100,7 +101,8 @@
 
                 container = document.getElementById('container');
 
-                camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 2000);
+                camera = new THREE.PerspectiveCamera(60, window.innerWidth / window
+                    .innerHeight, 0.2, 2000);
 
                 scene = new THREE.Scene();
 
@@ -159,15 +161,18 @@
 
                 // Physics configuration
 
-                collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
+                collisionConfiguration = new Ammo
+                    .btSoftBodyRigidBodyCollisionConfiguration();
                 dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration);
                 broadphase = new Ammo.btDbvtBroadphase();
                 solver = new Ammo.btSequentialImpulseConstraintSolver();
                 softBodySolver = new Ammo.btDefaultSoftBodySolver();
-                physicsWorld = new Ammo.btSoftRigidDynamicsWorld(dispatcher, broadphase, solver,
+                physicsWorld = new Ammo.btSoftRigidDynamicsWorld(dispatcher, broadphase,
+                    solver,
                     collisionConfiguration, softBodySolver);
                 physicsWorld.setGravity(new Ammo.btVector3(0, gravityConstant, 0));
-                physicsWorld.getWorldInfo().set_m_gravity(new Ammo.btVector3(0, gravityConstant, 0));
+                physicsWorld.getWorldInfo().set_m_gravity(new Ammo.btVector3(0,
+                    gravityConstant, 0));
 
             }
 
@@ -179,12 +184,13 @@
                 // Ground
                 pos.set(0, -0.5, 0);
                 quat.set(0, 0, 0, 1);
-                var ground = createParalellepiped(40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial({
-                    color: 0xFFFFFF
-                }));
+                var ground = createParalellepiped(40, 1, 40, 0, pos, quat, new THREE
+                    .MeshPhongMaterial({
+                        color: 0xFFFFFF
+                    }));
                 ground.castShadow = true;
                 ground.receiveShadow = true;
-                textureLoader.load("../textures/grid.png", function (texture) {
+                textureLoader.load("../static/textures/grid.png", function (texture) {
                     texture.wrapS = THREE.RepeatWrapping;
                     texture.wrapT = THREE.RepeatWrapping;
                     texture.repeat.set(40, 40);
@@ -197,7 +203,8 @@
                 var ballMass = 1.2;
                 var ballRadius = 0.6;
 
-                var ball = new THREE.Mesh(new THREE.SphereGeometry(ballRadius, 20, 20), new THREE
+                var ball = new THREE.Mesh(new THREE.SphereGeometry(ballRadius, 20, 20),
+                    new THREE
                     .MeshPhongMaterial({
                         color: 0x202020
                     }));
@@ -240,7 +247,8 @@
                             brickMassCurrent *= 0.5;
                         }
 
-                        var brick = createParalellepiped(brickDepth, brickHeight, brickLengthCurrent,
+                        var brick = createParalellepiped(brickDepth, brickHeight,
+                            brickLengthCurrent,
                             brickMassCurrent, pos, quat, createMaterial());
                         brick.castShadow = true;
                         brick.receiveShadow = true;
@@ -279,8 +287,10 @@
                     ropeIndices.push(i, i + 1);
                 }
 
-                ropeGeometry.setIndex(new THREE.BufferAttribute(new Uint16Array(ropeIndices), 1));
-                ropeGeometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(ropePositions),
+                ropeGeometry.setIndex(new THREE.BufferAttribute(new Uint16Array(
+                    ropeIndices), 1));
+                ropeGeometry.addAttribute('position', new THREE.BufferAttribute(
+                    new Float32Array(ropePositions),
                     3));
                 ropeGeometry.computeBoundingSphere();
                 rope = new THREE.LineSegments(ropeGeometry, ropeMaterial);
@@ -291,14 +301,17 @@
                 // Rope physic object
                 var softBodyHelpers = new Ammo.btSoftBodyHelpers();
                 var ropeStart = new Ammo.btVector3(ropePos.x, ropePos.y, ropePos.z);
-                var ropeEnd = new Ammo.btVector3(ropePos.x, ropePos.y + ropeLength, ropePos.z);
-                var ropeSoftBody = softBodyHelpers.CreateRope(physicsWorld.getWorldInfo(), ropeStart, ropeEnd,
+                var ropeEnd = new Ammo.btVector3(ropePos.x, ropePos.y + ropeLength, ropePos
+                    .z);
+                var ropeSoftBody = softBodyHelpers.CreateRope(physicsWorld.getWorldInfo(),
+                    ropeStart, ropeEnd,
                     ropeNumSegments - 1, 0);
                 var sbConfig = ropeSoftBody.get_m_cfg();
                 sbConfig.set_viterations(10);
                 sbConfig.set_piterations(10);
                 ropeSoftBody.setTotalMass(ropeMass, false)
-                Ammo.castObject(ropeSoftBody, Ammo.btCollisionObject).getCollisionShape().setMargin(margin * 3);
+                Ammo.castObject(ropeSoftBody, Ammo.btCollisionObject).getCollisionShape()
+                    .setMargin(margin * 3);
                 physicsWorld.addSoftBody(ropeSoftBody, 1, -1);
                 rope.userData.physicsBody = ropeSoftBody;
                 // Disable deactivation
@@ -317,24 +330,28 @@
                 base.castShadow = true;
                 base.receiveShadow = true;
                 pos.set(ropePos.x, 0.5 * pylonHeight, ropePos.z - armLength);
-                var pylon = createParalellepiped(0.4, pylonHeight, 0.4, 0, pos, quat, baseMaterial);
+                var pylon = createParalellepiped(0.4, pylonHeight, 0.4, 0, pos, quat,
+                    baseMaterial);
                 pylon.castShadow = true;
                 pylon.receiveShadow = true;
                 pos.set(ropePos.x, pylonHeight + 0.2, ropePos.z - 0.5 * armLength);
-                var arm = createParalellepiped(0.4, 0.4, armLength + 0.4, armMass, pos, quat, baseMaterial);
+                var arm = createParalellepiped(0.4, 0.4, armLength + 0.4, armMass, pos,
+                    quat, baseMaterial);
                 arm.castShadow = true;
                 arm.receiveShadow = true;
 
                 // Glue the rope extremes to the ball and the arm
                 var influence = 1;
                 ropeSoftBody.appendAnchor(0, ball.userData.physicsBody, true, influence);
-                ropeSoftBody.appendAnchor(ropeNumSegments, arm.userData.physicsBody, true, influence);
+                ropeSoftBody.appendAnchor(ropeNumSegments, arm.userData.physicsBody, true,
+                    influence);
 
                 // Hinge constraint to move the arm
                 var pivotA = new Ammo.btVector3(0, pylonHeight * 0.5, 0);
                 var pivotB = new Ammo.btVector3(0, -0.2, -armLength * 0.5);
                 var axis = new Ammo.btVector3(0, 1, 0);
-                hinge = new Ammo.btHingeConstraint(pylon.userData.physicsBody, arm.userData.physicsBody, pivotA,
+                hinge = new Ammo.btHingeConstraint(pylon.userData.physicsBody, arm.userData
+                    .physicsBody, pivotA,
                     pivotB, axis, axis, true);
                 physicsWorld.addConstraint(hinge, true);
 
@@ -343,8 +360,10 @@
 
             function createParalellepiped(sx, sy, sz, mass, pos, quat, material) {
 
-                var threeObject = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1), material);
-                var shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz * 0.5));
+                var threeObject = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1),
+                    material);
+                var shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz *
+                    0.5));
                 shape.setMargin(margin);
 
                 createRigidBody(threeObject, shape, mass, pos, quat);
@@ -361,14 +380,16 @@
                 var transform = new Ammo.btTransform();
                 transform.setIdentity();
                 transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z));
-                transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
+                transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat
+                    .w));
                 var motionState = new Ammo.btDefaultMotionState(transform);
 
                 var localInertia = new Ammo.btVector3(0, 0, 0);
                 physicsShape.calculateLocalInertia(mass, localInertia);
 
-                var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape,
-                localInertia);
+                var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState,
+                    physicsShape,
+                    localInertia);
                 var body = new Ammo.btRigidBody(rbInfo);
 
                 threeObject.userData.physicsBody = body;

@@ -4,7 +4,8 @@
 <head>
     <title>Ammo.js softbody volume demo 2</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <style>
         body {
             color: #61443e;
@@ -37,10 +38,10 @@
     <div id="container"><br /><br /><br /><br /><br />Loading...</div>
 
     <script src="../../bin/ammo.js"></script>
-    <script src="../js/three/three.min.js"></script>
-    <script src="../js/three/OrbitControls.js"></script>
-    <script src="../js/three/Detector.js"></script>
-    <script src="../js/three/stats.min.js"></script>
+    <script src="../static/js/three/three.min.js"></script>
+    <script src="../static/js/three/OrbitControls.js"></script>
+    <script src="../static/js/three/Detector.js"></script>
+    <script src="../static/js/three/stats.min.js"></script>
 
     <script>
         Ammo().then(function (Ammo) {
@@ -104,7 +105,8 @@
 
                 container = document.getElementById('container');
 
-                camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 2000);
+                camera = new THREE.PerspectiveCamera(60, window.innerWidth / window
+                    .innerHeight, 0.2, 2000);
 
                 scene = new THREE.Scene();
 
@@ -163,15 +165,18 @@
 
                 // Physics configuration
 
-                collisionConfiguration = new Ammo.btSoftBodyRigidBodyCollisionConfiguration();
+                collisionConfiguration = new Ammo
+                    .btSoftBodyRigidBodyCollisionConfiguration();
                 dispatcher = new Ammo.btCollisionDispatcher(collisionConfiguration);
                 broadphase = new Ammo.btDbvtBroadphase();
                 solver = new Ammo.btSequentialImpulseConstraintSolver();
                 softBodySolver = new Ammo.btDefaultSoftBodySolver();
-                physicsWorld = new Ammo.btSoftRigidDynamicsWorld(dispatcher, broadphase, solver,
+                physicsWorld = new Ammo.btSoftRigidDynamicsWorld(dispatcher, broadphase,
+                    solver,
                     collisionConfiguration, softBodySolver);
                 physicsWorld.setGravity(new Ammo.btVector3(0, gravityConstant, 0));
-                physicsWorld.getWorldInfo().set_m_gravity(new Ammo.btVector3(0, gravityConstant, 0));
+                physicsWorld.getWorldInfo().set_m_gravity(new Ammo.btVector3(0,
+                    gravityConstant, 0));
 
             }
 
@@ -180,12 +185,13 @@
                 // Ground
                 pos.set(0, -0.5, 0);
                 quat.set(0, 0, 0, 1);
-                var ground = createParalellepiped(40, 1, 40, 0, pos, quat, new THREE.MeshPhongMaterial({
-                    color: 0xFFFFFF
-                }));
+                var ground = createParalellepiped(40, 1, 40, 0, pos, quat, new THREE
+                    .MeshPhongMaterial({
+                        color: 0xFFFFFF
+                    }));
                 ground.castShadow = true;
                 ground.receiveShadow = true;
-                textureLoader.load("../textures/grid.png", function (texture) {
+                textureLoader.load("../static/textures/grid.png", function (texture) {
                     texture.wrapS = THREE.RepeatWrapping;
                     texture.wrapT = THREE.RepeatWrapping;
                     texture.repeat.set(40, 40);
@@ -201,22 +207,25 @@
                 var by = 1;
                 var bz = 3;
                 var nn = 5;
-                createSoftBox(bx, by, bz, nn * bx, nn * by, nn * bz, 0, 5, 0, volumeMass, 0);
+                createSoftBox(bx, by, bz, nn * bx, nn * by, nn * bz, 0, 5, 0, volumeMass,
+                    0);
 
 
                 // Some obstacle
                 pos.set(0, 0.5, 0);
                 quat.set(0, 0, 0, 1);
-                var obstacle = createParalellepiped(6, 1, 1, 0, pos, quat, new THREE.MeshPhongMaterial({
-                    color: 0x606060
-                }));
+                var obstacle = createParalellepiped(6, 1, 1, 0, pos, quat, new THREE
+                    .MeshPhongMaterial({
+                        color: 0x606060
+                    }));
                 obstacle.castShadow = true;
                 obstacle.receiveShadow = true;
 
 
             }
 
-            function createSoftBox(sizeX, sizeY, sizeZ, numPointsX, numPointsY, numPointsZ, tX, tY, tZ, mass,
+            function createSoftBox(sizeX, sizeY, sizeZ, numPointsX, numPointsY, numPointsZ,
+                tX, tY, tZ, mass,
                 pressure) {
 
                 if (numPointsX < 2 || numPointsY < 2 || numPointsZ < 2) {
@@ -237,13 +246,15 @@
                 // Construct BufferGeometry
 
                 var numVertices = numPointsX * numPointsY * numPointsZ;
-                var numFaces = 4 * ((numPointsX - 1) * (numPointsY - 1) + (numPointsX - 1) * (numPointsZ - 1) +
+                var numFaces = 4 * ((numPointsX - 1) * (numPointsY - 1) + (numPointsX - 1) *
+                    (numPointsZ - 1) +
                     (numPointsY - 1) * (numPointsZ - 1));
 
                 var bufferGeom = new THREE.BufferGeometry();
                 var vertices = new Float32Array(numVertices * 3);
                 var normals = new Float32Array(numVertices * 3);
-                var indices = new(numFaces * 3 > 65535 ? Uint32Array : Uint16Array)(numFaces * 3);
+                var indices = new(numFaces * 3 > 65535 ? Uint32Array : Uint16Array)(
+                    numFaces * 3);
 
                 // Create vertices and faces
                 var sx = sizeX / (numPointsX - 1);
@@ -278,7 +289,8 @@
 
                                 numFacesAdded += 2;
                             }
-                            if (k == numPointsZ - 2 && i < numPointsX - 1 && j < numPointsY - 1) {
+                            if (k == numPointsZ - 2 && i < numPointsX - 1 && j <
+                                numPointsY - 1) {
 
                                 var faceIndex = numFacesAdded * 3;
 
@@ -308,7 +320,8 @@
 
                                 numFacesAdded += 2;
                             }
-                            if (j == numPointsY - 2 && i < numPointsX - 1 && k < numPointsZ - 1) {
+                            if (j == numPointsY - 2 && i < numPointsX - 1 && k <
+                                numPointsZ - 1) {
 
                                 var faceIndex = numFacesAdded * 3;
 
@@ -338,7 +351,8 @@
 
                                 numFacesAdded += 2;
                             }
-                            if (i == numPointsX - 2 && j < numPointsY - 1 && k < numPointsZ - 1) {
+                            if (i == numPointsX - 2 && j < numPointsY - 1 && k <
+                                numPointsZ - 1) {
 
                                 var faceIndex = numFacesAdded * 3;
 
@@ -378,7 +392,8 @@
                 var vectorTemp = new Ammo.btVector3(0, 0, 0);
                 vectorTemp.setValue(vertices[0], vertices[1], vertices[2]);
 
-                var volumeSoftBody = new Ammo.btSoftBody(physicsWorld.getWorldInfo(), 1, vectorTemp, [1.0]);
+                var volumeSoftBody = new Ammo.btSoftBody(physicsWorld.getWorldInfo(), 1,
+                    vectorTemp, [1.0]);
 
                 var physMat0 = volumeSoftBody.get_m_materials().at(0);
 
@@ -390,7 +405,8 @@
 
                 for (var i = 0, il = indices.length / 3; i < il; i++) {
                     var i3 = i * 3;
-                    volumeSoftBody.appendFace(indices[i3], indices[i3 + 1], indices[i3 + 2]);
+                    volumeSoftBody.appendFace(indices[i3], indices[i3 + 1], indices[i3 +
+                        2]);
                 }
 
                 // Create tetrahedrons
@@ -419,7 +435,8 @@
                     for (var j = 0; j < numPointsY; j++) {
                         for (var i = 0; i < numPointsX; i++) {
 
-                            if (i < numPointsX - 1 && j < numPointsY - 1 && k < numPointsZ - 1) {
+                            if (i < numPointsX - 1 && j < numPointsY - 1 && k < numPointsZ -
+                                1) {
 
                                 // Creates 5 tetrahedrons for each cube
                                 newTetra(0, 4, 5, 6);
@@ -463,7 +480,8 @@
                 physMat0.set_m_kVST(stiffness);
 
                 volumeSoftBody.setTotalMass(mass, false)
-                Ammo.castObject(volumeSoftBody, Ammo.btCollisionObject).getCollisionShape().setMargin(margin);
+                Ammo.castObject(volumeSoftBody, Ammo.btCollisionObject).getCollisionShape()
+                    .setMargin(margin);
                 physicsWorld.addSoftBody(volumeSoftBody, 1, -1);
                 volume.userData.physicsBody = volumeSoftBody;
                 // Disable deactivation
@@ -475,8 +493,10 @@
 
             function createParalellepiped(sx, sy, sz, mass, pos, quat, material) {
 
-                var threeObject = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1), material);
-                var shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz * 0.5));
+                var threeObject = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1),
+                    material);
+                var shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz *
+                    0.5));
                 shape.setMargin(margin);
 
                 createRigidBody(threeObject, shape, mass, pos, quat);
@@ -493,14 +513,16 @@
                 var transform = new Ammo.btTransform();
                 transform.setIdentity();
                 transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z));
-                transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
+                transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat
+                    .w));
                 var motionState = new Ammo.btDefaultMotionState(transform);
 
                 var localInertia = new Ammo.btVector3(0, 0, 0);
                 physicsShape.calculateLocalInertia(mass, localInertia);
 
-                var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape,
-                localInertia);
+                var rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState,
+                    physicsShape,
+                    localInertia);
                 var body = new Ammo.btRigidBody(rbInfo);
 
                 threeObject.userData.physicsBody = body;
@@ -548,7 +570,8 @@
                     var ballMass = 0.7;
                     var ballRadius = 0.4;
 
-                    var ball = new THREE.Mesh(new THREE.SphereGeometry(ballRadius, 18, 16), ballMaterial);
+                    var ball = new THREE.Mesh(new THREE.SphereGeometry(ballRadius, 18, 16),
+                        ballMaterial);
                     ball.castShadow = true;
                     ball.receiveShadow = true;
                     var ballShape = new Ammo.btSphereShape(ballRadius);

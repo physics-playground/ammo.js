@@ -38,11 +38,11 @@
 
     <script src="../../bin/ammo.js"></script>
 
-    <script src="../js/three/three.min.js"></script>
-    <script src="../js/three/OrbitControls.js"></script>
-    <script src="../js/three/GLTFLoader.js"></script>
-    <script src="../js/three/Detector.js"></script>
-    <script src="../js/three/stats.min.js"></script>
+    <script src="../static/js/three/three.min.js"></script>
+    <script src="../static/js/three/OrbitControls.js"></script>
+    <script src="../static/js/three/GLTFLoader.js"></script>
+    <script src="../static/js/three/Detector.js"></script>
+    <script src="../static/js/three/stats.min.js"></script>
 
     <script>
         const gltfLoader = new THREE.GLTFLoader();
@@ -75,7 +75,7 @@
 
             // Models
             let urls = [
-                '../models/chain.glb'
+                '../static/models/chain.glb'
             ];
 
             // - Main code -
@@ -105,7 +105,8 @@
                 renderer.shadowMap.enabled = true;
                 container.appendChild(renderer.domElement);
 
-                camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.2, 2000);
+                camera = new THREE.PerspectiveCamera(60, window.innerWidth / window
+                    .innerHeight, 0.2, 2000);
                 camera.position.set(-40, 34, 30);
 
                 controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -151,11 +152,13 @@
                 let m_broadphase = new Ammo.btDbvtBroadphase();
                 let m_constraintSolver = new Ammo.btSequentialImpulseConstraintSolver();
 
-                physicsWorld = new Ammo.btDiscreteDynamicsWorld(m_dispatcher, m_broadphase, m_constraintSolver,
+                physicsWorld = new Ammo.btDiscreteDynamicsWorld(m_dispatcher, m_broadphase,
+                    m_constraintSolver,
                     m_collisionConfiguration);
                 physicsWorld.setGravity(new Ammo.btVector3(0, -9.810, 0));
 
-                Ammo.btGImpactCollisionAlgorithm.prototype.registerAlgorithm(physicsWorld.getDispatcher());
+                Ammo.btGImpactCollisionAlgorithm.prototype.registerAlgorithm(physicsWorld
+                    .getDispatcher());
 
                 transformAux1 = new Ammo.btTransform();
                 tempBtVec3_1 = new Ammo.btVector3(0, 0, 0);
@@ -174,21 +177,26 @@
                                 if (child.type == 'Mesh') {
                                     child.castShadow = true;
                                     child.receiveShadow = true;
-                                    child.material.side = THREE.FrontSide;
+                                    child.material.side = THREE
+                                        .FrontSide;
 
-                                    let trimesh = createGImpactCollision(child);
+                                    let trimesh =
+                                        createGImpactCollision(child);
 
                                     pos.copy(child.position);
                                     quat.copy(child.quaternion);
 
                                     if (child.name == 'Static') {
-                                        let body = createRigidBody(child, trimesh, 0, pos,
+                                        let body = createRigidBody(
+                                            child, trimesh, 0, pos,
                                             quat);
-                                        body.setCollisionFlags(body.getCollisionFlags() |
+                                        body.setCollisionFlags(body
+                                            .getCollisionFlags() |
                                             1 /* btCollisionObject:: CF_STATIC_OBJECT */
-                                            );
+                                        );
                                     } else {
-                                        createRigidBody(child, trimesh, 1, pos, quat);
+                                        createRigidBody(child, trimesh,
+                                            1, pos, quat);
                                     }
 
                                 }
@@ -203,13 +211,14 @@
                 // Ground
                 pos.set(0, -0.5, 0);
                 quat.set(0, 0, 0, 1);
-                const ground = createParalellepipedWithPhysics(40, 1, 40, 0, pos, quat, new THREE
+                const ground = createParalellepipedWithPhysics(40, 1, 40, 0, pos, quat,
+                    new THREE
                     .MeshPhongMaterial({
                         color: 0xFFFFFF
                     }));
                 scene.add(ground);
                 ground.receiveShadow = true;
-                textureLoader.load('../textures/grid.png', function (texture) {
+                textureLoader.load('../static/textures/grid.png', function (texture) {
 
                     texture.wrapS = THREE.RepeatWrapping;
                     texture.wrapT = THREE.RepeatWrapping;
@@ -249,7 +258,8 @@
                             brickMassCurrent *= 0.5;
                         }
 
-                        let brick = createParalellepiped(brickDepth, brickHeight, brickLengthCurrent,
+                        let brick = createParalellepiped(brickDepth, brickHeight,
+                            brickLengthCurrent,
                             brickMassCurrent, pos, quat, createMaterial());
                         brick.castShadow = true;
                         brick.receiveShadow = true;
@@ -270,10 +280,13 @@
 
             }
 
-            function createParalellepipedWithPhysics(sx, sy, sz, mass, pos, quat, material) {
+            function createParalellepipedWithPhysics(sx, sy, sz, mass, pos, quat,
+                material) {
 
-                const object = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1), material);
-                const shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz * 0.5));
+                const object = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1),
+                    material);
+                const shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5,
+                    sz * 0.5));
                 shape.setMargin(margin);
 
                 createRigidBody(object, shape, mass, pos, quat);
@@ -284,8 +297,10 @@
 
             function createParalellepiped(sx, sy, sz, mass, pos, quat, material) {
 
-                let threeObject = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1), material);
-                let shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz * 0.5));
+                let threeObject = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz, 1, 1, 1),
+                    material);
+                let shape = new Ammo.btBoxShape(new Ammo.btVector3(sx * 0.5, sy * 0.5, sz *
+                    0.5));
                 shape.setMargin(margin);
 
                 createRigidBody(threeObject, shape, mass, pos, quat);
@@ -334,13 +349,15 @@
                 const transform = new Ammo.btTransform();
                 transform.setIdentity();
                 transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z));
-                transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
+                transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat
+                    .w));
                 const motionState = new Ammo.btDefaultMotionState(transform);
 
                 const localInertia = new Ammo.btVector3(0, 0, 0);
                 physicsShape.calculateLocalInertia(mass, localInertia);
 
-                const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState, physicsShape,
+                const rbInfo = new Ammo.btRigidBodyConstructionInfo(mass, motionState,
+                    physicsShape,
                     localInertia);
                 const body = new Ammo.btRigidBody(rbInfo);
 
@@ -354,7 +371,8 @@
 
                 if (angVel) {
 
-                    body.setAngularVelocity(new Ammo.btVector3(angVel.x, angVel.y, angVel.z));
+                    body.setAngularVelocity(new Ammo.btVector3(angVel.x, angVel.y, angVel
+                        .z));
 
                 }
 
@@ -379,13 +397,15 @@
 
             function getMeshData(mesh) {
 
-                const index = mesh.geometry.index !== null ? mesh.geometry.index : undefined;
+                const index = mesh.geometry.index !== null ? mesh.geometry.index :
+                    undefined;
                 const attributes = mesh.geometry.attributes;
                 const scale = mesh.scale;
 
                 if (attributes.position === undefined) {
 
-                    console.error('getMeshData(): Position attribute required for conversion.');
+                    console.error(
+                        'getMeshData(): Position attribute required for conversion.');
                     return;
 
                 }
@@ -482,7 +502,8 @@
 
                 let triangleShape = new Ammo.btGImpactMeshShape(ammoMesh);
                 triangleShape.setMargin(0.01);
-                triangleShape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale.z));
+                triangleShape.setLocalScaling(new Ammo.btVector3(scale.x, scale.y, scale
+                    .z));
                 triangleShape.updateBound();
 
                 return triangleShape;

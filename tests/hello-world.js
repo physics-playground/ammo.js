@@ -3,7 +3,7 @@ const { readFileSync } = require('fs');
 const loadAmmo = require('./helpers/load-ammo');
 
 test('hello world', async (t) => {
-    const source = readFileSync(`${__dirname}/../examples/hello_world.js`);
+    const source = readFileSync(`${__dirname}/../examples/hello_world/hello_world.js`);
 
     // Inject a return statement for handling the top-level promise:
     const helloWorld = new Function(`return ${source}`);
