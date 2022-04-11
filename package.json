@@ -3,6 +3,7 @@
     "version": "0.0.2",
     "description": "Port of Bullet Physics to JavaScript using Emscripten.",
     "main": "bin/ammo.js",
+    "license": "zlib",
     "repository": {
         "type": "git",
         "url": "git://github.com/physics-playground/ammo.js.git"
@@ -39,15 +40,27 @@
             "ecmaVersion": 12
         },
         "rules": {
-            "max-len": ["error", 100],
-            "indent": ["error", 4],
-            "new-cap": ["error", {
-                "newIsCapExceptionPattern": "^Ammo\\.."
-            }],
-            "dot-notation": ["error", {
-                "allowKeywords": true,
-                "allowPattern": "^(([A-Z]+(_[A-Z]+)+)|Ammo)$"
-            }]
+            "max-len": [
+                "error",
+                100
+            ],
+            "indent": [
+                "error",
+                4
+            ],
+            "new-cap": [
+                "error",
+                {
+                    "newIsCapExceptionPattern": "^Ammo\\.."
+                }
+            ],
+            "dot-notation": [
+                "error",
+                {
+                    "allowKeywords": true,
+                    "allowPattern": "^(([A-Z]+(_[A-Z]+)+)|Ammo)$"
+                }
+            ]
         }
     },
     "ava": {

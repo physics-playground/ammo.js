@@ -18,5 +18,3 @@ setlocal EnableDelayedExpansion
 endlocal & (
     set "EMSDK_LOCAL=%_emsdk_local%"
 )
-
-call "%EMSDK_LOCAL%\emsdk_env.bat"

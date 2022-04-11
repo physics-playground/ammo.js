@@ -14,8 +14,6 @@ set "_root=%_root:\=/%"
 call "%~dp0build\emsdk\emsdk_env.bat"
 echo EMSDK: "%EMSDK%"
 
-if exist "%~dp0build\emscripten" rmdir /q /s "%~dp0build\emscripten"
-
 set PATH=%~dp0build\emsdk\python\3.9.2-nuget_64bit;%~dp0build\emsdk\mingw\4.6.2_32bit;%PATH%
 
 :: cmake -S "%~dp0/" -B "%~dp0build\emscripten" -G Ninja^
@@ -30,5 +28,8 @@ cmake -S "%~dp0/" -B "%~dp0build\emscripten" -G "MinGW Makefiles"^
  -DCMAKE_BUILD_TYPE=Release^
  -DCLOSURE=1 -DTOTAL_MEMORY=268435456 -DALLOW_MEMORY_GROWTH=1
 
-make -C "%~dp0build\emscripten" -j20
-::cmake --build "%~dp0build\emscripten" -- -j20
+:: With Makefiles you could call `make` directly e.g., make -C "%~dp0build\emscripten" -j20
+cmake --build "%~dp0build\emscripten" --parallel 30
+
+call npm install
+call npm test

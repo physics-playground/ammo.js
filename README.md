@@ -14,18 +14,19 @@
 
 **Example code to give you an idea of the API**:
 
-- [ammo.js/worker.js](https://github.com/kripken/ammo.js/blob/main/examples/webgl_demo/worker.js#L6) which interacts with [ammo.js/ammo.html](https://github.com/kripken/ammo.js/blob/main/examples/webgl_demo/ammo.html#L14)
+- [ammo.js/worker.js](https://github.com/kripken/ammo.js/blob/main/examples/webgl_demo/worker.js#L6) which
+interacts with [ammo.js/ammo.html](https://github.com/kripken/ammo.js/blob/main/examples/webgl_demo/ammo.html#L14)
 
-ammo.js is a direct port of the [Bullet physics
-engine](http://bulletphysics.org/) to JavaScript, using Emscripten. The source
+`ammo.js` is a direct port of the [Bullet physics
+engine](http://bulletphysics.org/) to JavaScript, using [Emscripten](https://emscripten.org/). The source
 code is translated directly to JavaScript, without human rewriting, so
 functionality should be identical to the original Bullet.
 
-**Note: ammo.js has just been updated to a new porting approach. If you find
+**Note: `ammo.js` has just been updated to a new porting approach. If you find
 some part of the Bullet API that is not supported that you need, please see
 [Next Major Update](https://github.com/kripken/ammo.js/issues/60).
 
-'ammo' stands for "Avoided Making My Own js physics engine by compiling bullet
+"ammo" stands for "**A**voided **M**aking **M**y **O**wn JavaScript physics engine by compiling bullet
 from C++" ;)
 
 ammo.js is zlib licensed, just like Bullet.
@@ -71,7 +72,7 @@ to be aware of:
   for a description of the bindings tool we use here, which includes
   instructions for how to use the wrapped objects.
 
-- All ammo.js elements should be accessed through `Ammo.*`. For example,
+- All `ammo.js` elements should be accessed through `Ammo.*`. For example,
   `Ammo.btVector3`, etc., as you can see in the example code.
 
 - Member variables of structs and classes can be accessed through
@@ -132,8 +133,7 @@ cmake -B bin -DTOTAL_MEMORY=268435456   # allocate a 256MB heap
 cmake -B bin -DALLOW_MEMORY_GROWTH=1    # enable a resizable heap
 ```
 
-On windows, you can build using cmake's
-[mingw](https://chocolatey.org/packages/mingw) generator:
+On Windows, you can build use the CMake [MinGW](https://chocolatey.org/packages/mingw) generator:
 
 ```bat
 cmake -B bin -G 'MinGW Makefiles'
@@ -143,26 +143,23 @@ cmake --build bin
 Note that if you have not installed `emscripten` via the `emsdk`, you can configure
 its location with `-DEMSCRIPTEN_ROOT`.
 
-### Building using Docker
+### Building with Docker
 
-ammo.js can also be built with [Docker](https://www.docker.com).
+`ammo.js` can also be built with [Docker](https://www.docker.com).
 This offers many advantages (keeping its native environment clean, portability, etc.).
 To do this, you just have to install Docker and run:
 
 ```bash
-docker-compose build        # to create the Docker image
-docker-compose up           # to create the Docker container and build ammo.js
-docker-compose run builder  # to build again the ammojs targets after any modification
+docker-compose up
 ```
 
-If you want to add arguments to cmake, you have to edit the `docker-compose.yml` file.
+This will create the Docker image from `Dockerfile` and run the build of `ammo.js`. If you want to add arguments to cmake, you have to edit the `docker-compose.yml` file.
 
 ## Reducing Build Size
 
 The size of the `ammo.js` bin can be reduced in several ways:
 
 - Removing unneeded interfaces from `ammo.idl`. Some good examples of this are `btIDebugDraw` and `DebugDrawer`, which are both only needed if visual debug rendering is desired.
-
 - Removing methods from the `-s EXPORTED_RUNTIME_METHODS=[]` argument in make.py. For example, `UTF8ToString` is only needed if printable error messages are desired from `DebugDrawer`.
 
 ## Testing
