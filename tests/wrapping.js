@@ -56,7 +56,6 @@ test('tests for caching, comparing, wrapping, etc.', (t) => {
         groundTransform.setOrigin(new Ammo.btVector3(0, -56, 0));
         const groundShape = new Ammo.btBoxShape(new Ammo.btVector3(50, 50, 50));
 
-        const mass = 0;
         const localInertia = new Ammo.btVector3(0, 0, 0);
         const myMotionState = new Ammo.btDefaultMotionState(groundTransform);
         const rbInfo = new Ammo.btRigidBodyConstructionInfo(

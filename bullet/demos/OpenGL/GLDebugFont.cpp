@@ -4,8 +4,8 @@ Copyright (c) 2003-2009 Erwin Coumans  http://bulletphysics.org
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from the use of this software.
-Permission is granted to anyone to use this software for any purpose, 
-including commercial applications, and to alter it and redistribute it freely, 
+Permission is granted to anyone to use this software for any purpose,
+including commercial applications, and to alter it and redistribute it freely,
 subject to the following restrictions:
 
 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software. If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
@@ -58,7 +58,7 @@ static int sScreenHeight = -1;
 
 void GLDebugResetFont(int screenWidth,int screenHeight)
 {
-	
+
 	if ((sScreenWidth == screenWidth) && (sScreenHeight == screenHeight))
 		return;
 
@@ -95,7 +95,7 @@ void	GLDebugDrawStringInternal(int x,int y,const char* string, const btVector3& 
 	}
 	if (strlen(string))
 	{
-		
+
 		glColor4f(rgb.getX(),rgb.getY(),rgb.getZ(),1.f);
 		float	cx;
 		float	cy;
@@ -110,7 +110,7 @@ void	GLDebugDrawStringInternal(int x,int y,const char* string, const btVector3& 
 		glEnable(GL_TEXTURE_2D);
 		glBlendFunc(GL_SRC_ALPHA,GL_ONE);
 		glDepthFunc (GL_LEQUAL);
-		
+
 		if (enableBlend)
 		{
 			glEnable(GL_BLEND);
@@ -133,7 +133,7 @@ void	GLDebugDrawStringInternal(int x,int y,const char* string, const btVector3& 
 		glTranslatef(btScalar(x),btScalar(sScreenHeight - y),btScalar(0));
 
 #if USE_ARRAYS
-		
+
 		glDisableClientState(GL_COLOR_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
@@ -146,7 +146,7 @@ void	GLDebugDrawStringInternal(int x,int y,const char* string, const btVector3& 
 			1.0f, -1.0f, 0.0f,
 			0.f,0.f,0.f
 		};
-		
+
 		GLfloat uv_texcoords[] = {
 			0,0,
 			0,0,
@@ -157,7 +157,7 @@ void	GLDebugDrawStringInternal(int x,int y,const char* string, const btVector3& 
 		verts[3] = 16-1;	verts[4] = 0;		verts[5] = 0;
 		verts[6] = 16-1;	verts[7] = 16-1;	verts[8] = 0;
 		verts[9] = 0;		verts[10] = 16-1;	verts[11] = 0;
-		
+
 		for (int i=0;i<int (strlen(string));i++)
 		{
 			char ch = string[i]-32;
@@ -189,9 +189,9 @@ void	GLDebugDrawStringInternal(int x,int y,const char* string, const btVector3& 
 
 				glVertex2i(0,16 -1);
 				glEnd();
-#endif			
+#endif
 
-				glTranslatef(spacing,0,0);
+				glTranslatef((GLfloat)spacing, 0.f, 0.f);
 			}
 		}
 
@@ -227,7 +227,7 @@ void	GLDebugDrawString(int x,int y,const char* string)
 }
 
 
-unsigned char sFontData[] = 
+unsigned char sFontData[] =
 {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

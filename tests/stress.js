@@ -1,6 +1,6 @@
 const test = require('ava');
-const getClosureMapping = require('./helpers/get-closure-mapping.js');
-const loadAmmo = require('./helpers/load-ammo.js');
+const getClosureMapping = require('./helpers/get-closure-mapping');
+const loadAmmo = require('./helpers/load-ammo');
 
 // Initialize global Ammo once for all tests:
 test.before(async (t) => loadAmmo());
@@ -8,8 +8,9 @@ test.before(async (t) => loadAmmo());
 test('stress', (t) => {
     const TEST_MEMORY = 0;
 
-    let readMemoryCeiling; let
-        malloc;
+    let readMemoryCeiling;
+    let malloc;
+
     if (TEST_MEMORY) {
         (function () {
             try {
@@ -77,7 +78,8 @@ test('stress', (t) => {
 
         let memoryStart;
 
-        const trans = new Ammo.btTransform(); // taking this out of the loop below us reduces the leaking
+        // taking this out of the loop below us reduces the leaking
+        const trans = new Ammo.btTransform();
 
         const startTime = Date.now();
 
@@ -85,22 +87,28 @@ test('stress', (t) => {
 
         const NUM = 150000;
 
-        for (var i = 0; i < NUM; i++) {
-            if (i === 250 && TEST_MEMORY) memoryStart = readMemoryCeiling();
+        for (let zz = 0; zz < NUM; zz += 1) {
+            if (zz === 250 && TEST_MEMORY) {
+                memoryStart = readMemoryCeiling();
+            }
 
             dynamicsWorld.stepSimulation(1 / 60, 10);
 
             bodies.forEach((body, j) => {
                 if (body.getMotionState()) {
                     body.getMotionState().getWorldTransform(trans);
-                    if (i === NUM - 1) t.log(`${j} : ${[trans.getOrigin().x().toFixed(2), trans.getOrigin().y().toFixed(2), trans.getOrigin().z().toFixed(2)]}`);
+                    if (zz === NUM - 1) {
+                        t.log(`${j} : ${[trans.getOrigin().x().toFixed(2), trans.getOrigin().y().toFixed(2), trans.getOrigin().z().toFixed(2)]}`);
+                    }
                 }
             });
         }
 
         const endTime = Date.now();
 
-        if (TEST_MEMORY) t.is(readMemoryCeiling(), memoryStart, 'Memory ceiling must remain stable!');
+        if (TEST_MEMORY) {
+            t.is(readMemoryCeiling(), memoryStart, 'Memory ceiling must remain stable!');
+        }
 
         t.log(`total time: ${((endTime - startTime) / 1000).toFixed(3)}`);
     }
@@ -109,13 +117,13 @@ test('stress', (t) => {
         const NUM = 1000; // enough to force an increase in the memory ceiling
         let vec = new Ammo.btVector3(4, 5, 6);
         const memoryStart = readMemoryCeiling();
-        for (var i = 0; i < NUM; i++) {
+        for (let x = 0; x < NUM; x += 1) {
             Ammo.destroy(vec);
             vec = new Ammo.btVector3(4, 5, 6);
         }
         Ammo.destroy(vec);
         t.is(readMemoryCeiling(), memoryStart, 'Memory ceiling must remain stable!');
-        for (var i = 0; i < NUM; i++) {
+        for (let ii = 0; ii < NUM; ii += 1) {
             vec = new Ammo.btVector3(4, 5, 6);
         }
         t.not(readMemoryCeiling(), memoryStart, 'Memory ceiling must increase without destroy()!');
